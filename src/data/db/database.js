@@ -2,17 +2,17 @@ import Mock from "../mock";
 
 const database = {
   information: {
-    name: 'Devid Chester',
-    aboutContent: "I am a frontend web developer. I can provide clean code and pixel perfect design. I also make website more & more interactive with web animations.",
-    age: 24,
+    name: 'Bogdan Bitfoi',
+    aboutContent: "I am serious Java Developer no worries. I can provide clean code without any worries. No Worries",
+    age: 28,
     phone: '',
-    nationality: 'American',
-    language: 'English, French',
+    nationality: 'Romanian',
+    language: 'Romanian, English, French',
     email: '',
-    address: '121 King Street, Melbourne, Australia',
+    address: 'Manastur',
     freelanceStatus: 'Available',
     socialLinks: {
-      facebook: 'https://facebook.com',
+      facebook: 'https://www.facebook.com/bogdan.bitfoi',
       twitter: 'https://twitter.com',
       pinterest: '',
       behance: '',
@@ -23,7 +23,7 @@ const database = {
     brandImage: '/images/brand-image.jpg',
     aboutImage: '/images/about-image.jpg',
     aboutImageLg: '/images/about-image-lg.jpg',
-    cvfile: '/files/empty.pdf'
+    cvfile: '/files/BogdanBitfoi.pdf'
   },
   services: [
     {
