@@ -46,6 +46,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
-    "axios-mock-adapter": "^1.19.0"
+    "axios-mock-adapter": "^1.19.0",
+    "netlify-cli": "^4.1.14",
+    "sparkpost": "^2.1.4"
   }
 }

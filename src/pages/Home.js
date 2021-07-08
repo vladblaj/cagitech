@@ -98,8 +98,8 @@ function Home({ lightMode }) {
             <div className="col-lg-10 col-12">
               <div className="mi-home-content">
                 <h1>
-                  Hi, I am{" "}
-                  <span className="color-theme">{information.name}</span>
+                  Hi, welcome to {" "}
+                  <span className="color-theme">{information.companyName}</span>
                 </h1>
                 <p>{information.aboutContent}</p>
                 <Socialicons bordered />

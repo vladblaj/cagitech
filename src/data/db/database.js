@@ -2,8 +2,9 @@ import Mock from "../mock";
 
 const database = {
   information: {
+    companyName: 'Bitlads Software',
     name: 'Bogdan Bitfoi',
-    aboutContent: "I am serious Java Developer no worries. I can provide clean code without any worries. No Worries",
+    aboutContent: "Everything we do is about you. We create industry standard IT Software. Inspire us with your idea, sit back, and let us bring it to life. ",
     age: 28,
     phone: '',
     nationality: 'Romanian',
@@ -20,7 +21,7 @@ const database = {
       dribbble: '',
       github: 'https://github.com'
     },
-    brandImage: '/images/brand-image.jpg',
+    brandImage: '/images/brand-image.png',
     aboutImage: '/images/about-image.jpg',
     aboutImageLg: '/images/about-image-lg.jpg',
     cvfile: '/files/BogdanBitfoi.pdf'

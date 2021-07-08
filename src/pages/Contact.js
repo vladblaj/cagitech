@@ -4,6 +4,7 @@ import axios from "axios";
 import * as Icon from "react-feather";
 import Sectiontitle from "../components/Sectiontitle";
 import Layout from "../components/Layout";
+import SparkPost from "sparkpost";
 
 function Contact() {
   const [phoneNumbers, setPhoneNumbers] = useState([]);
@@ -19,6 +20,9 @@ function Contact() {
   const [message, setMessage] = useState("");
 
   const submitHandler = (event) => {
+    console.log('env variable', process.env);
+    //const client = new SparkPost(process.env.SPARKPOST);
+
     event.preventDefault();
     if (!formdata.name) {
       setError(true);
@@ -36,6 +40,7 @@ function Contact() {
       setError(false);
       setMessage("You message has been sent!!!");
     }
+
   };
   const handleChange = (event) => {
     setFormdata({
