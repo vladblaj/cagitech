@@ -20,7 +20,7 @@
     "react-particles-js": "^3.4.1",
     "react-progressive-image": "^0.6.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3",
+    "react-scripts": "^4.0.3",
     "react-slick": "^0.28.1",
     "shave": "^2.5.10",
     "slick-carousel": "^1.8.1",

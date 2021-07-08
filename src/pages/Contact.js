@@ -21,7 +21,7 @@ function Contact() {
 
   const submitHandler = (event) => {
     console.log('env variable', process.env);
-    //const client = new SparkPost(process.env.SPARKPOST);
+    const client = new SparkPost(process.env.REACT_APP_SPARKPOST);
 
     event.preventDefault();
     if (!formdata.name) {
@@ -40,7 +40,16 @@ function Contact() {
       setError(false);
       setMessage("You message has been sent!!!");
     }
-
+    client.transmissions
+    .send({
+      content: {
+        from: 'Bitlads@gmail.com',
+        subject: 'Hello, World!',
+        html:
+            "<html><body><p>My cool email.</p></body></html>"
+      },
+      recipients: [{ address: 'marcoblaj@gmail.com' }]
+    });
   };
   const handleChange = (event) => {
     setFormdata({
