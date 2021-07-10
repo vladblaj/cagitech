@@ -30,7 +30,7 @@ const handler = async (event, context, callback) => {
       subject,
       html: generateTemplate(name, email, subject, message)
     },
-    recipients: [{address: 'marcoblaj@gmail.com'}],
+    recipients: [{address: 'marcoblaj@gmail.com'},{address: 'bogdan.bitfoi@gmail.com'}],
   })
   .then(response => {
     console.log('Mail has been sent successfully!')
