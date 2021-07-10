@@ -36,7 +36,6 @@ const handler = async (event, context, callback) => {
     console.log('Mail has been sent successfully!')
     console.log(response);
     callback(null, {
-      headers,
       statusCode: successCode,
       body: JSON.stringify(response),
     })
