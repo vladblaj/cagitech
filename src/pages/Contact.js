@@ -20,9 +20,6 @@ function Contact() {
   const [message, setMessage] = useState("");
 
   const submitHandler = (event) => {
-    console.log('env variable', process.env);
-    const client = new SparkPost(process.env.REACT_APP_SPARKPOST);
-
     event.preventDefault();
     if (!formdata.name) {
       setError(true);
