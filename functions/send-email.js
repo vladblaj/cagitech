@@ -8,37 +8,46 @@ const headers = {
   'Access-Control-Allow-Headers': 'Content-Type',
 }
 
-const handler = async (event) => {
-  console.log(event)
+const handler = async (event, context, callback) => {
   const data = JSON.parse(event.body)
-  const { email, subject, message } = data
+  const {name, email, subject, message} = data
+
   client.transmissions
   .send({
     options: {
-      sandbox: true,
+      sandbox: false,
     },
     content: {
-      from: {name: "Bitlads Software Site", email: "no.worries@bitladssoftware.com"},
-      subject: subject,
-      text: `${message} from ${email}`,
-      html: `Big after Christmas sale...${email}`
+      from: {name: "Bitlads Software Site", email: "contact@bitladssoftware.com"},
+      subject,
+      html: generateTemplate(name, email, subject, message)
     },
-    recipients: [{ address: 'marcoblaj@gmail.com' }],
+    recipients: [{address: 'marcoblaj@gmail.com'}],
   })
   .then(response => {
     console.log('Mail has been sent successfully!')
     console.log(response);
-    return {
+    callback(null, {
       statusCode: successCode,
       body: JSON.stringify(response),
-    }
-
+    })
   })
   .catch(err => {
     console.log('Whoops! Something went wrong')
     console.log(err)
-    return {statusCode: 500, body: error.toString()}
+    callback(null, {
+      statusCode: 500,
+      body: error.toString()
+    })
   })
 }
+const generateTemplate = (name, email, subject, message) => {
+  return `<div>
+          <p>Am fumat 12 tigari mami. Auuuuuu Te-o contactat un posibil client: <b>${name}</b></p>
+          <p>Are mailul mami: <b>${email}</b></p>
+          <p>Pe scurt mami: <b>${subject}</b></p>
+          <p>Pe lung mami: <b>${message}</b></p>
+          </div>`;
 
-module.exports = { handler }
+}
+module.exports = {handler}
