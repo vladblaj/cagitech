@@ -12,6 +12,8 @@ const handler = async (event, context, callback) => {
   console.log('Send email started');
   const data = JSON.parse(event.body)
   const {name, email, subject, message} = data
+  console.log('data', data);
+  console.log('client', client);
 
   client.transmissions
   .send({
@@ -41,6 +43,8 @@ const handler = async (event, context, callback) => {
       body: error.toString()
     })
   })
+  console.log('A ajuns la sfarsit');
+
 }
 const generateTemplate = (name, email, subject, message) => {
   return `<div>
