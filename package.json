@@ -7,6 +7,7 @@
     "bootstrap": "^5.0.1",
     "disqus-react": "^1.1.0",
     "fslightbox-react": "^1.6.2",
+    "http-proxy-middleware": "^2.0.1",
     "jquery": "^3.6.0",
     "markdown-to-jsx": "^7.1.3",
     "node-sass": "^6.0.0",
@@ -30,7 +31,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:lambda": "netlify-lambda build functions"
   },
   "browserslist": {
     "production": [
@@ -48,6 +50,7 @@
     "@babel/core": "^7.14.6",
     "axios-mock-adapter": "^1.19.0",
     "netlify-cli": "^4.1.14",
+    "netlify-lambda": "^2.0.11",
     "sparkpost": "^2.1.4"
   }
 }

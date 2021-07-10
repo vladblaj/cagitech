@@ -40,16 +40,15 @@ function Contact() {
       setError(false);
       setMessage("You message has been sent!!!");
     }
-    client.transmissions
-    .send({
-      content: {
-        from: 'Bitlads@gmail.com',
-        subject: 'Hello, World!',
-        html:
-            "<html><body><p>My cool email.</p></body></html>"
-      },
-      recipients: [{ address: 'marcoblaj@gmail.com' }]
-    });
+    const { name, email, subject, message } = formdata;
+    const data = { name, email, subject, message }
+    axios.post('/.netlify/functions/send-email', JSON.stringify(data)).then(response => {
+      if (response.status !== 200) {
+        console.log('Something went wrong when sending an email')
+      } else {
+        console.log('Email sent successfully!')
+      }
+    })
   };
   const handleChange = (event) => {
     setFormdata({
