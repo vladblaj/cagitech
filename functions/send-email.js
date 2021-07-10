@@ -9,14 +9,19 @@ const headers = {
 }
 
 const handler = async (event, context, callback) => {
+  if (event.httpMethod !== 'POST') {
+    return { statusCode: 405, body: 'Method Not Allowed', headers: { 'Allow': 'POST' } }
+  }
   console.log('Send email started');
   const data = JSON.parse(event.body)
+  if (!data.message || !data.name || !data.email || !data.subject) {
+    return { statusCode: 422, body: 'Name, email, message, subject and message are required.' }
+  }
   const {name, email, subject, message} = data
   console.log('data', data);
   console.log('client', client);
 
-  client.transmissions
-  .send({
+  return client.transmissions.send({
     options: {
       sandbox: false,
     },
@@ -31,6 +36,7 @@ const handler = async (event, context, callback) => {
     console.log('Mail has been sent successfully!')
     console.log(response);
     callback(null, {
+      headers,
       statusCode: successCode,
       body: JSON.stringify(response),
     })
@@ -43,7 +49,6 @@ const handler = async (event, context, callback) => {
       body: error.toString()
     })
   })
-  console.log('A ajuns la sfarsit');
 
 }
 const generateTemplate = (name, email, subject, message) => {
