@@ -7,8 +7,7 @@ const headers = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'Content-Type',
 }
-
-const handler = async (event, context, callback) => {
+const handler = async (event, context) => {
   if (event.httpMethod !== 'POST') {
     return {statusCode: 405, body: 'Method Not Allowed', headers: {'Allow': 'POST'}}
   }
@@ -18,8 +17,8 @@ const handler = async (event, context, callback) => {
     return {statusCode: 422, body: 'Name, email, message, subject and message are required.'}
   }
   const {name, email, subject, message} = data
-  try {
-    const response = await client.transmissions.send({
+  return new Promise((resolve, reject) => {
+    client.transmissions.send({
       options: {
         sandbox: false,
       },
@@ -29,16 +28,34 @@ const handler = async (event, context, callback) => {
         html: generateTemplate(name, email, subject, message)
       },
       recipients: [{address: 'marcoblaj@gmail.com'}, {address: 'bogdan.bitfoi@gmail.com'}],
-    });
-    callback(null, {
-      headers: {'Content-Type': 'application/json'},
-      statusCode: successCode,
-      body: JSON.stringify(response),
     })
-  } catch (error) {
-    callback(error);
-  }
+    .then(res => {
+      if (res.results.total_accepted_recipients === 2) {
+        resolve({
+          statusCode: 200,
+          headers: {'content-type': 'application/json'}
+        })
+      } else {
+        console.log('error', res);
+        resolve({statusCode: res.status || 500, body: res.statusText})
+      }
+    })
+    .then(d => {
+      const response = {
+        statusCode: 200,
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify(d)
+      }
+      resolve(response);
+    })
+    .catch(err => {
+      console.log('errrrror');
+      console.log(err)
+      resolve({statusCode: err.statusCode || 500, body: err.message})
+    })
+  })
 }
+
 const generateTemplate = (name, email, subject, message) => {
   return `<div>
           <p>Am fumat 12 tigari mami. Auuuuuu Te-o contactat un posibil client: <b>${name}</b></p>
