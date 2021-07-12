@@ -26,337 +26,265 @@ const database = {
     phone: "",
     nationality: "Romanian",
     language: "Romanian, English, French",
-    email: "",
-    address: "Manastur",
+    email: "bogdan.bitfoi@gmail.com",
+    address: "Cluj-Napoca, Cluj",
     freelanceStatus: "Available",
-    socialLinks: {
-      facebook: "https://www.facebook.com/bogdan.bitfoi",
-      twitter: "https://twitter.com",
-      pinterest: "",
-      behance: "",
-      linkedin: "",
-      dribbble: "",
-      github: "https://github.com"
-    },
-    aboutImage: "/images/about-image.jpg",
-    aboutImageLg: "/images/about-image-lg.jpg",
+    aboutImage: "/images/about-image-bitfoi.png",
+    aboutImageLg: "/images/about-image-bitfoi-lg.png",
     cvfile: "/files/BogdanBitfoi.pdf",
+    aboutMe:
+      " I am a frontend web developer. I can provide clean code and\n" +
+      "                pixel perfect design. I also make website more & more\n" +
+      "                interactive with web animations.",
     skills: [
       {
-        title: "HTML5",
+        title: "Java",
         value: 95
       },
       {
-        title: "CSS3",
+        title: "ReactJS",
+        value: 40
+      },
+      {
+        title: "Spring",
         value: 90
       },
       {
-        title: "Javascript",
+        title: "Python",
         value: 70
       },
       {
-        title: "jQuery",
-        value: 85
-      },
-      {
-        title: "ReactJS",
-        value: 80
-      },
-      {
-        title: "Photoshop",
-        value: 65
+        title: "Microsoft .NET",
+        value: 70
       }
     ],
     experience: {
       workingExperience: [
         {
           id: 1,
-          year: "2018 - Present",
-          position: "Frontend Web Developer",
-          company: "Abc Company",
+          year: "2019 - Present",
+          position: "Java Software Engineer",
+          company: "Aera Technology",
           details:
-            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas, magni mollitia, aspernatur consequatur accusamus vero eum facere exercitationem velit suscipit " +
-            "ipsam placeat libero. Deleniti exercitationem nostrum quasi. Molestiae, vel porro."
+            "Worked on Aera's own product, helping clients mainly with supply-chain and AI-driven decisions for a better company " +
+            "(such as cuts and investments in a specific department)."
         },
         {
           id: 2,
-          year: "2016 - 2018",
-          position: "Frontend Web Developer",
-          company: "CBA Company",
+          year: "2018 - 2019",
+          position: "Java Software Engineer",
+          company: ".msg Systems",
           details:
-            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas, magni mollitia, aspernatur consequatur accusamus vero eum facere exercitationem velit suscipit" +
-            " ipsam placeat libero. Deleniti exercitationem nostrum quasi. Molestiae, vel porro."
+            "Java developer working on a product called iRe - Intelligent Reinsurance." +
+            "The product is built on a micro-service architecture, and handles use cases such as uploading Excel representing insurance premiums," +
+            " uploads of losses and reinsurance programs (include formulas for splitting the bill amongst multiple other external companies) and all accounting related to the operations."
         },
         {
           id: 3,
-          year: "2014 - 1016",
-          position: "UI/UX Designer",
-          company: "Example Company",
+          year: "2016 - 2018",
+          position: "Software Engineer",
+          company: "Hewlett Packard Enterprise",
           details:
-            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas, magni mollitia, aspernatur consequatur accusamus vero eum facere exercitationem velit suscipit ipsam " +
-            "placeat libero. Deleniti exercitationem nostrum quasi. Molestiae, vel porro."
+            "Software engineer for the Server Automation product.The product manages data centers - thousands of machines - by performing automatic tasks on them," +
+            " such as operating system " +
+            "installation, operating system and software patching etc."
+        },
+        {
+          id: 4,
+          year: "2015 - 2016",
+          position: ".NET Software Developer",
+          company: "Evozon Systems SRL",
+          details: "Software Development"
         }
       ],
       educationExperience: [
         {
           id: 1,
-          year: "2018 - 2019",
-          graduation: "Master of Science",
-          university: "Abc University",
+          year: "2015 - 2017",
+          graduation: "Master in Software Engineering",
+          university: "Babes Bolyai University, Cluj-Napoca",
           details:
-            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas, magni mollitia, aspernatur consequatur accusamus vero eum facere exercitationem velit suscipit ipsam placeat " +
-            "libero. Deleniti exercitationem nostrum quasi. Molestiae, vel porro."
+            "Thesis: Efficiency differences between Docker containers and Virtual Machines. A series of benchmarks to determine which technology is better in which cases."
         },
         {
           id: 2,
-          year: "2016 - 2018",
-          graduation: "Bachelor of Science",
-          university: "Abc University",
+          year: "2012 - 2015",
+          graduation:
+            "Bachelor Degree, Computer Science English Specialization",
+          university:
+            "Babes Bolyai University, Faculty of Mathematics and Computer Science",
           details:
-            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas, magni mollitia, aspernatur consequatur accusamus vero eum facere exercitationem velit suscipit ipsam placeat " +
-            "libero. Deleniti exercitationem nostrum quasi. Molestiae, vel porro."
+            "Thesis: Shading Algorithms in nVIDIA's CG. A 3D world built in Unity, with objects that use shaders written by me. " +
+            "Some of these shaders were used to compute the ambient, diffuse or specular lighting. " +
+            "Others were used to normal map and texture map objects' surfaces to add an illusion of complexity of the polygons."
         },
         {
           id: 3,
-          year: "2015 - 2016",
-          graduation: "Higher Schoold Graduation",
-          university: "Abc College",
+          year: "2008 - 2012",
+          graduation: "High School Diploma",
+          university: "Tiberiu Popoviciu HighSchool, Cluj-Napoca",
+          details: "Specialization in Software Engineering."
+        }
+      ]
+    }
+  },
+  blaj_information: {
+    name: "Vlad Blaj",
+    age: 28,
+    phone: "",
+    nationality: "Romanian",
+    language: "Romanian, English, German",
+    email: "marcoblaj@gmail.com",
+    address: "Cluj, Cluj-Napoca",
+    freelanceStatus: "Available",
+    aboutImage: "/images/about-image-vlad.jpg",
+    aboutImageLg: "/images/about-image-vlad-lg.jpg",
+    cvfile: "/files/VladBlajCV.pdf",
+    aboutMe:
+      "Hi there, I'm Vlad Blaj - a passionate developer with over 5 years experience in web development and mobile development. " +
+      "I knew at an early age I wanted to be part of this industry. " +
+      "Since then I've been working on improving myself becoming more efficient in the things I do and I’m having a lot of fun along the way. " +
+      "I am committed to the goals I set, well organized and I want to help you grow your business.",
+    skills: [
+      {
+        title: "Java",
+        value: 95
+      },
+      {
+        title: "ReactJS",
+        value: 90
+      },
+      {
+        title: "React Mobile",
+        value: 70
+      },
+      {
+        title: "Spring",
+        value: 90
+      },
+      {
+        title: "Python",
+        value: 60
+      },
+      {
+        title: "Redux",
+        value: 99
+      }
+    ],
+    experience: {
+      workingExperience: [
+        {
+          id: 1,
+          year: "2019 - Present",
+          position: "Full Stack Software Developer",
+          company: "Aera Technology",
           details:
-            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas, magni mollitia, aspernatur consequatur accusamus vero eum " +
-            "facere exercitationem velit suscipit ipsam placeat libero. Deleniti exercitationem nostrum quasi. Molestiae, vel porro."
+            "Aera is a Cognitive Operating System that connects you with your business and autonomously orchestrates your operations. " +
+            "It enables this by creating processes with drag and drop which transform to executable programs."
+        },
+        {
+          id: 2,
+          year: "2017 - 2019",
+          position: "Software Developer",
+          company: ".msg Systems",
+          details:
+            "Web and Mobile Application used by Hilti’s sales staff before, during and after customer visits to identify potential agreements and contact Hilti customers\n" +
+            "to evaluate and redefine existing agreements. Improved agreements process by creating and developing KPI’s for different sales and prices."
+        },
+        {
+          id: 3,
+          year: "2014 - 2017",
+          position: "Junior Software Developer",
+          company: ".msg Systems",
+          details:
+            "Developed Java programs in the insurance industry using Java 8, Hibernate. " +
+            "Created Plugins using Liferay platform. Added Automated tests using Selenium. Performed data syncing between users in the Liferay environment using\n" +
+            "Javascript, AJAX and JQuery."
+        }
+      ],
+      educationExperience: [
+        {
+          id: 1,
+          year: "2015 - 2017",
+          graduation: "Software engineering Masters Degree",
+          university: "Babes Bolyai University, Cluj-Napoca",
+          details:
+            'Thesis: Improved "Detecting Energy Leak Bugs in Android Applications"'
+        },
+        {
+          id: 2,
+          year: "2012 - 2015",
+          graduation:
+            "Bachelor Degree, Computer Science English Specialization",
+          university:
+            "Babes Bolyai University, Faculty of Mathematics and Computer Science",
+          details:
+            "Thesis: Detecting Energy Leak Bugs in Android Applications. I developed a program using Java 1.8 which will detect and signal the presence of no-sleep-energy-bugs. " +
+            "It is a static analysis of the source code of an android project"
+        },
+        {
+          id: 3,
+          year: "2008 - 2011",
+          graduation: "High School Diploma",
+          university: "Andrei Saguna College, Brasov",
+          details:
+            "Intensive Computer Science Mathematics Technology of communication and information."
         }
       ]
     }
   },
   services: [
     {
-      title: "Web Design",
+      title: "Server Side Development",
       icon: "color-pallet",
       details:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem tenetur ratione quod."
+        "We deliver highly scalable programs tailored for each customers use case. We can work with a handful of databases from relational to non relational." +
+        "We can make use of different event distributed streaming platforms and by following a strict code architecture we can create highly robust programs."
     },
     {
       title: "Web Development",
       icon: "code",
       details:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem tenetur ratione quod."
+        "React and Java(Spring) are our way to go programming languages. We provide high quality services ranging from developing a responsive website from scratch to optimizing code" +
+        "for search engine rankings. We can quickly make use of any new tool with which we were not previously accustomed wit. We have a lot of experience in the area " +
+        "of dynamic front-end apps or single page application apps."
     },
     {
       title: "Mobile Application",
       icon: "mobile",
       details:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem tenetur ratione quod."
+        "Thanks to React Native we can deliver apps for both iOS and Android in no time. Thanks to the available technologies it is painless to create Interactive UIs for a variety of" +
+        " platforms including Windows."
     }
   ],
   reviews: [
     {
       id: 1,
       content:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Expedita impedit nobis tempore quaerat quibusdam, aliquid maxime tempora.",
+        "Ever since I met Bogdan, I was amazed with the ease and straightforwardness with which he would solve the most complex of problems, computer science-related and not only." +
+        "He has an unmatched capability to decompose, analyse and conclude any issue, no matter the degree of difficulty or field of debate..",
       author: {
-        name: "Burdette Turner",
-        designation: "Web Developer, Abc Company"
-      }
-    },
-    {
-      id: 2,
-      content:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Expedita impedit nobis tempore quaerat quibusdam.",
-      author: {
-        name: "Susan Yost",
-        designation: "Client"
-      }
-    },
-    {
-      id: 3,
-      content: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-      author: {
-        name: "Irving Feeney",
-        designation: "Fiverr Client"
+        name: "Iuliu Visovan",
+        designation: "React Native Developer, Amsterdam Platform Creation."
       }
     }
   ],
   portfolios: [
     {
       id: 1,
-      title: "T-shirt Mockup",
-      subtitle: "A beautiful t-shirt mockup.",
-      imageUrl: "/images/portfolio-image-1.jpg",
-      largeImageUrl: ["/images/portfolio-image-1-lg.jpg"],
-      url: "https://dribbble.com"
+      title: "Samson Music",
+      subtitle: "Music Organizing Youtube App.",
+      imageUrl: "/images/portfolio-image-1.png",
+      largeImageUrl: ["/images/portfolio-image-1-lg.png"],
+      url: "https://github.com/SMash93/samson"
     },
     {
       id: 2,
-      title: "Coffee Mug",
-      subtitle: "Awesome coffee mug design.",
-      imageUrl: "/images/portfolio-image-4.jpg",
-      largeImageUrl: [
-        "/images/portfolio-image-4-lg.jpg",
-        "/images/portfolio-image-4-lg2.jpg"
-      ],
-      url: "https://facebook.com"
-    },
-    {
-      id: 3,
-      title: "Tea & Coffee Mug",
-      subtitle: "Beautiful mug with logo.",
-      imageUrl: "/images/portfolio-image-2.jpg",
-      url: "https://pinterest.com"
-    },
-    {
-      id: 4,
-      title: "Pen Holder",
-      subtitle: "A pen holder with beautiful design.",
-      imageUrl: "/images/portfolio-image-3.jpg",
-      largeImageUrl: ["/images/portfolio-image-3-lg.jpg"],
-      url: "#"
-    },
-    {
-      id: 5,
-      title: "Mug",
-      subtitle: "Mug with awesome style",
-      imageUrl: "/images/portfolio-image-5.jpg",
-      largeImageUrl: ["/images/portfolio-image-5-lg.jpg"]
-    },
-    {
-      id: 6,
-      title: "Pendrive",
-      subtitle: "Free pendrive mockup design.",
-      imageUrl: "/images/portfolio-image-6.jpg",
-      largeImageUrl: ["/images/portfolio-image-6-lg.jpg"]
-    },
-    {
-      id: 7,
-      title: "Beautiful Pendrive",
-      subtitle: "Pendrive with great design & flexible.",
-      imageUrl: "/images/portfolio-image-7.jpg",
-      largeImageUrl: ["/images/portfolio-image-7-lg.jpg"],
-      url: "https://twitter.com"
-    },
-    {
-      id: 8,
-      title: "Sticker",
-      subtitle: "Clip sticker mockup design.",
-      imageUrl: "/images/portfolio-image-8.jpg",
-      largeImageUrl: ["/images/portfolio-image-8-lg.jpg"]
-    },
-    {
-      id: 9,
-      title: "Packet",
-      subtitle: "Beautiful packet & product design.",
-      imageUrl: "/images/portfolio-image-9.jpg",
-      largeImageUrl: ["/images/portfolio-image-9-lg.jpg"]
-    },
-    {
-      id: 10,
-      title: "Pen Holder",
-      subtitle: "A pen holder with beautiful design.",
-      imageUrl: "/images/portfolio-image-3.jpg",
-      largeImageUrl: ["/images/portfolio-image-3-lg.jpg"],
-      url: "#"
-    },
-    {
-      id: 11,
-      title: "Coffee Mug",
-      subtitle: "Awesome coffee mug design.",
-      imageUrl: "/images/portfolio-image-4.jpg",
-      largeImageUrl: [
-        "/images/portfolio-image-4-lg.jpg",
-        "/images/portfolio-image-4-lg2.jpg"
-      ],
-      url: "https://facebook.com"
-    },
-    {
-      id: 12,
-      title: "Tea & Coffee Mug",
-      subtitle: "Beautiful mug with logo.",
-      imageUrl: "/images/portfolio-image-2.jpg",
-      url: "https://pinterest.com"
-    },
-    {
-      id: 13,
-      title: "T-shirt Mockup",
-      subtitle: "A beautiful t-shirt mockup.",
-      imageUrl: "/images/portfolio-image-1.jpg",
-      largeImageUrl: ["/images/portfolio-image-1-lg.jpg"],
-      url: "https://dribbble.com"
-    },
-    {
-      id: 14,
-      title: "Mug",
-      subtitle: "Mug with awesome style",
-      imageUrl: "/images/portfolio-image-5.jpg",
-      largeImageUrl: ["/images/portfolio-image-5-lg.jpg"]
-    },
-    {
-      id: 15,
-      title: "Pendrive",
-      subtitle: "Free pendrive mockup design.",
-      imageUrl: "/images/portfolio-image-6.jpg",
-      largeImageUrl: ["/images/portfolio-image-6-lg.jpg"]
-    },
-    {
-      id: 16,
-      title: "Beautiful Pendrive",
-      subtitle: "Pendrive with great design & flexible.",
-      imageUrl: "/images/portfolio-image-7.jpg",
-      largeImageUrl: ["/images/portfolio-image-7-lg.jpg"],
-      url: "https://twitter.com"
-    },
-    {
-      id: 17,
-      title: "Sticker",
-      subtitle: "Clip sticker mockup design.",
-      imageUrl: "/images/portfolio-image-8.jpg",
-      largeImageUrl: ["/images/portfolio-image-8-lg.jpg"]
-    },
-    {
-      id: 18,
-      title: "Packet",
-      subtitle: "Beautiful packet & product design.",
-      imageUrl: "/images/portfolio-image-9.jpg",
-      largeImageUrl: ["/images/portfolio-image-9-lg.jpg"]
-    },
-    {
-      id: 19,
-      title: "T-shirt Mockup",
-      subtitle: "A beautiful t-shirt mockup.",
-      imageUrl: "/images/portfolio-image-1.jpg",
-      largeImageUrl: ["/images/portfolio-image-1-lg.jpg"],
-      url: "https://dribbble.com"
-    },
-    {
-      id: 20,
-      title: "Coffee Mug",
-      subtitle: "Awesome coffee mug design.",
-      imageUrl: "/images/portfolio-image-4.jpg",
-      largeImageUrl: [
-        "/images/portfolio-image-4-lg.jpg",
-        "/images/portfolio-image-4-lg2.jpg"
-      ],
-      url: "https://facebook.com"
-    },
-    {
-      id: 21,
-      title: "Tea & Coffee Mug",
-      subtitle: "Beautiful mug with logo.",
-      imageUrl: "/images/portfolio-image-2.jpg",
-      url: "https://pinterest.com"
-    },
-    {
-      id: 22,
-      title: "Pen Holder",
-      subtitle: "A pen holder with beautiful design.",
-      imageUrl: "/images/portfolio-image-3.jpg",
-      largeImageUrl: ["/images/portfolio-image-3-lg.jpg"],
-      url: "#"
-    },
-    {
-      id: 23,
-      title: "Mug",
-      subtitle: "Mug with awesome style",
-      imageUrl: "/images/portfolio-image-5.jpg",
-      largeImageUrl: ["/images/portfolio-image-5-lg.jpg"]
+      title: "Trading Bot",
+      subtitle: "Binance Trading Bot.",
+      imageUrl: "/images/portfolio-image-2.png",
+      largeImageUrl: ["/images/portfolio-image-2.png"],
+      url: "https://github.com/SMash93/crypto-bot"
     }
   ],
   blogs: [
@@ -368,140 +296,12 @@ const database = {
       createDay: "20",
       createMonth: "February",
       createYear: "2020"
-    },
-    {
-      id: 2,
-      title: "Installing NodeJS on your device.",
-      featuredImage: "/images/blog-image-2.jpg",
-      filesource: "../../blog/installing-nodejs-on-your-device.md",
-      createDay: "20",
-      createMonth: "February",
-      createYear: "2020"
-    },
-    {
-      id: 3,
-      title: "UI/UX design starter with Adobe XD.",
-      featuredImage: "/images/blog-image-3.jpg",
-      filesource: "../../blog/uiux-design-starter-with-adobe-xd.md",
-      createDay: "20",
-      createMonth: "February",
-      createYear: "2020"
-    },
-    {
-      id: 4,
-      title: "Boost your post for increasing sales.",
-      featuredImage: "/images/blog-image-4.jpg",
-      filesource: "../../blog/boost-your-post-for-increasing-sales.md",
-      createDay: "20",
-      createMonth: "February",
-      createYear: "2020"
-    },
-    {
-      id: 5,
-      title: "Difference between GatsbyJS & NextJS.",
-      featuredImage: "/images/blog-image-5.jpg",
-      filesource: "../../blog/difference-between-gatsbyjs-and-nextjs.md",
-      createDay: "20",
-      createMonth: "February",
-      createYear: "2020"
-    },
-    {
-      id: 6,
-      title: "How to choose javascript framework for project.",
-      featuredImage: "/images/blog-image-6.jpg",
-      filesource:
-        "../../blog/how-to-choose-javascript-framework-for-project.md",
-      createDay: "20",
-      createMonth: "February",
-      createYear: "2020"
-    },
-    {
-      id: 7,
-      title: "Web automation with python language.",
-      featuredImage: "/images/blog-image-7.jpg",
-      filesource: "../../blog/web-automation-with-python-language.md",
-      createDay: "20",
-      createMonth: "February",
-      createYear: "2020"
-    },
-    {
-      id: 8,
-      title: "Time to use latest technology for creating a website.",
-      featuredImage: "/images/blog-image-8.jpg",
-      filesource:
-        "../../blog/time-to-use-latest-technology-for-creating-a-website.md",
-      createDay: "20",
-      createMonth: "February",
-      createYear: "2020"
-    },
-    {
-      id: 9,
-      title: "Think out of the box.",
-      featuredImage: "/images/blog-image-9.jpg",
-      filesource: "../../blog/think-out-of-the-box.md",
-      createDay: "20",
-      createMonth: "February",
-      createYear: "2020"
-    },
-    {
-      id: 10,
-      title: "Trending designs in 2020.",
-      featuredImage: "/images/blog-image-1.jpg",
-      filesource: "../../blog/trending-designs-in-2020.md",
-      createDay: "20",
-      createMonth: "February",
-      createYear: "2020"
-    },
-    {
-      id: 11,
-      title: "How to get 10k instagram followers?",
-      featuredImage: "/images/blog-image-2.jpg",
-      filesource: "../../blog/how-to-get-10k-instagram-followers.md",
-      createDay: "20",
-      createMonth: "February",
-      createYear: "2020"
-    },
-    {
-      id: 12,
-      title: "What NodeJS can do?",
-      featuredImage: "/images/blog-image-3.jpg",
-      filesource: "../../blog/what-nodejs-can-do.md",
-      createDay: "20",
-      createMonth: "February",
-      createYear: "2020"
-    },
-    {
-      id: 13,
-      title: "Futures of javascript.",
-      featuredImage: "/images/blog-image-4.jpg",
-      filesource: "../../blog/future-of-javascript.md",
-      createDay: "20",
-      createMonth: "February",
-      createYear: "2020"
-    },
-    {
-      id: 14,
-      title: "Popular javascript library in 2020.",
-      featuredImage: "/images/blog-image-5.jpg",
-      filesource: "../../blog/popular-javascript-library-in-2020.md",
-      createDay: "20",
-      createMonth: "February",
-      createYear: "2020"
-    },
-    {
-      id: 15,
-      title: "Promrammers must read books.",
-      featuredImage: "/images/blog-image-6.jpg",
-      filesource: "../../blog/programmers-must-read-books.md",
-      createDay: "20",
-      createMonth: "February",
-      createYear: "2020"
     }
   ],
   contactInfo: {
-    phoneNumbers: ["+012-3456-7891", "+012-3456-7892"],
-    emailAddress: ["admin.sitename@example.com", "info.sitename@example.com"],
-    address: "121 King Street, Melbourne, Victoria 3000, Australia"
+    phoneNumbers: ["+40-754-921-191", "+40-756-777-033"],
+    emailAddress: ["marcoblaj@gmail.com", "bogdan.bitfoi@gmail.com"],
+    address: "Cluj-Napoca, Cluj, Romania"
   }
 };
 Mock.onGet("/api/team-members").reply(() => {

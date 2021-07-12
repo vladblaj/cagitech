@@ -59,11 +59,6 @@ function Header() {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/blogs">
-              <span>Blogs</span>
-            </NavLink>
-          </li>
-          <li>
             <NavLink to="/contact">
               <span>Contact</span>
             </NavLink>
@@ -77,7 +72,7 @@ function Header() {
               target="_blank"
               href="https://blafoi.netlify.app/"
             >
-              BitLads Software
+              Bitlads Software
             </a>
           </b>
         </p>
