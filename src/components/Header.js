@@ -4,7 +4,7 @@ import LineIcon from "react-lineicons";
 import { Link, NavLink } from "react-router-dom";
 
 function Header() {
-  const [information, setInformation] = useState("");
+  const [compnayInformation, setCompanyInformation] = useState("");
   const [navigationToggler, setNavigationToggler] = useState(false);
 
   const handleNavigationToggler = () => {
@@ -12,8 +12,8 @@ function Header() {
   };
 
   useEffect(() => {
-    axios.get("/api/information").then(response => {
-      setInformation(response.data);
+    axios.get("/api/company-information").then(response => {
+      setCompanyInformation(response.data);
     });
   }, []);
 
@@ -33,7 +33,7 @@ function Header() {
       <div className="mi-header-inner">
         <div className="mi-header-image">
           <Link to="/">
-            <img src={information.brandImage} alt="brandimage" />
+            <img src={compnayInformation.brandImage} alt="brandimage" />
           </Link>
         </div>
 

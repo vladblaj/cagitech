@@ -6,21 +6,25 @@ import Layout from "../components/Layout";
 import TeamMember from "../components/TeamMember";
 
 function Team() {
-  const [skills, setSkills] = useState([]);
-  const [workingExperience, setWorkingExperience] = useState([]);
-  const [educationExperience, setEducationExperience] = useState([]);
-  const [information, setInformation] = useState("");
+  const [teamInformation, setTeamInformation] = useState([]);
+
+  const getTeamInformation = async () => {
+    const teamMembers = await axios.get("/api/team-members");
+    const promises = teamMembers.data.map(teamMember => {
+      return axios.get("/api/information", {
+        params: {
+          user: teamMember.user
+        }
+      });
+    });
+    return Promise.all(promises);
+  };
 
   useEffect(() => {
-    axios.get("/api/information").then(response => {
-      setInformation(response.data);
-    });
-    axios.get("/api/skills").then(response => {
-      setSkills(response.data);
-    });
-    axios.get("/api/experience").then(response => {
-      setWorkingExperience(response.data.workingExperience);
-      setEducationExperience(response.data.educationExperience);
+    getTeamInformation().then(result => {
+      setTeamInformation(
+        result.filter(person => person.data).map(person => person.data)
+      );
     });
   }, []);
 
@@ -36,18 +40,18 @@ function Team() {
       <div className="mi-skills-area mi-section mi-padding-top">
         <div className="container">
           <Sectiontitle title="About Us" />
-          <TeamMember
-            information={information}
-            skills={skills}
-            workingExperience={workingExperience}
-            educationExperience={educationExperience}
-          />
-          <TeamMember
-            information={information}
-            skills={skills}
-            workingExperience={workingExperience}
-            educationExperience={educationExperience}
-          />
+          {teamInformation.map(information => (
+            <TeamMember
+              information={information}
+              skills={information.skills}
+              workingExperience={
+                information && information.experience.workingExperience
+              }
+              educationExperience={
+                information && information.experience.educationExperience
+              }
+            />
+          ))}
         </div>
       </div>
     </Layout>

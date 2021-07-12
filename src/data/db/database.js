@@ -1,11 +1,27 @@
 import Mock from "../mock";
 
 const database = {
-  information: {
+  teamMembers: [
+    { name: "Bogdan Bitfoi", user: "bitfoi" },
+    { name: "Vlad Blaj", user: "blaj" }
+  ],
+  companyInformation: {
     companyName: "Bitlads Software",
-    name: "Bogdan Bitfoi",
     aboutContent:
       "Everything we do is about you. We create industry standard IT Software. Inspire us with your idea, sit back, and let us bring it to life. ",
+    socialLinks: {
+      facebook: "https://www.facebook.com/bogdan.bitfoi",
+      twitter: "https://twitter.com",
+      pinterest: "",
+      behance: "",
+      linkedin: "",
+      dribbble: "",
+      github: "https://github.com"
+    },
+    brandImage: "/images/brand-image.png"
+  },
+  bitfoi_information: {
+    name: "Bogdan Bitfoi",
     age: 28,
     phone: "",
     nationality: "Romanian",
@@ -22,10 +38,95 @@ const database = {
       dribbble: "",
       github: "https://github.com"
     },
-    brandImage: "/images/brand-image.png",
     aboutImage: "/images/about-image.jpg",
     aboutImageLg: "/images/about-image-lg.jpg",
-    cvfile: "/files/BogdanBitfoi.pdf"
+    cvfile: "/files/BogdanBitfoi.pdf",
+    skills: [
+      {
+        title: "HTML5",
+        value: 95
+      },
+      {
+        title: "CSS3",
+        value: 90
+      },
+      {
+        title: "Javascript",
+        value: 70
+      },
+      {
+        title: "jQuery",
+        value: 85
+      },
+      {
+        title: "ReactJS",
+        value: 80
+      },
+      {
+        title: "Photoshop",
+        value: 65
+      }
+    ],
+    experience: {
+      workingExperience: [
+        {
+          id: 1,
+          year: "2018 - Present",
+          position: "Frontend Web Developer",
+          company: "Abc Company",
+          details:
+            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas, magni mollitia, aspernatur consequatur accusamus vero eum facere exercitationem velit suscipit " +
+            "ipsam placeat libero. Deleniti exercitationem nostrum quasi. Molestiae, vel porro."
+        },
+        {
+          id: 2,
+          year: "2016 - 2018",
+          position: "Frontend Web Developer",
+          company: "CBA Company",
+          details:
+            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas, magni mollitia, aspernatur consequatur accusamus vero eum facere exercitationem velit suscipit" +
+            " ipsam placeat libero. Deleniti exercitationem nostrum quasi. Molestiae, vel porro."
+        },
+        {
+          id: 3,
+          year: "2014 - 1016",
+          position: "UI/UX Designer",
+          company: "Example Company",
+          details:
+            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas, magni mollitia, aspernatur consequatur accusamus vero eum facere exercitationem velit suscipit ipsam " +
+            "placeat libero. Deleniti exercitationem nostrum quasi. Molestiae, vel porro."
+        }
+      ],
+      educationExperience: [
+        {
+          id: 1,
+          year: "2018 - 2019",
+          graduation: "Master of Science",
+          university: "Abc University",
+          details:
+            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas, magni mollitia, aspernatur consequatur accusamus vero eum facere exercitationem velit suscipit ipsam placeat " +
+            "libero. Deleniti exercitationem nostrum quasi. Molestiae, vel porro."
+        },
+        {
+          id: 2,
+          year: "2016 - 2018",
+          graduation: "Bachelor of Science",
+          university: "Abc University",
+          details:
+            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas, magni mollitia, aspernatur consequatur accusamus vero eum facere exercitationem velit suscipit ipsam placeat " +
+            "libero. Deleniti exercitationem nostrum quasi. Molestiae, vel porro."
+        },
+        {
+          id: 3,
+          year: "2015 - 2016",
+          graduation: "Higher Schoold Graduation",
+          university: "Abc College",
+          details:
+            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas, magni mollitia, aspernatur consequatur accusamus vero eum " +
+            "facere exercitationem velit suscipit ipsam placeat libero. Deleniti exercitationem nostrum quasi. Molestiae, vel porro."
+        }
+      ]
+    }
   },
   services: [
     {
@@ -73,32 +174,6 @@ const database = {
         name: "Irving Feeney",
         designation: "Fiverr Client"
       }
-    }
-  ],
-  skills: [
-    {
-      title: "HTML5",
-      value: 95
-    },
-    {
-      title: "CSS3",
-      value: 90
-    },
-    {
-      title: "Javascript",
-      value: 70
-    },
-    {
-      title: "jQuery",
-      value: 85
-    },
-    {
-      title: "ReactJS",
-      value: 80
-    },
-    {
-      title: "Photoshop",
-      value: 65
     }
   ],
   portfolios: [
@@ -284,66 +359,6 @@ const database = {
       largeImageUrl: ["/images/portfolio-image-5-lg.jpg"]
     }
   ],
-  experience: {
-    workingExperience: [
-      {
-        id: 1,
-        year: "2018 - Present",
-        position: "Frontend Web Developer",
-        company: "Abc Company",
-        details:
-          "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas, magni mollitia, aspernatur consequatur accusamus vero eum facere exercitationem velit suscipit " +
-          "ipsam placeat libero. Deleniti exercitationem nostrum quasi. Molestiae, vel porro."
-      },
-      {
-        id: 2,
-        year: "2016 - 2018",
-        position: "Frontend Web Developer",
-        company: "CBA Company",
-        details:
-          "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas, magni mollitia, aspernatur consequatur accusamus vero eum facere exercitationem velit suscipit" +
-          " ipsam placeat libero. Deleniti exercitationem nostrum quasi. Molestiae, vel porro."
-      },
-      {
-        id: 3,
-        year: "2014 - 1016",
-        position: "UI/UX Designer",
-        company: "Example Company",
-        details:
-          "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas, magni mollitia, aspernatur consequatur accusamus vero eum facere exercitationem velit suscipit ipsam " +
-          "placeat libero. Deleniti exercitationem nostrum quasi. Molestiae, vel porro."
-      }
-    ],
-    educationExperience: [
-      {
-        id: 1,
-        year: "2018 - 2019",
-        graduation: "Master of Science",
-        university: "Abc University",
-        details:
-          "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas, magni mollitia, aspernatur consequatur accusamus vero eum facere exercitationem velit suscipit ipsam placeat " +
-          "libero. Deleniti exercitationem nostrum quasi. Molestiae, vel porro."
-      },
-      {
-        id: 2,
-        year: "2016 - 2018",
-        graduation: "Bachelor of Science",
-        university: "Abc University",
-        details:
-          "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas, magni mollitia, aspernatur consequatur accusamus vero eum facere exercitationem velit suscipit ipsam placeat " +
-          "libero. Deleniti exercitationem nostrum quasi. Molestiae, vel porro."
-      },
-      {
-        id: 3,
-        year: "2015 - 2016",
-        graduation: "Higher Schoold Graduation",
-        university: "Abc College",
-        details:
-          "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas, magni mollitia, aspernatur consequatur accusamus vero eum " +
-          "facere exercitationem velit suscipit ipsam placeat libero. Deleniti exercitationem nostrum quasi. Molestiae, vel porro."
-      }
-    ]
-  },
   blogs: [
     {
       id: 1,
@@ -489,9 +504,17 @@ const database = {
     address: "121 King Street, Melbourne, Victoria 3000, Australia"
   }
 };
+Mock.onGet("/api/team-members").reply(() => {
+  const response = database.teamMembers;
+  return [200, response];
+});
 
-Mock.onGet("/api/information").reply(() => {
-  const response = database.information;
+Mock.onGet("/api/information").reply(config => {
+  const response = database[`${config.params.user}_information`];
+  return [200, response];
+});
+Mock.onGet("/api/company-information").reply(() => {
+  const response = database.companyInformation;
   return [200, response];
 });
 

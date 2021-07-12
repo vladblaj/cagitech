@@ -6,7 +6,7 @@ import Layout from "../components/Layout";
 import Socialicons from "../components/Socialicons";
 
 function Home({ lightMode }) {
-  const [information, setInformation] = useState("");
+  const [companyInformation, setCompanyInformation] = useState("");
   const paramConfig = {
     particles: {
       number: {
@@ -75,8 +75,8 @@ function Home({ lightMode }) {
     }
   };
   useEffect(() => {
-    axios.get("/api/information").then(response => {
-      setInformation(response.data);
+    axios.get("/api/company-information").then(response => {
+      setCompanyInformation(response.data);
     });
   }, []);
   return (
@@ -96,9 +96,11 @@ function Home({ lightMode }) {
               <div className="mi-home-content">
                 <h1>
                   Hi, welcome to{" "}
-                  <span className="color-theme">{information.companyName}</span>
+                  <span className="color-theme">
+                    {companyInformation.companyName}
+                  </span>
                 </h1>
-                <p>{information.aboutContent}</p>
+                <p>{companyInformation.aboutContent}</p>
                 <Socialicons bordered />
               </div>
             </div>

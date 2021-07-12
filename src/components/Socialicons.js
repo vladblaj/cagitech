@@ -7,7 +7,7 @@ function Socialicons(props) {
   const [socialLinks, setSocialLinks] = useState({});
 
   useEffect(() => {
-    axios.get("/api/information").then(response => {
+    axios.get("/api/company-information").then(response => {
       setSocialLinks(response.data.socialLinks);
     });
   }, []);
