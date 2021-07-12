@@ -4,7 +4,6 @@ import axios from "axios";
 import * as Icon from "react-feather";
 import Sectiontitle from "../components/Sectiontitle";
 import Layout from "../components/Layout";
-import SparkPost from "sparkpost";
 
 function Contact() {
   const [phoneNumbers, setPhoneNumbers] = useState([]);
@@ -14,62 +13,64 @@ function Contact() {
     name: "",
     email: "",
     subject: "",
-    message: "",
+    message: ""
   });
   const [error, setError] = useState(false);
-  const [message, setMessage] = useState("");
+  const [warning, setWarning] = useState("");
 
-  const submitHandler = (event) => {
+  const submitHandler = event => {
     event.preventDefault();
     if (!formdata.name) {
       setError(true);
-      setMessage("Name is required");
+      setWarning("Name is required");
     } else if (!formdata.email) {
       setError(true);
-      setMessage("Email is required");
+      setWarning("Email is required");
     } else if (!formdata.subject) {
       setError(true);
-      setMessage("Subject is required");
+      setWarning("Subject is required");
     } else if (!formdata.message) {
       setError(true);
-      setMessage("Message is required");
+      setWarning("Message is required");
     } else {
       setError(false);
-      setMessage("You message has been sent!!!");
+      setWarning("You message has been sent!!!");
     }
     const { name, email, subject, message } = formdata;
-    const data = { name, email, subject, message }
-    axios.post('/.netlify/functions/send-email', JSON.stringify(data)).then(response => {
-      if (response.status !== 200) {
-        console.log('Something went wrong when sending an email')
-      } else {
-        console.log('Email sent successfully!')
-      }
-    })
+    const data = { name, email, subject, message };
+    axios
+      .post("/.netlify/functions/send-email", JSON.stringify(data))
+      .then(response => {
+        if (response.status !== 200) {
+          console.log("Something went wrong when sending an email");
+        } else {
+          console.log("Email sent successfully!");
+        }
+      });
   };
-  const handleChange = (event) => {
+  const handleChange = event => {
     setFormdata({
       ...formdata,
-      [event.currentTarget.name]: event.currentTarget.value,
+      [event.currentTarget.name]: event.currentTarget.value
     });
   };
-  const numberFormatter = (number) => {
+  const numberFormatter = number => {
     const phnNumber = number;
     return phnNumber;
   };
 
   const handleAlerts = () => {
-    if (error && message) {
-      return <div className="alert alert-danger mt-4">{message}</div>;
-    } else if (!error && message) {
-      return <div className="alert alert-success mt-4">{message}</div>;
-    } else {
-      return null;
+    if (error && warning) {
+      return <div className="alert alert-danger mt-4">{warning}</div>;
     }
+    if (!error && warning) {
+      return <div className="alert alert-success mt-4">{warning}</div>;
+    }
+    return null;
   };
 
   useEffect(() => {
-    axios.get("/api/contactinfo").then((response) => {
+    axios.get("/api/contactinfo").then(response => {
       setPhoneNumbers(response.data.phoneNumbers);
       setEmailAddress(response.data.emailAddress);
       setAddress(response.data.address);
@@ -79,10 +80,10 @@ function Contact() {
   return (
     <Layout>
       <Helmet>
-        <title>Contact - Chester React Personal Portfolio Template</title>
+        <title>Contact - Bitlads Presentation Site</title>
         <meta
           name="description"
-          content="Chester React Personal Portfolio Template Contact Page"
+          content="Bitlads Presentation Site Contact Page"
         />
       </Helmet>
       <div className="mi-contact-area mi-section mi-padding-top mi-padding-bottom">
@@ -162,7 +163,7 @@ function Contact() {
                     </span>
                     <div className="mi-contact-infoblock-content">
                       <h6>Phone</h6>
-                      {phoneNumbers.map((phoneNumber) => (
+                      {phoneNumbers.map(phoneNumber => (
                         <p key={phoneNumber}>
                           <a href={numberFormatter(phoneNumber)}>
                             {phoneNumber}
@@ -179,7 +180,7 @@ function Contact() {
                     </span>
                     <div className="mi-contact-infoblock-content">
                       <h6>Email</h6>
-                      {emailAddress.map((email) => (
+                      {emailAddress.map(email => (
                         <p key={email}>
                           <a href={`mailto:${email}`}>{email}</a>
                         </p>

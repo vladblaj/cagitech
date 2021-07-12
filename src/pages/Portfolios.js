@@ -13,7 +13,7 @@ function Portfolios() {
 
   useEffect(() => {
     let mounted = true;
-    axios.get("/api/portfolios").then((response) => {
+    axios.get("/api/portfolios").then(response => {
       if (mounted) {
         setPortfoios(response.data);
       }
@@ -36,10 +36,9 @@ function Portfolios() {
   return (
     <Layout>
       <Helmet>
-        <title>Portfolios - Chester React Personal Portfolio Template</title>
         <meta
           name="description"
-          content="Chester React Personal Portfolio Template Portfolios Page"
+          content="Bitlads Presentation Site Portfolios Page"
         />
       </Helmet>
       <div className="mi-about mi-section mi-padding-top mi-padding-bottom">

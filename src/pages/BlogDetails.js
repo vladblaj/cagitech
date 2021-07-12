@@ -5,34 +5,35 @@ import MarkDown from "markdown-to-jsx";
 import Layout from "../components/Layout";
 
 function BlogDetails(props) {
+  const { match } = props;
   const [content, setContent] = useState("");
-  const blogId = props.match.params.id;
-  const blogFile = props.match.params.title;
+  const blogId = match.params.id;
+  const blogFile = match.params.title;
 
   useEffect(() => {
     import(`../blog/${blogFile}.md`)
-      .then((res) => {
+      .then(res => {
         fetch(res.default)
-          .then((res) => res.text())
-          .then((res) => setContent(res));
+          .then(r => r.text())
+          .then(rr => setContent(rr));
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   }, [blogFile]);
 
-  const disqusShortname = "chester-react"; //found in your Disqus.com dashboard
+  const disqusShortname = "Bitlads-react"; // found in your Disqus.com dashboard
   const disqusConfig = {
-    url: "https://tf-react-chester.now.sh/", //Homepage link of this site.
+    url: "https://tf-react-Bitlads.now.sh/", // Homepage link of this site.
     identifier: blogId,
-    title: blogFile,
+    title: blogFile
   };
 
   return (
     <Layout>
       <Helmet>
-        <title>Blog Details - Chester React Personal Portfolio Template</title>
+        <title>Blog Details - Bitlads Presentation Site</title>
         <meta
           name="description"
-          content="Chester React Personal Portfolio Template Blog Details Page"
+          content="Bitlads Presentation Site Blog Details Page"
         />
       </Helmet>
       <div className="mi-blog-details mi-section mi-padding-top mi-padding-bottom">

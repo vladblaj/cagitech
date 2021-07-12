@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import * as Icon from 'react-feather';
+import React, { useEffect, useState } from "react";
+import * as Icon from "react-feather";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./App.scss";
 import About from "./pages/About";
@@ -9,22 +9,28 @@ import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import Notfound from "./pages/Notfound";
 import Portfolios from "./pages/Portfolios";
-import Resumes from "./pages/Resumes";
+import Team from "./pages/Team";
 
 function App() {
   const [lightMode, setLightMode] = useState(false); // Made it true if you want to load your site light mode primary
 
-  lightMode ? document.body.classList.add('light') : document.body.classList.remove('light');
+  useEffect(() => {
+    if (lightMode) {
+      document.body.classList.add("light");
+    } else {
+      document.body.classList.remove("light");
+    }
+  });
 
   const handleMode = () => {
     if (!lightMode) {
       setLightMode(true);
-      document.body.classList.add('light')
+      document.body.classList.add("light");
     } else {
       setLightMode(false);
-      document.body.classList.remove('light')
+      document.body.classList.remove("light");
     }
-  }
+  };
 
   return (
     <BrowserRouter>
@@ -32,14 +38,20 @@ function App() {
         <span className="icon">
           <Icon.Sun />
         </span>
-        <button className={lightMode ? 'light-mode-switch active' : 'light-mode-switch'} onClick={() => handleMode()}></button>
+        <button
+          type="button"
+          className={
+            lightMode ? "light-mode-switch active" : "light-mode-switch"
+          }
+          onClick={() => handleMode()}
+        />
       </div>
       <Switch>
         <Route path="/" exact>
-          <Home lightMode={lightMode}/>
+          <Home lightMode={lightMode} />
         </Route>
         <Route path="/about" component={About} />
-        <Route path="/resume" component={Resumes} />
+        <Route path="/resume" component={Team} />
         <Route path="/portfolios" component={Portfolios} />
         <Route path="/blogs" exact component={Blogs} />
         <Route path="/blogs/blog-details/:id/:title" component={BlogDetails} />

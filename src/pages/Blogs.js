@@ -13,7 +13,7 @@ function Blogs() {
 
   useEffect(() => {
     let mounted = true;
-    axios.get("/api/blog").then((response) => {
+    axios.get("/api/blog").then(response => {
       if (mounted) {
         setPosts(response.data);
       }
@@ -33,10 +33,10 @@ function Blogs() {
   return (
     <Layout>
       <Helmet>
-        <title>Blogs - Chester React Personal Portfolio Template</title>
+        <title>Blogs - Bitlads Presentation Site</title>
         <meta
           name="description"
-          content="Chester React Personal Portfolio Template Blogs Page"
+          content="Bitlads Presentation Site Blogs Page"
         />
       </Helmet>
       <div className="mi-about mi-section mi-padding-top mi-padding-bottom">

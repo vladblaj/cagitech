@@ -12,33 +12,33 @@ function Home({ lightMode }) {
       number: {
         value: 160,
         density: {
-          enable: false,
-        },
+          enable: false
+        }
       },
       color: {
-        value: "#ffffff",
+        value: "#ffffff"
       },
       opacity: {
-        value: 0.1,
+        value: 0.1
       },
       size: {
         value: 5,
         random: true,
         anim: {
           speed: 4,
-          size_min: 0.3,
-        },
+          size_min: 0.3
+        }
       },
       line_linked: {
-        enable: false,
+        enable: false
       },
       move: {
         random: true,
         speed: 1,
         direction: "top",
-        out_mode: "out",
-      },
-    },
+        out_mode: "out"
+      }
+    }
   };
 
   const paramConfigLight = {
@@ -46,47 +46,44 @@ function Home({ lightMode }) {
       number: {
         value: 160,
         density: {
-          enable: false,
-        },
+          enable: false
+        }
       },
       color: {
-        value: "#000000",
+        value: "#000000"
       },
       opacity: {
-        value: 0.1,
+        value: 0.1
       },
       size: {
         value: 5,
         random: true,
         anim: {
           speed: 4,
-          size_min: 0.3,
-        },
+          size_min: 0.3
+        }
       },
       line_linked: {
-        enable: false,
+        enable: false
       },
       move: {
         random: true,
         speed: 1,
         direction: "top",
-        out_mode: "out",
-      },
-    },
+        out_mode: "out"
+      }
+    }
   };
   useEffect(() => {
-    axios.get("/api/information").then((response) => {
+    axios.get("/api/information").then(response => {
       setInformation(response.data);
     });
   }, []);
   return (
     <Layout>
       <Helmet>
-        <title>Home - Chester React Personal Portfolio Template</title>
-        <meta
-          name="description"
-          content="Chester React Personal Portfolio Template Homepage"
-        />
+        <title>Home - Bitlads Presentation Site</title>
+        <meta name="description" content="Bitlads Presentation Site Homepage" />
       </Helmet>
       <div className="mi-home-area mi-padding-section">
         <Particles
@@ -98,7 +95,7 @@ function Home({ lightMode }) {
             <div className="col-lg-10 col-12">
               <div className="mi-home-content">
                 <h1>
-                  Hi, welcome to {" "}
+                  Hi, welcome to{" "}
                   <span className="color-theme">{information.companyName}</span>
                 </h1>
                 <p>{information.aboutContent}</p>

@@ -1,5 +1,5 @@
 {
-  "name": "tf-react-chester",
+  "name": "tf-react-Bitlads",
   "version": "4.0.0",
   "dependencies": {
     "@popperjs/core": "^2.9.2",
@@ -25,7 +25,17 @@
     "react-slick": "^0.28.1",
     "shave": "^2.5.10",
     "slick-carousel": "^1.8.1",
-    "tsparticles": "^1.30.4"
+    "tsparticles": "^1.30.4",
+    "eslint": "^7.5.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.18.0",
+    "eslint-plugin-react-hooks": "^4.0.8",
+    "prettier": "^1.17.1",
+    "axios-mock-adapter": "^1.19.0",
+    "sparkpost": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -48,9 +58,9 @@
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
-    "axios-mock-adapter": "^1.19.0",
+
     "netlify-cli": "^4.1.14",
-    "netlify-lambda": "^2.0.11",
-    "sparkpost": "^2.1.4"
+    "netlify-lambda": "^2.0.11"
+
   }
 }
