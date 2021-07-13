@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import Particles from "react-particles-js";
 import Layout from "../components/Layout";
-import Socialicons from "../components/Socialicons";
 
 function Home({ lightMode }) {
   const [companyInformation, setCompanyInformation] = useState("");
@@ -101,7 +100,6 @@ function Home({ lightMode }) {
                   </span>
                 </h1>
                 <p>{companyInformation.aboutContent}</p>
-                <Socialicons bordered />
               </div>
             </div>
           </div>

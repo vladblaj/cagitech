@@ -22,7 +22,7 @@ const database = {
   },
   bitfoi_information: {
     name: "Bogdan Bitfoi",
-    age: 28,
+    age: "",
     phone: "",
     nationality: "Romanian",
     language: "Romanian, English, French",
@@ -32,10 +32,7 @@ const database = {
     aboutImage: "/images/about-image-bitfoi.png",
     aboutImageLg: "/images/about-image-bitfoi-lg.png",
     cvfile: "/files/BogdanBitfoi.pdf",
-    aboutMe:
-      " I am a frontend web developer. I can provide clean code and\n" +
-      "                pixel perfect design. I also make website more & more\n" +
-      "                interactive with web animations.",
+    aboutMe: "",
     skills: [
       {
         title: "Java",
@@ -43,7 +40,7 @@ const database = {
       },
       {
         title: "ReactJS",
-        value: 40
+        value: 20
       },
       {
         title: "Spring",
@@ -51,11 +48,11 @@ const database = {
       },
       {
         title: "Python",
-        value: 70
+        value: 40
       },
       {
         title: "Microsoft .NET",
-        value: 70
+        value: 40
       }
     ],
     experience: {
@@ -130,7 +127,7 @@ const database = {
   },
   blaj_information: {
     name: "Vlad Blaj",
-    age: 28,
+    age: "",
     phone: "",
     nationality: "Romanian",
     language: "Romanian, English, German",
@@ -148,7 +145,7 @@ const database = {
     skills: [
       {
         title: "Java",
-        value: 95
+        value: 90
       },
       {
         title: "ReactJS",
@@ -160,15 +157,15 @@ const database = {
       },
       {
         title: "Spring",
-        value: 90
+        value: 80
       },
       {
         title: "Python",
-        value: 60
+        value: 50
       },
       {
         title: "Redux",
-        value: 99
+        value: 95
       }
     ],
     experience: {
@@ -239,7 +236,7 @@ const database = {
       icon: "color-pallet",
       details:
         "We deliver highly scalable programs tailored for each customers use case. We can work with a handful of databases from relational to non relational." +
-        "We can make use of different event distributed streaming platforms and by following a strict code architecture we can create highly robust programs."
+        " We can make use of different event distributed streaming platforms and by following a strict code architecture we can create highly robust programs."
     },
     {
       title: "Web Development",
