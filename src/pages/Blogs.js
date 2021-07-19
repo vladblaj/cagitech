@@ -33,10 +33,10 @@ function Blogs() {
   return (
     <Layout>
       <Helmet>
-        <title>Blogs - Bitlads Presentation Site</title>
+        <title>Blogs - Bitlads</title>
         <meta
           name="description"
-          content="Bitlads Presentation Site Blogs Page"
+          content="Bitlads Blogs Page"
         />
       </Helmet>
       <div className="mi-about mi-section mi-padding-top mi-padding-bottom">

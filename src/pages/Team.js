@@ -31,10 +31,10 @@ function Team() {
   return (
     <Layout>
       <Helmet>
-        <title>Team - Bitlads Presentation Site</title>
+        <title>Team - Bitlads</title>
         <meta
           name="description"
-          content="Bitlads Presentation Site Resume Page"
+          content="Bitlads Resume Page"
         />
       </Helmet>
       <div className="mi-skills-area mi-section mi-padding-top">

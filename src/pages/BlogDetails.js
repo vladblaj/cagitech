@@ -30,10 +30,10 @@ function BlogDetails(props) {
   return (
     <Layout>
       <Helmet>
-        <title>Blog Details - Bitlads Presentation Site</title>
+        <title>Blog Details - Bitlads</title>
         <meta
           name="description"
-          content="Bitlads Presentation Site Blog Details Page"
+          content="Bitlads Blog Details Page"
         />
       </Helmet>
       <div className="mi-blog-details mi-section mi-padding-top mi-padding-bottom">

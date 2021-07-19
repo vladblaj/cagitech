@@ -81,8 +81,8 @@ function Home({ lightMode }) {
   return (
     <Layout>
       <Helmet>
-        <title>Home - Bitlads Presentation Site</title>
-        <meta name="description" content="Bitlads Presentation Site Homepage" />
+        <title>Home - Bitlads</title>
+        <meta name="description" content="Bitlads Homepage" />
       </Helmet>
       <div className="mi-home-area mi-padding-section">
         <Particles

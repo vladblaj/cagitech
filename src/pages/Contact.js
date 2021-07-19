@@ -80,10 +80,10 @@ function Contact() {
   return (
     <Layout>
       <Helmet>
-        <title>Contact - Bitlads Presentation Site</title>
+        <title>Contact - Bitlads</title>
         <meta
           name="description"
-          content="Bitlads Presentation Site Contact Page"
+          content="Bitlads Contact Page"
         />
       </Helmet>
       <div className="mi-contact-area mi-section mi-padding-top mi-padding-bottom">

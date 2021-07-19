@@ -7,10 +7,10 @@ function Notfound() {
   return (
     <Layout>
       <Helmet>
-        <title>404 - Bitlads Presentation Site</title>
+        <title>404 - Bitlads</title>
         <meta
           name="description"
-          content="Bitlads Presentation Site Not Found Page"
+          content="Bitlads Not Found Page"
         />
       </Helmet>
       <div className="mi-about-area mi-section">

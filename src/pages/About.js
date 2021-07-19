@@ -45,10 +45,10 @@ function About() {
   return (
     <Layout>
       <Helmet>
-        <title>About - Bitlads Presentation Site</title>
+        <title>About - Bitlads</title>
         <meta
           name="description"
-          content="Bitlads Presentation Site About Page"
+          content="Bitlads About Page"
         />
       </Helmet>
       <div className="mi-service-area mi-section mi-padding-top">

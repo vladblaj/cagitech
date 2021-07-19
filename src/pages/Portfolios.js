@@ -38,7 +38,7 @@ function Portfolios() {
       <Helmet>
         <meta
           name="description"
-          content="Bitlads Presentation Site Portfolios Page"
+          content="Bitlads Portfolios Page"
         />
       </Helmet>
       <div className="mi-about mi-section mi-padding-top mi-padding-bottom">
