@@ -131,14 +131,14 @@ const database = {
     phone: "",
     nationality: "Romanian",
     language: "Romanian, English, German",
-    email: "marcoblaj@gmail.com",
+    email: "vlad.blaj@bitladssoftware.com",
     address: "Cluj, Cluj-Napoca",
     freelanceStatus: "Available",
     aboutImage: "/images/about-image-vlad.jpg",
     aboutImageLg: "/images/about-image-vlad-lg.jpg",
     cvfile: "/files/VladBlajCV.pdf",
     aboutMe:
-      "Hi there, I'm Vlad Blaj - a passionate developer with over 5 years experience in web development and mobile development. " +
+      "Hi there, I'm Vlad Blaj - a passionate developer with over 6 years experience in web development and mobile development. " +
       "I knew at an early age I wanted to be part of this industry. " +
       "Since then I've been working on improving myself becoming more efficient in the things I do and I’m having a lot of fun along the way. " +
       "I am committed to the goals I set, well organized and I want to help you grow your business.",
@@ -175,28 +175,40 @@ const database = {
           year: "2019 - Present",
           position: "Full Stack Software Developer",
           company: "Aera Technology",
-          details:
-            "Aera is a Cognitive Operating System that connects you with your business and autonomously orchestrates your operations. " +
-            "It enables this by creating processes with drag and drop which transform to executable programs."
+          details: `Aera is a Cognitive Operating System that connects you with your business and autonomously
+orchestrates your operations. It enables this by creating processes with a drag and drop system
+which transform to executable programs. \n
+● Improved process throughput execution by 40% by creating a Scheduler capable of
+executing high amounts of tasks across multiple nodes spread across multiple time zones.\n
+● Optimized processes execution time by an average of 60% by creating a Java Profiler
+capable of analyzing and gathering data about different Aera Client Processes.\n
+Skills: Spring, React, Spring Boot, React, Typescript, Redux, Apache Cassandra, Kafka, Redis,
+Quartz, AWS, Microservices`
         },
         {
           id: 2,
           year: "2017 - 2019",
           position: "Software Developer",
           company: ".msg Systems",
-          details:
-            "Web and Mobile Application used by Hilti’s sales staff before, during and after customer visits to identify potential agreements and contact Hilti customers\n" +
-            "to evaluate and redefine existing agreements. Improved agreements process by creating and developing KPI’s for different sales and prices."
+          details: `Designed and developed a Web and Mobile Application used by Hilti’s sales staff before, during
+and after customer visits to identify potential agreements and contact Hilti customers to evaluate
+and redefine existing agreements.\n 
+● Increased KPIs target values by 30% by creating a KPI aggregator tool for different
+sales and prices.\n
+Skills: Java 8, Spring Boot, React, Hana Cloud Platform, Apache Olingo, SAP HANA, Junit, Mockito,
+JIRA, Bamboo, Flyway, Swagger, Hibernate, Microservices `
         },
         {
           id: 3,
           year: "2014 - 2017",
-          position: "Junior Software Developer",
+          position: "Software Developer",
           company: ".msg Systems",
-          details:
-            "Developed Java programs in the insurance industry using Java 8, Hibernate. " +
-            "Created Plugins using Liferay platform. Added Automated tests using Selenium. Performed data syncing between users in the Liferay environment using\n" +
-            "Javascript, AJAX and JQuery."
+          details: `The client needed a tool to view filter and process candidates for different hiring positions.
+Previously Excel sheets were used to aggregate and process candidates. I developed and
+optimized a React Application which can process large number of candidates.\n 
+● Increased the hiring speed process and the number of candidates which could be
+processed during a hiring period by 50%.\n
+Skills: Java, Spring, Hibernate, React, Liferay, Selenium, MySql `
         }
       ],
       educationExperience: [
@@ -205,8 +217,9 @@ const database = {
           year: "2015 - 2017",
           graduation: "Software engineering Masters Degree",
           university: "Babes Bolyai University, Cluj-Napoca",
-          details:
-            'Thesis: Improved "Detecting Energy Leak Bugs in Android Applications"'
+          details: `Thesis: Improved "Detecting Energy Leak Bugs in Android Applications"\n 
+          ● Optimized and increased the static analysis speed by more than 40%. \n 
+          Skills: Java, ANTLR, MySql`
         },
         {
           id: 2,
@@ -215,9 +228,10 @@ const database = {
             "Bachelor Degree, Computer Science English Specialization",
           university:
             "Babes Bolyai University, Faculty of Mathematics and Computer Science",
-          details:
-            "Thesis: Detecting Energy Leak Bugs in Android Applications. I developed a program using Java 1.8 which will detect and signal the presence of no-sleep-energy-bugs. " +
-            "It is a static analysis of the source code of an android project"
+          details: `Thesis: Detecting Energy Leak Bugs in Android Applications.\n
+I developed a program using Java 8 which will detect and signal the presence of no-sleep-energybugs (battery drain bugs). It is a static analysis of the source code of an android project.\n
+● Reduced battery usage for different Android Applications by more than 15%.\n
+Skills: ANTLR 4.5, IntelliJ Plugin Development API, Java`
         },
         {
           id: 3,
@@ -297,7 +311,10 @@ const database = {
   ],
   contactInfo: {
     phoneNumbers: ["+40-754-921-191", "+40-756-777-033"],
-    emailAddress: ["marcoblaj@gmail.com", "bogdan.bitfoi@gmail.com"],
+    emailAddress: [
+      "vlad.blaj@bitladssoftware.com",
+      "bogdan.bitfoi.dev@gmail.com"
+    ],
     address: "Cluj-Napoca, Cluj, Romania"
   }
 };
