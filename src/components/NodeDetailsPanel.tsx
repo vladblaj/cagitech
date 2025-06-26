@@ -1,53 +1,21 @@
-import React from 'react';
-import { Button } from './ui/button';
-import { Loader2, Lightbulb } from 'lucide-react';
-import { TargetIcon, DownloadIcon, UploadIcon, Cross2Icon } from '@radix-ui/react-icons';
-import { useLanguage } from '../contexts/LanguageContext';
-import { cn } from '../lib/utils';
+import React from "react";
+import { Button } from "./ui/button";
+import { Loader2 } from "lucide-react";
+import {
+  TargetIcon,
+  DownloadIcon,
+  UploadIcon,
+  Cross2Icon,
+} from "@radix-ui/react-icons";
+import { useLanguage } from "../contexts/LanguageContext";
+import { cn } from "../lib/utils";
 
 // Map node IDs to meaningful one-word labels
-const getNodeLabel = (nodeId: string, nodeType: string): string => {
-  const nodeLabels: { [key: string]: string } = {
-    // Workflow 1 - SEO Enhancement
-    'cron': 'Schedule',
-    'excel': 'Extract', 
-    'http': 'Fetch',
-    'openai': 'Analyze',
-    'slack': 'Notify',
-    
-    // Workflow 2 - Quote to Invoice
-    'webhook': 'Listen',
-    'set': 'Prepare',
-    'document': 'Generate',
-    'email': 'Send',
-    'excel-log': 'Archive',
-    
-    // Workflow 3 - Slack Bot
-    'slack-trigger': 'Listen',
-    'function': 'Query',
-    'openai-answer': 'Process',
-    'slack-post': 'Reply',
-    'excel-journal': 'Log',
-    
-    // Industry workflow fallbacks
-    'enrich-data': 'Enrich',
-    'upsert-crm': 'Update',
-    'slack-alert': 'Alert',
-    'generate-po': 'Generate',
-    'email-supplier': 'Send',
-    'notify-ops': 'Notify',
-    'parse-cv': 'Parse',
-    'create-candidate': 'Create',
-    'send-outreach': 'Outreach'
-  };
-
-  return nodeLabels[nodeId] || nodeType;
-};
 
 interface NodeData {
   id: string;
   title: string;
-  type: 'trigger' | 'action' | 'output';
+  type: "trigger" | "action" | "output";
   input?: any;
   output?: any;
   description?: string;
@@ -65,13 +33,13 @@ interface NodeDetailsPanelProps {
   className?: string;
 }
 
-export function NodeDetailsPanel({ 
-  node, 
-  isExecuting, 
-  isCompleted, 
-  isGeneratingOutput, 
+export function NodeDetailsPanel({
+  node,
+  isExecuting,
+  isCompleted,
+  isGeneratingOutput,
   onClose,
-  className 
+  className,
 }: NodeDetailsPanelProps) {
   const { t } = useLanguage();
 
@@ -94,8 +62,14 @@ export function NodeDetailsPanel({
           <div className="h-16 bg-eerie-black/10 dark:bg-timberwolf/10 rounded border-2 border-dashed border-eerie-black/20 dark:border-timberwolf/20 flex items-center justify-center">
             <div className="flex space-x-1">
               <div className="w-2 h-2 bg-eerie-black dark:bg-timberwolf rounded-full animate-bounce"></div>
-              <div className="w-2 h-2 bg-eerie-black dark:bg-timberwolf rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-              <div className="w-2 h-2 bg-eerie-black dark:bg-timberwolf rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+              <div
+                className="w-2 h-2 bg-eerie-black dark:bg-timberwolf rounded-full animate-bounce"
+                style={{ animationDelay: "0.1s" }}
+              ></div>
+              <div
+                className="w-2 h-2 bg-eerie-black dark:bg-timberwolf rounded-full animate-bounce"
+                style={{ animationDelay: "0.2s" }}
+              ></div>
             </div>
           </div>
         </div>
@@ -105,10 +79,9 @@ export function NodeDetailsPanel({
     if (isCompleted && node.output) {
       return (
         <pre className="text-xs font-mono text-eerie-black dark:text-timberwolf overflow-x-auto whitespace-pre-wrap leading-relaxed animate-slide-down">
-          {typeof node.output === 'string' 
-            ? node.output 
-            : JSON.stringify(node.output, null, 2)
-          }
+          {typeof node.output === "string"
+            ? node.output
+            : JSON.stringify(node.output, null, 2)}
         </pre>
       );
     }
@@ -156,7 +129,7 @@ export function NodeDetailsPanel({
                 </p>
               )}
             </div>
-            
+
             {/* Close button - Hide during execution */}
             {!isExecuting && (
               <Button
@@ -179,67 +152,76 @@ export function NodeDetailsPanel({
               {node.businessDescription}
             </p>
           </div>
-          
+
           {/* Why It Matters */}
           <div>
             <h5 className="font-mono font-semibold text-eerie-black dark:text-aureolin mb-3 flex items-center gap-2">
               <TargetIcon className="w-4 h-4" />
-              {t('whyItMatters')}
+              {t("whyItMatters")}
             </h5>
             <p className="text-jet dark:text-timberwolf font-mono text-sm leading-relaxed">
               {node.whyItMatters}
             </p>
           </div>
-          
+
           {/* Input/Output Grid */}
           <div className="grid grid-cols-1 gap-6">
             {/* Input Section */}
             {node.input && (
-              <div className={cn(
-                "rounded-lg p-4 border transition-all duration-300",
-                isExecuting 
-                  ? "bg-aureolin/30 border-aureolin animate-pulse" 
-                  : "bg-timberwolf/50 dark:bg-jet/50 border-timberwolf dark:border-jet"
-              )}>
-                <h6 className={cn(
-                  "font-mono text-xs font-semibold mb-3 flex items-center gap-2 transition-all duration-300",
-                  isExecuting 
-                    ? "text-eerie-black" 
-                    : "text-jet dark:text-timberwolf"
-                )}>
+              <div
+                className={cn(
+                  "rounded-lg p-4 border transition-all duration-300",
+                  isExecuting
+                    ? "bg-aureolin/30 border-aureolin animate-pulse"
+                    : "bg-timberwolf/50 dark:bg-jet/50 border-timberwolf dark:border-jet"
+                )}
+              >
+                <h6
+                  className={cn(
+                    "font-mono text-xs font-semibold mb-3 flex items-center gap-2 transition-all duration-300",
+                    isExecuting
+                      ? "text-eerie-black"
+                      : "text-jet dark:text-timberwolf"
+                  )}
+                >
                   <DownloadIcon className="w-3 h-3" />
-                  {t('demoInput')}
+                  {t("demoInput")}
                   {isExecuting && (
                     <span className="text-xs bg-eerie-black text-aureolin px-2 py-1 rounded-full animate-pulse">
                       PROCESSING
                     </span>
                   )}
                 </h6>
-                <pre className={cn(
-                  "text-xs font-mono overflow-x-auto whitespace-pre-wrap leading-relaxed transition-all duration-300",
-                  isExecuting 
-                    ? "text-eerie-black" 
-                    : "text-eerie-black dark:text-timberwolf"
-                )}>
-                  {typeof node.input === 'string' 
-                    ? node.input 
-                    : JSON.stringify(node.input, null, 2)
-                  }
+                <pre
+                  className={cn(
+                    "text-xs font-mono overflow-x-auto whitespace-pre-wrap leading-relaxed transition-all duration-300",
+                    isExecuting
+                      ? "text-eerie-black"
+                      : "text-eerie-black dark:text-timberwolf"
+                  )}
+                >
+                  {typeof node.input === "string"
+                    ? node.input
+                    : JSON.stringify(node.input, null, 2)}
                 </pre>
               </div>
             )}
-            
+
             {/* Output Section */}
-            <div className={cn(
-              "rounded-lg p-4 border transition-all duration-500",
-              getOutputSectionStyles()
-            )}>
-              <h6 className={cn(
-                "font-mono text-xs font-semibold mb-3 flex items-center gap-2 transition-all duration-300",
-                getOutputHeaderStyles()
-              )}>
+            <div
+              className={cn(
+                "rounded-lg p-4 border transition-all duration-500",
+                getOutputSectionStyles()
+              )}
+            >
+              <h6
+                className={cn(
+                  "font-mono text-xs font-semibold mb-3 flex items-center gap-2 transition-all duration-300",
+                  getOutputHeaderStyles()
+                )}
+              >
                 <UploadIcon className="w-3 h-3" />
-                {t('demoOutput')}
+                {t("demoOutput")}
                 {isExecuting && isGeneratingOutput && (
                   <span className="text-xs bg-eerie-black text-jonquil px-2 py-1 rounded-full animate-pulse flex items-center gap-1">
                     <Loader2 className="w-3 h-3 animate-spin" />
@@ -247,7 +229,7 @@ export function NodeDetailsPanel({
                   </span>
                 )}
               </h6>
-              
+
               {/* Output Content */}
               {renderOutputSection()}
             </div>
