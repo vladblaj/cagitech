@@ -31,6 +31,15 @@ export function WorkflowNode({
   className 
 }: WorkflowNodeProps) {
   const getNodeStyles = () => {
+    // Executing state takes priority - pulse the existing border
+    if (isExecuting) {
+      return {
+        bg: "bg-gradient-to-br from-aureolin/30 to-jonquil/20 dark:from-aureolin/20 dark:to-jonquil/10",
+        border: "border-jonquil",
+        text: "text-eerie-black dark:text-timberwolf"
+      };
+    }
+    
     // Selected state takes priority for visual feedback
     if (isSelected) {
       return {
@@ -63,15 +72,9 @@ export function WorkflowNode({
 
   const nodeStyles = getNodeStyles();
 
-  // Determine ring styles - avoid double borders by prioritizing execution state
+  // Determine ring styles - only for selected and completed states
   const getRingStyles = () => {
-    if (isExecuting) {
-      return "ring-4 ring-jonquil/50 ring-offset-2";
-    }
-    if (isSelected) {
-      return "ring-4 ring-jonquil ring-offset-2 shadow-2xl scale-105";
-    }
-    if (isCompleted) {
+    if (isCompleted && !isExecuting) {
       return "ring-2 ring-aureolin/70";
     }
     return "";
@@ -79,20 +82,10 @@ export function WorkflowNode({
 
   // Get animation styles - separate from border/ring styles
   const getAnimationStyles = () => {
-    if (isExecuting) {
-      return "animate-pulse"; // Use simple pulse instead of animate-pulse-yellow
-    }
     return "";
   };
 
   const getStatusIndicator = () => {
-    if (isExecuting) {
-      return (
-        <div className="absolute -top-2 -right-2 w-6 h-6 bg-jonquil rounded-full flex items-center justify-center animate-pulse">
-          <Clock className="w-3 h-3 text-eerie-black animate-spin" />
-        </div>
-      );
-    }
     if (isCompleted) {
       return (
         <div className="absolute -top-2 -right-2 w-6 h-6 bg-aureolin rounded-full flex items-center justify-center">
@@ -108,12 +101,11 @@ export function WorkflowNode({
       onClick={onClick}
       className={cn(
         "relative group cursor-pointer transition-all duration-300 transform hover:scale-105",
-        "rounded-xl border-2 shadow-lg hover:shadow-xl",
-        "w-full", // Ensure consistent width
+        "rounded-xl border-2 shadow-lg hover:shadow-xl w-full",
         nodeStyles.bg,
         nodeStyles.border,
-        getRingStyles(), // Use the consolidated ring styles
-        getAnimationStyles(), // Separate animation styles
+        getRingStyles(),
+        getAnimationStyles(),
         className
       )}
     >
@@ -133,7 +125,7 @@ export function WorkflowNode({
         <div className="flex items-center justify-between mb-3">
           <div className={cn(
             "w-8 h-8 rounded-lg flex items-center justify-center font-bold transition-all duration-300",
-            isSelected ? "bg-jonquil shadow-lg" : "bg-jonquil"
+            isSelected ? "bg-jonquil shadow-lg text-black" : "bg-jonquil text-black"
           )}>
             {node.icon}
           </div>

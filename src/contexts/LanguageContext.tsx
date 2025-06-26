@@ -299,8 +299,8 @@ const translations = {
     contactMessage: "Spune-ne care sunt obiectivele tale de automatizare",
     contactSubmit: "Trimite mesajul",
     contactInfo: "Date de contact",
-    contactPhoneNumber: "+40 (21) 123-4567",
-    contactEmailAddress: "salut@bitladssoftware.com",
+    contactPhoneNumber: "+40 (75) 492-1191",
+    contactEmailAddress: "vlad.blaj@bitladssoftware.com",
     contactHours: "Program: Luni-Vineri, 09:00-18:00 EET",
     backToHome: "Înapoi la Pagina Principală",
 
@@ -334,7 +334,7 @@ const translations = {
     w1n1Title: "Declanșator Programat",
     w1n1Description: "Rulează zilnic la ora 03:00",
     w1n1BusinessDescription:
-      "O alarmă zilnică pentru afacerea ta-pornește procesul în afara orelor de vârf",
+      "O alertă zilnică pentru afacere – declanșează procesele în afara orelor aglomerate.",
     w1n1Input: "Temporizator setat pentru 03:00 în fiecare zi",
     w1n1Output: "Flux pornit ✓",
     w1n1WhyItMatters:
@@ -349,7 +349,7 @@ const translations = {
     w1n2Output:
       "25 de produse identificate pentru optimizare SEO:\n• ABC-123: Căști wireless\n• DEF-456: Boxă Bluetooth\n• GHI-789: Husă telefon",
     w1n2WhyItMatters:
-      "Echipa poate continua să folosească Excel; fluxul sincronizează datele în fundal.",
+      "Echipa își poate păstra lucrul în Excel, în timp ce datele sunt sincronizate automat în fundal.",
 
     w1n3Title: "Colectează Date despre Concurență",
     w1n3Description: "Adună prețuri și descrieri de pe site-urile concurenților",
@@ -359,7 +359,7 @@ const translations = {
     w1n3Output:
       'Informații concurență:\n• Preț: 39,99 $ (noi 35,99 $)\n• Descriere: "Căști wireless premium cu baterie de 8 ore"\n• Caracteristici: Bluetooth 5.2, Anulare zgomot',
     w1n3WhyItMatters:
-      "Oferă vizibilitate în timp real asupra poziționării competiției-muncă ce necesita înainte ore întregi.",
+      "Acces imediat la datele despre competiție – fără ore pierdute pe analiză manuală.",
 
     w1n4Title: "Copywriter AI",
     w1n4Description: "Generează descrieri SEO și evidențiază lacunele",

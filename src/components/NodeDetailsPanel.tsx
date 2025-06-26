@@ -107,30 +107,18 @@ export function NodeDetailsPanel({
         <div className="space-y-6">
           {/* Header */}
           <div className="flex items-center justify-between pb-4 border-b border-timberwolf dark:border-jet">
-            <div className="flex items-center gap-3">
-              <div className={cn(
-                "w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300",
-                isExecuting ? "bg-aureolin animate-pulse" : "bg-jonquil"
+            <div>
+              <h4 className="font-mono font-bold text-lg text-eerie-black dark:text-aureolin">
+                {node.title}
+              </h4>
+              <p className={cn(
+                "text-xs uppercase tracking-wide font-mono transition-all duration-300",
+                isExecuting 
+                  ? "text-aureolin animate-pulse" 
+                  : "text-jet dark:text-timberwolf"
               )}>
-                {isExecuting ? (
-                  <Loader2 className="w-5 h-5 text-eerie-black animate-spin" />
-                ) : (
-                  node.icon
-                )}
-              </div>
-              <div>
-                <h4 className="font-mono font-bold text-lg text-eerie-black dark:text-aureolin">
-                  {node.title}
-                </h4>
-                <p className={cn(
-                  "text-xs uppercase tracking-wide font-mono transition-all duration-300",
-                  isExecuting 
-                    ? "text-aureolin animate-pulse" 
-                    : "text-jet dark:text-timberwolf"
-                )}>
-                  {isExecuting ? "EXECUTING..." : node.type}
-                </p>
-              </div>
+                {isExecuting ? "EXECUTING..." : node.type}
+              </p>
             </div>
             
             {/* Close button - Hide during execution */}
@@ -148,8 +136,7 @@ export function NodeDetailsPanel({
 
           {/* Business Description */}
           <div>
-            <h5 className="font-mono font-semibold text-eerie-black dark:text-aureolin mb-3 flex items-center gap-2">
-              <Lightbulb className="w-4 h-4" />
+            <h5 className="font-mono font-semibold text-eerie-black dark:text-aureolin mb-3">
               What this step does (in simple terms)
             </h5>
             <p className="text-jet dark:text-timberwolf font-mono text-sm leading-relaxed bg-aureolin/20 dark:bg-jonquil/10 p-4 rounded-lg border border-aureolin/30">
