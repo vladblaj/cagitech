@@ -1,13 +1,320 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap');
+
+@theme {
+  /* Custom color palette */
+  --color-timberwolf: #d6d6d6;
+  --color-aureolin: #ffee32;
+  --color-jonquil: #ffd100;
+  --color-eerie-black: #202020;
+  --color-jet: #333533;
+
+  /* Font families */
+  --font-family-sans: 'Inter', system-ui, sans-serif;
+  --font-family-mono: 'JetBrains Mono', Consolas, Monaco, monospace;
+
+  /* Spacing system */
+  --spacing-0: 0;
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-10: 2.5rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+  --spacing-20: 5rem;
+  --spacing-24: 6rem;
+  --spacing-32: 8rem;
+  --spacing-40: 10rem;
+  --spacing-48: 12rem;
+  --spacing-56: 14rem;
+  --spacing-64: 16rem;
+
+  /* Border radius */
+  --radius: 0.5rem;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+
+  /* Animation durations */
+  --animate-duration-75: 75ms;
+  --animate-duration-100: 100ms;
+  --animate-duration-150: 150ms;
+  --animate-duration-200: 200ms;
+  --animate-duration-300: 300ms;
+  --animate-duration-500: 500ms;
+  --animate-duration-700: 700ms;
+  --animate-duration-1000: 1000ms;
+
+  /* Custom animations */
+  --animate-terminal-cursor: terminal-cursor 1s infinite;
+  --animate-data-flow: data-flow 1.5s ease-in-out infinite;
+  --animate-data-flow-vertical: data-flow-vertical 1.5s ease-in-out infinite;
+  --animate-pulse-yellow: pulse-yellow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-slide-down: slide-down 0.4s ease-out;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 12.5%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 12.5%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 12.5%;
+    --primary: 51 100% 59%;
+    --primary-foreground: 0 0% 12.5%;
+    --secondary: 0 0% 84%;
+    --secondary-foreground: 0 0% 12.5%;
+    --muted: 0 0% 84%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 51 100% 50%;
+    --accent-foreground: 0 0% 12.5%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 84%;
+    --input: 0 0% 84%;
+    --ring: 51 100% 59%;
+  }
+  
+  .dark {
+    --background: 0 0% 12.5%;
+    --foreground: 0 0% 84%;
+    --card: 0 0% 12.5%;
+    --card-foreground: 0 0% 84%;
+    --popover: 0 0% 12.5%;
+    --popover-foreground: 0 0% 84%;
+    --primary: 51 100% 59%;
+    --primary-foreground: 0 0% 12.5%;
+    --secondary: 0 0% 20%;
+    --secondary-foreground: 0 0% 84%;
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 51 100% 50%;
+    --accent-foreground: 0 0% 84%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 51 100% 59%;
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+  
+  html {
+    font-family: var(--font-family-sans);
+    scroll-behavior: smooth;
+    /* Smooth theme transitions */
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-feature-settings: "rlig" 1, "calt" 1;
+    /* Smooth theme transitions */
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .font-mono {
+    font-family: var(--font-family-mono) !important;
+    font-feature-settings: "liga" 0, "calt" 1;
+  }
+
+  /* Smooth transitions for all themed elements */
+  * {
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      transition-duration: 0ms !important;
+      animation-duration: 0ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Terminal-style animations */
+  .animate-terminal-cursor {
+    animation: var(--animate-terminal-cursor);
+  }
+  
+  @keyframes terminal-cursor {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+  
+  /* Horizontal data flow animation */
+  .animate-data-flow {
+    animation: var(--animate-data-flow);
+  }
+  
+  @keyframes data-flow {
+    0% { 
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    80% {
+      opacity: 1;
+    }
+    100% { 
+      transform: translateX(400%);
+      opacity: 0;
+    }
+  }
+
+  /* Vertical data flow animation */
+  .animate-data-flow-vertical {
+    animation: var(--animate-data-flow-vertical);
+  }
+  
+  @keyframes data-flow-vertical {
+    0% { 
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    80% {
+      opacity: 1;
+    }
+    100% { 
+      transform: translateY(400%);
+      opacity: 0;
+    }
+  }
+
+  /* Enhanced pulse animation for active nodes */
+  .animate-pulse-yellow {
+    animation: var(--animate-pulse-yellow);
+  }
+  
+  @keyframes pulse-yellow {
+    0%, 100% {
+      opacity: 1;
+      box-shadow: 0 0 0 0 rgba(255, 238, 50, 0.7);
+    }
+    50% {
+      opacity: 0.9;
+      box-shadow: 0 0 0 15px rgba(255, 238, 50, 0);
+    }
+  }
+
+  /* Slide down animation for details */
+  .animate-slide-down {
+    animation: var(--animate-slide-down);
+  }
+  
+  @keyframes slide-down {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Graph connection line glow effect */
+  .connection-glow {
+    filter: drop-shadow(0 0 4px rgba(255, 238, 50, 0.6));
+  }
+
+  /* Theme transition classes */
+  .theme-transition {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+}
+
+/* Custom scrollbar with theme-aware colors */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-jonquil);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-aureolin);
+}
+
+/* Dark theme scrollbar adjustments */
+.dark ::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+/* Selection styling with theme awareness */
+::selection {
+  background: var(--color-jonquil);
+  color: var(--color-eerie-black);
+}
+
+.dark ::selection {
+  background: var(--color-aureolin);
+  color: var(--color-eerie-black);
+}
+
+/* Graph container scrollbar styling */
+.graph-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.graph-container::-webkit-scrollbar-track {
+  background: hsl(var(--muted) / 0.3);
+  border-radius: 3px;
+}
+
+.graph-container::-webkit-scrollbar-thumb {
+  background: var(--color-jonquil);
+  border-radius: 3px;
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-jonquil);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --color-jonquil: #ffdd00;
+    --color-aureolin: #fff000;
+  }
+  
+  .dark {
+    --color-jonquil: #ffee00;
+    --color-aureolin: #ffff00;
+  }
 }

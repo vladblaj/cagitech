@@ -1,68 +1,206 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# BitLads Software
 
-## Available Scripts
+A modern, responsive website showcasing intelligent workflow automation solutions built with React, TypeScript, and Tailwind CSS.
 
-In the project directory, you can run:
+## 🚀 Features
 
-### `npm start`
+- **Interactive Workflow Demos** - Step-by-step automation demonstrations
+- **Multi-language Support** - English and Romanian translations
+- **Responsive Design** - Optimized for all devices
+- **Contact Form** - Integrated with SparkPost email service
+- **SEO Optimized** - Comprehensive meta tags and structured data
+- **Performance Optimized** - Code splitting and asset optimization
+- **Accessibility** - WCAG compliant design
+- **Dark Mode Support** - Theme-aware components
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 🛠️ Tech Stack
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+- **Frontend**: React 18, TypeScript, Vite
+- **Styling**: Tailwind CSS v4, Radix UI components
+- **Icons**: Lucide React
+- **Email**: SparkPost API via Netlify Functions
+- **Deployment**: Netlify with automatic deployments
 
-### `npm test`
+## 📦 Installation
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd bitlads-software-site
+```
 
-### `npm run build`
+2. Install dependencies:
+```bash
+npm install
+```
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. Set up environment variables:
+```bash
+cp .env.example .env
+# Edit .env with your actual values
+```
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+4. Start the development server:
+```bash
+npm run dev
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🌐 Deployment
 
-### `npm run eject`
+### Netlify Deployment
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. **Connect Repository**: Link your GitHub repository to Netlify
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. **Build Settings**:
+   - Build command: `npm run build`
+   - Publish directory: `dist`
+   - Node version: `18`
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+3. **Environment Variables**:
+   Set the following in Netlify dashboard:
+   ```
+   REACT_APP_SPARKPOST=your_sparkpost_api_key
+   ```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+4. **Deploy**: Netlify will automatically deploy on every push to main branch
 
-## Learn More
+### Manual Deployment
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+# Build the project
+npm run build
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Deploy the dist folder to your hosting provider
+```
 
-### Code Splitting
+## 📧 Email Configuration
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+The contact form uses SparkPost for email delivery via Netlify Functions.
 
-### Analyzing the Bundle Size
+1. **Get SparkPost API Key**:
+   - Sign up at [SparkPost](https://www.sparkpost.com/)
+   - Create an API key with transmission permissions
+   - Verify your sending domain
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+2. **Configure Environment**:
+   ```bash
+   REACT_APP_SPARKPOST=your_api_key_here
+   ```
 
-### Making a Progressive Web App
+3. **Update Email Settings**:
+   Edit `functions/send-email.js` to customize:
+   - Sender email address
+   - Recipient email address
+   - Email template
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+## 🎨 Customization
 
-### Advanced Configuration
+### Colors
+The site uses a custom color palette defined in `src/index.css`:
+- **Primary**: Jonquil (#ffd100)
+- **Secondary**: Aureolin (#ffee32)
+- **Neutral**: Timberwolf (#d6d6d6)
+- **Dark**: Eerie Black (#202020)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+### Content
+- **Translations**: Edit `src/contexts/LanguageContext.tsx`
+- **Workflows**: Modify workflow data in `src/pages/HomePage.tsx`
+- **SEO**: Update meta tags in `src/components/SEOHead.tsx`
 
-### Deployment
+### Styling
+- **Components**: Styled with Tailwind CSS classes
+- **Themes**: Dark/light mode support built-in
+- **Responsive**: Mobile-first design approach
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+## 🔧 Development
 
-### `npm run build` fails to minify
+### Available Scripts
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+
+### Project Structure
+
+```
+src/
+├── components/          # Reusable UI components
+│   ├── ui/             # Base UI components (buttons, cards, etc.)
+│   ├── ContactForm.tsx # Contact form with validation
+│   ├── WorkflowDemo.tsx # Interactive workflow demonstrations
+│   └── ...
+├── contexts/           # React contexts (language, theme)
+├── hooks/              # Custom React hooks
+├── pages/              # Page components
+├── lib/                # Utility functions
+└── index.css          # Global styles and Tailwind config
+
+functions/              # Netlify serverless functions
+├── send-email.js      # Contact form email handler
+└── package.json       # Function dependencies
+
+public/                 # Static assets
+├── robots.txt         # SEO robots file
+├── sitemap.xml        # SEO sitemap
+└── site.webmanifest   # PWA manifest
+```
+
+## 🚀 Performance
+
+The site is optimized for performance with:
+
+- **Code Splitting**: Automatic chunk splitting for faster loading
+- **Asset Optimization**: Minified CSS/JS, optimized images
+- **Caching**: Long-term caching for static assets
+- **Lazy Loading**: Components loaded on demand
+- **Tree Shaking**: Unused code elimination
+
+## 🔒 Security
+
+Security features include:
+
+- **CSP Headers**: Content Security Policy protection
+- **HTTPS Only**: Secure connections enforced
+- **Input Validation**: Form validation and sanitization
+- **Rate Limiting**: API endpoint protection
+- **Secure Headers**: XSS, clickjacking protection
+
+## 📱 Browser Support
+
+- **Modern Browsers**: Chrome, Firefox, Safari, Edge (latest 2 versions)
+- **Mobile**: iOS Safari, Chrome Mobile
+- **Progressive Enhancement**: Graceful degradation for older browsers
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/new-feature`
+3. Commit changes: `git commit -am 'Add new feature'`
+4. Push to branch: `git push origin feature/new-feature`
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🆘 Support
+
+For support and questions:
+
+- **Email**: hello@bitladssoftware.com
+- **Documentation**: Check this README and code comments
+- **Issues**: Create a GitHub issue for bugs or feature requests
+
+## 🔄 Updates
+
+The site is regularly updated with:
+
+- **Security patches**: Dependencies kept up-to-date
+- **Performance improvements**: Ongoing optimization
+- **Feature enhancements**: Based on user feedback
+- **Content updates**: Fresh examples and use cases
+
+---
+
+Built with ❤️ using modern web technologies for optimal performance and user experience.

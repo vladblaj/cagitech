@@ -1,0 +1,20 @@
+{
+  "name": "bitlads-software-functions",
+  "version": "1.0.0",
+  "description": "Serverless functions for BitLads Software website",
+  "main": "send-email.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "sparkpost": "^2.1.4"
+  },
+  "keywords": [
+    "serverless",
+    "email",
+    "sparkpost",
+    "contact-form"
+  ],
+  "author": "BitLads Software",
+  "license": "MIT"
+}
