@@ -1,5 +1,5 @@
 import { cn } from '../lib/utils';
-import { Clock, CheckCircle } from 'lucide-react';
+import { CheckCircle } from "lucide-react";
 import { InfoCircledIcon } from '@radix-ui/react-icons';
 
 // Map node IDs to meaningful one-word labels
