@@ -488,7 +488,7 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-white dark:bg-eerie-black">
+    <div className="min-h-screen bg-eerie-black">
       <SEOHead
         title={
           language === "en"
@@ -516,7 +516,7 @@ export default function HomePage() {
               <div className="w-8 h-8 bg-jonquil rounded-lg flex items-center justify-center">
                 <Zap className="w-4 h-4 text-eerie-black" />
               </div>
-              <span className="text-xl font-bold font-mono text-eerie-black dark:text-timberwolf">
+              <span className="text-xl font-bold font-mono text-timberwolf">
                 BitLads Software
               </span>
             </div>
@@ -524,7 +524,7 @@ export default function HomePage() {
           </div>
 
           <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-eerie-black dark:text-timberwolf">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-timberwolf">
               {t("title")}
             </h1>
             <p className="text-lg text-jet dark:text-timberwolf mb-8 font-mono">
@@ -571,7 +571,7 @@ export default function HomePage() {
       {/* Industry Automation Examples Section */}
       <section className="max-w-6xl mx-auto px-6 py-20">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold mb-6 text-eerie-black dark:text-timberwolf">
+          <h2 className="text-3xl font-bold mb-6 text-timberwolf">
             {t("industryTitle")}
           </h2>
           <p className="text-lg text-jet dark:text-timberwolf font-mono max-w-3xl mx-auto">
@@ -581,9 +581,9 @@ export default function HomePage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           {/* Digital Marketing Manager */}
-          <Card className="p-8 bg-white dark:bg-eerie-black border border-timberwolf dark:border-jet hover:border-jonquil transition-all duration-300 hover:shadow-xl">
+          <Card className="p-8 bg-eerie-black border border-timberwolf hover:border-jonquil transition-all duration-300 hover:shadow-xl">
             <div className="mb-6">
-              <h3 className="text-lg font-bold text-eerie-black dark:text-timberwolf font-mono">
+              <h3 className="text-lg font-bold text-timberwolf font-mono">
                 {t("marketingTitle")}
               </h3>
               <p className="text-sm text-jet dark:text-timberwolf font-mono opacity-75">
@@ -599,9 +599,9 @@ export default function HomePage() {
           </Card>
 
           {/* E-commerce Store Owner */}
-          <Card className="p-8 bg-white dark:bg-eerie-black border border-timberwolf dark:border-jet hover:border-jonquil transition-all duration-300 hover:shadow-xl">
+          <Card className="p-8 bg-eerie-black border border-timberwolf hover:border-jonquil transition-all duration-300 hover:shadow-xl">
             <div className="mb-6">
-              <h3 className="text-lg font-bold text-eerie-black dark:text-timberwolf font-mono">
+              <h3 className="text-lg font-bold text-timberwolf font-mono">
                 {t("ecommerceTitle")}
               </h3>
               <p className="text-sm text-jet dark:text-timberwolf font-mono opacity-75">
@@ -617,9 +617,9 @@ export default function HomePage() {
           </Card>
 
           {/* Recruiter */}
-          <Card className="p-8 bg-white dark:bg-eerie-black border border-timberwolf dark:border-jet hover:border-jonquil transition-all duration-300 hover:shadow-xl">
+          <Card className="p-8 bg-eerie-black border border-timberwolf hover:border-jonquil transition-all duration-300 hover:shadow-xl">
             <div className="mb-6">
-              <h3 className="text-lg font-bold text-eerie-black dark:text-timberwolf font-mono">
+              <h3 className="text-lg font-bold text-timberwolf font-mono">
                 {t("recruitingTitle")}
               </h3>
               <p className="text-sm text-jet dark:text-timberwolf font-mono opacity-75">
@@ -646,7 +646,7 @@ export default function HomePage() {
             {/* Always visible popular integrations */}
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h3 className="text-lg font-bold text-eerie-black dark:text-timberwolf font-mono mb-1">
+                <h3 className="text-lg font-bold text-timberwolf font-mono mb-1">
                   {t("integrationsTitle")}
                 </h3>
                 <p className="text-sm text-jet dark:text-timberwolf font-mono opacity-75">
@@ -660,12 +660,12 @@ export default function HomePage() {
               {popularIntegrations.map((integration, index) => (
                 <div
                   key={index}
-                  className="flex items-center gap-2 bg-white dark:bg-eerie-black border border-timberwolf dark:border-jet rounded-lg px-4 py-3 hover:border-jonquil transition-colors"
+                  className="flex items-center gap-2 bg-eerie-black border border-timberwolf rounded-lg px-4 py-3 hover:border-jonquil transition-colors"
                 >
                   <div className="text-jet dark:text-timberwolf">
                     {integration.icon}
                   </div>
-                  <span className="text-sm font-mono text-eerie-black dark:text-timberwolf">
+                  <span className="text-sm font-mono text-timberwolf">
                     {integration.name}
                   </span>
                 </div>
@@ -693,14 +693,14 @@ export default function HomePage() {
                 {allIntegrations.map((integration, index) => (
                   <div
                     key={index}
-                    className="group bg-white dark:bg-eerie-black border border-timberwolf dark:border-jet rounded-lg p-4 hover:border-jonquil transition-all duration-200 hover:shadow-md"
+                    className="group bg-eerie-black border border-timberwolf rounded-lg p-4 hover:border-jonquil transition-all duration-200 hover:shadow-md"
                   >
                     <div className="flex items-center gap-2">
                       <div className="text-jet dark:text-timberwolf group-hover:text-jonquil transition-colors">
                         {integration.icon}
                       </div>
                       <div className="min-w-0 flex-1">
-                        <h4 className="text-xs font-mono font-semibold text-eerie-black dark:text-timberwolf truncate">
+                        <h4 className="text-xs font-mono font-semibold text-timberwolf truncate">
                           {integration.name}
                         </h4>
                         <span className="text-xs font-mono text-jet dark:text-timberwolf opacity-60">
@@ -725,7 +725,7 @@ export default function HomePage() {
       {/* Workflows Section - Hidden on mobile (md and below) */}
       <section className="hidden lg:block max-w-6xl mx-auto px-6 py-20">
         <div className="mb-16">
-          <h2 className="text-3xl font-bold mb-4 text-eerie-black dark:text-timberwolf">
+          <h2 className="text-3xl font-bold mb-4 text-timberwolf">
             {t("workflows")}
           </h2>
           <p className="text-lg text-jet dark:text-timberwolf font-mono">
@@ -747,7 +747,7 @@ export default function HomePage() {
             <div className="w-6 h-6 bg-jonquil rounded-lg flex items-center justify-center">
               <Zap className="w-3 h-3 text-eerie-black" />
             </div>
-            <span className="text-lg font-bold font-mono text-eerie-black dark:text-timberwolf">
+            <span className="text-lg font-bold font-mono text-timberwolf">
               BitLads Software
             </span>
           </div>

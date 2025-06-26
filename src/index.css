@@ -68,6 +68,7 @@
 }
 
 @layer base {
+  /* Light mode */
   :root {
     --background: 0 0% 100%;
     --foreground: 0 0% 12.5%;
@@ -90,6 +91,7 @@
     --ring: 51 100% 59%;
   }
   
+  /* Dark mode (default) */
   .dark {
     --background: 0 0% 12.5%;
     --foreground: 0 0% 84%;
@@ -119,16 +121,12 @@
   html {
     font-family: var(--font-family-sans);
     scroll-behavior: smooth;
-    /* Smooth theme transitions */
-    transition: background-color 0.3s ease, color 0.3s ease;
   }
   
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
     font-feature-settings: "rlig" 1, "calt" 1;
-    /* Smooth theme transitions */
-    transition: background-color 0.3s ease, color 0.3s ease;
   }
   
   .font-mono {
@@ -136,7 +134,7 @@
     font-feature-settings: "liga" 0, "calt" 1;
   }
 
-  /* Smooth transitions for all themed elements */
+  /* Smooth transitions for themed elements */
   * {
     transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -243,11 +241,6 @@
   .connection-glow {
     filter: drop-shadow(0 0 4px rgba(255, 238, 50, 0.6));
   }
-
-  /* Theme transition classes */
-  .theme-transition {
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-  }
 }
 
 /* Custom scrollbar with theme-aware colors */
@@ -257,7 +250,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: hsl(var(--muted));
+  background: #333533;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -269,19 +262,14 @@
   background: var(--color-aureolin);
 }
 
-/* Dark theme scrollbar adjustments */
-.dark ::-webkit-scrollbar-track {
-  background: hsl(var(--muted));
+/* Light theme scrollbar adjustments */
+:root:not(.dark) ::-webkit-scrollbar-track {
+  background: #d6d6d6;
 }
 
 /* Selection styling with theme awareness */
 ::selection {
   background: var(--color-jonquil);
-  color: var(--color-eerie-black);
-}
-
-.dark ::selection {
-  background: var(--color-aureolin);
   color: var(--color-eerie-black);
 }
 
@@ -291,7 +279,7 @@
 }
 
 .graph-container::-webkit-scrollbar-track {
-  background: hsl(var(--muted) / 0.3);
+  background: rgba(214, 214, 214, 0.3);
   border-radius: 3px;
 }
 
