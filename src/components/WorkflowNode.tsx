@@ -2,6 +2,45 @@ import { cn } from '../lib/utils';
 import { Clock, CheckCircle } from 'lucide-react';
 import { InfoCircledIcon } from '@radix-ui/react-icons';
 
+// Map node IDs to meaningful one-word labels
+const getNodeLabel = (nodeId: string, nodeType: string): string => {
+  const nodeLabels: { [key: string]: string } = {
+    // Workflow 1 - SEO Enhancement
+    'cron': 'Schedule',
+    'excel': 'Extract', 
+    'http': 'Fetch',
+    'openai': 'Analyze',
+    'slack': 'Notify',
+    
+    // Workflow 2 - Quote to Invoice
+    'webhook': 'Listen',
+    'set': 'Prepare',
+    'document': 'Generate',
+    'email': 'Send',
+    'excel-log': 'Archive',
+    
+    // Workflow 3 - Slack Bot
+    'slack-trigger': 'Listen',
+    'function': 'Query',
+    'openai-answer': 'Process',
+    'slack-post': 'Reply',
+    'excel-journal': 'Log',
+    
+    // Industry workflow fallbacks
+    'enrich-data': 'Enrich',
+    'upsert-crm': 'Update',
+    'slack-alert': 'Alert',
+    'generate-po': 'Generate',
+    'email-supplier': 'Send',
+    'notify-ops': 'Notify',
+    'parse-cv': 'Parse',
+    'create-candidate': 'Create',
+    'send-outreach': 'Outreach'
+  };
+
+  return nodeLabels[nodeId] || nodeType;
+};
+
 interface NodeData {
   id: string;
   title: string;
@@ -137,7 +176,7 @@ export function WorkflowNode({
               node.type === "output" ? "bg-jonquil/20 text-eerie-black dark:text-timberwolf" :
               "bg-white/20 dark:bg-eerie-black/20 text-eerie-black dark:text-timberwolf"
           )}>
-            {node.type}
+            {getNodeLabel(node.id, node.type)}
           </div>
         </div>
 

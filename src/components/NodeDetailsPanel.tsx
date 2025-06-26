@@ -5,6 +5,45 @@ import { TargetIcon, DownloadIcon, UploadIcon, Cross2Icon } from '@radix-ui/reac
 import { useLanguage } from '../contexts/LanguageContext';
 import { cn } from '../lib/utils';
 
+// Map node IDs to meaningful one-word labels
+const getNodeLabel = (nodeId: string, nodeType: string): string => {
+  const nodeLabels: { [key: string]: string } = {
+    // Workflow 1 - SEO Enhancement
+    'cron': 'Schedule',
+    'excel': 'Extract', 
+    'http': 'Fetch',
+    'openai': 'Analyze',
+    'slack': 'Notify',
+    
+    // Workflow 2 - Quote to Invoice
+    'webhook': 'Listen',
+    'set': 'Prepare',
+    'document': 'Generate',
+    'email': 'Send',
+    'excel-log': 'Archive',
+    
+    // Workflow 3 - Slack Bot
+    'slack-trigger': 'Listen',
+    'function': 'Query',
+    'openai-answer': 'Process',
+    'slack-post': 'Reply',
+    'excel-journal': 'Log',
+    
+    // Industry workflow fallbacks
+    'enrich-data': 'Enrich',
+    'upsert-crm': 'Update',
+    'slack-alert': 'Alert',
+    'generate-po': 'Generate',
+    'email-supplier': 'Send',
+    'notify-ops': 'Notify',
+    'parse-cv': 'Parse',
+    'create-candidate': 'Create',
+    'send-outreach': 'Outreach'
+  };
+
+  return nodeLabels[nodeId] || nodeType;
+};
+
 interface NodeData {
   id: string;
   title: string;
@@ -111,14 +150,11 @@ export function NodeDetailsPanel({
               <h4 className="font-mono font-bold text-lg text-eerie-black dark:text-aureolin">
                 {node.title}
               </h4>
-              <p className={cn(
-                "text-xs uppercase tracking-wide font-mono transition-all duration-300",
-                isExecuting 
-                  ? "text-aureolin animate-pulse" 
-                  : "text-jet dark:text-timberwolf"
-              )}>
-                {isExecuting ? "EXECUTING..." : node.type}
-              </p>
+              {isExecuting && (
+                <p className="text-xs uppercase tracking-wide font-mono transition-all duration-300 text-aureolin animate-pulse">
+                  EXECUTING...
+                </p>
+              )}
             </div>
             
             {/* Close button - Hide during execution */}
