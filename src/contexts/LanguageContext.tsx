@@ -12,7 +12,7 @@ const translations = {
   en: {
     /* ---------- General ---------- */
     title: "Intelligent Workflow Automation Solutions",
-    subtitle: "Optimize your operations with intelligent workflow automation",
+    subtitle: "Turn routine tasks into self-running magic",
     cta: "Begin Your Automation Journey",
     workflows: "Interactive Automation Demonstrations",
     workflowDescription:
