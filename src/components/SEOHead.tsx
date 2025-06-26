@@ -24,7 +24,7 @@ export function SEOHead({
   
   const defaultTitle = language === 'en' 
     ? "Intelligent Workflow Automation Solutions | Business Process Optimization & Integration"
-    : "Soluții Inteligente de Automatizare a Fluxurilor de Lucru | Optimizarea Proceselor de Afaceri";
+    : "Soluții Inteligente de Automatizare a proceselor de lucru | Optimizarea Proceselor de Afaceri";
     
   const defaultDescription = language === 'en'
     ? "Transform your business with intelligent workflow automation. Save 10+ hours weekly, reduce errors by 95%, and streamline operations with our interactive automation demos."

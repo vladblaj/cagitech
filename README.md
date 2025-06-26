@@ -1,4 +1,4 @@
-# BitLads Software
+# Bitlads Software
 
 A modern, responsive website showcasing intelligent workflow automation solutions built with React, TypeScript, and Tailwind CSS.
 

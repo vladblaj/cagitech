@@ -1,6 +1,6 @@
-# BitLads Software - Serverless Functions
+# Bitlads Software - Serverless Functions
 
-This folder contains serverless functions for the BitLads Software website.
+This folder contains serverless functions for the Bitlads Software website.
 
 ## Functions
 

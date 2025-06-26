@@ -52,7 +52,7 @@ const handler = async (event, context) => {
       },
       content: {
         from: { 
-          name: "BitLads Software", 
+          name: "Bitlads Software", 
           email: "contact@bitladssoftware.com" 
         },
         subject: `New Contact: ${subject}`,
@@ -158,7 +158,7 @@ const generateTemplate = (name, email, subject, message, company = '', phone = '
         <!-- Footer -->
         <div style="background-color: #f8f9fa; padding: 16px; text-align: center; border-top: 1px solid #e9ecef;">
             <p style="margin: 0; color: #6c757d; font-size: 12px;">
-                Sent from BitLads Software contact form • ${new Date().toLocaleString()}
+                Sent from Bitlads Software contact form • ${new Date().toLocaleString()}
             </p>
         </div>
         

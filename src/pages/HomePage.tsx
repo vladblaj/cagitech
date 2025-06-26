@@ -493,7 +493,7 @@ export default function HomePage() {
         title={
           language === "en"
             ? "Intelligent Workflow Automation Solutions | Business Process Optimization & Integration"
-            : "Soluții Inteligente de Automatizare a Fluxurilor de Lucru | Optimizarea Proceselor de Afaceri"
+            : "Soluții Inteligente de Automatizare a proceselor de lucru | Optimizarea Proceselor de Afaceri"
         }
         description={
           language === "en"
@@ -517,7 +517,7 @@ export default function HomePage() {
                 <Zap className="w-4 h-4 text-eerie-black" />
               </div>
               <span className="text-xl font-bold font-mono text-timberwolf">
-                BitLads Software
+                Bitlads Software
               </span>
             </div>
             <LanguageToggle />
@@ -748,11 +748,11 @@ export default function HomePage() {
               <Zap className="w-3 h-3 text-eerie-black" />
             </div>
             <span className="text-lg font-bold font-mono text-timberwolf">
-              BitLads Software
+              Bitlads Software
             </span>
           </div>
           <p className="text-jet dark:text-timberwolf font-mono text-sm">
-            © 2025 BitLads Software.
+            © 2025 Bitlads Software.
           </p>
         </div>
       </footer>

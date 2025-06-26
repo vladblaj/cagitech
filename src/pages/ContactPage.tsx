@@ -14,8 +14,8 @@ export default function ContactPage() {
     <div className="min-h-screen bg-white dark:bg-eerie-black">
       <SEOHead 
         title={language === 'en' 
-          ? "Contact BitLads Software | Get Started with Business Process Automation"
-          : "Contact BitLads Software | Începe cu Automatizarea Proceselor de Afaceri"
+          ? "Contact Bitlads Software | Get Started with Business Process Automation"
+          : "Contact Bitlads Software | Începe cu Automatizarea Proceselor de Afaceri"
         }
         description={language === 'en'
           ? "Ready to transform your business with intelligent workflow automation? Contact our experts to discuss your automation needs. Free consultation available. Save 10+ hours weekly with intelligent automation."
@@ -37,7 +37,7 @@ export default function ContactPage() {
                 <Zap className="w-4 h-4 text-eerie-black" />
               </div>
               <span className="text-xl font-bold font-mono text-eerie-black dark:text-timberwolf">
-                BitLads Software
+                Bitlads Software
               </span>
             </div>
             <LanguageToggle />

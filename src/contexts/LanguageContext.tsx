@@ -249,13 +249,13 @@ const translations = {
 
   ro: {
     /* ---------- General ---------- */
-    title: "Soluții Inteligente de Automatizare a Fluxurilor de Lucru",
+    title: "Soluții Inteligente de Automatizare a proceselor de lucru",
     subtitle:
-      "Optimizează-ți operațiunile prin automatizarea inteligentă a fluxurilor de lucru",
-    cta: "Începe Transformarea",
+      "Transformă task-urile repetitive în timp câștigat",
+    cta: "Începe transformarea digitală",
     workflows: "Demonstrații Interactive de Automatizare",
     workflowDescription:
-      "Selectează un flux pentru a descoperi cum automatizarea reduce costurile și economisește timp.",
+      "Vezi în acțiune cum un flux automatizat poate reduce cheltuielile și timpul alocat sarcinilor.",
     playDemo: "Rulează Demo",
     resetDemo: "Repornește Demo",
     running: "În derulare…",
@@ -268,20 +268,20 @@ const translations = {
     viewDetails: "Vezi Detalii",
 
     /* ---------- Industry Examples ---------- */
-    industryTitle: "Exemple de Automatizare pe Industrii",
-    industryDescription: "Vezi cum diferiți profesioniști folosesc automatizarea fluxurilor de lucru pentru a-și eficientiza activitățile zilnice. Treci cu mouse-ul peste noduri pentru a vedea ce face fiecare pas.",
+    industryTitle: "Exemple practice de automatizare în funcție de industrie",
+    industryDescription: "Descoperă cum profesioniști din diverse domenii folosesc automatizarea pentru a-și simplifica munca de zi cu zi. Plasează cursorul pe noduri pentru a vedea ce face fiecare etapă.",
     
     marketingTitle: "Manager de Marketing Digital",
     marketingSubtitle: "Digital Marketing Manager",
-    marketingDescription: "Califică automat lead-urile, îmbogățește datele și alertează echipa când sosesc prospecți de valoare mare.",
+    marketingDescription: "Identifică automat lead-urile de calitate, îmbogățește informațiile și alertează echipa în timp real.",
     
     ecommerceTitle: "Proprietar de Magazin Online",
     ecommerceSubtitle: "E-commerce Store Owner", 
-    ecommerceDescription: "Monitorizează nivelurile de stoc și recomandă automat produse când se ating pragurile.",
+    ecommerceDescription: "Monitorizează nivelurile de stoc și recomandă automat produse când se ating pragurile limita..",
     
     recruitingTitle: "Recrutor",
     recruitingSubtitle: "Recruiter",
-    recruitingDescription: "Analizează profilurile candidaților, le punctează automat și trimite email-uri personalizate de contact.",
+    recruitingDescription: "Procesează profilurile, generează scoruri automat și trimite mesaje adaptate fiecărui candidat.",
 
     integrationsTitle: "Conectează-te cu peste 400 de Servicii",
     integrationsSubtitle: "Integrările populare includ:",
@@ -312,7 +312,7 @@ const translations = {
     benefit4: "Soluții personalizate pentru afacerea ta",
 
     /* ---------- Workflow titles & summaries ---------- */
-    workflow1Title: "Inteligență Zilnică de Produs & Optimizare SEO",
+    workflow1Title: "Informații zilnice despre produse și optimizare SEO automată",
     workflow1Description:
       "Analizează automat concurența și optimizează listele de produse",
     workflow1BusinessValue:
