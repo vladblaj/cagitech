@@ -290,7 +290,7 @@ export function WorkflowDemo({ workflow, className }: WorkflowDemoProps) {
                           />
                           {isExecuting && (
                             <div className="absolute inset-0">
-                              <div className="h-4 w-full bg-gradient-to-b from-transparent via-aureolin to-transparent animate-data-flow-vertical rounded-full" />
+                              <div className="h-4 w-full bg-linear-to-b from-transparent via-aureolin to-transparent animate-data-flow-vertical rounded-full" />
                             </div>
                           )}
                         </div>

@@ -166,7 +166,7 @@ export function IndustryWorkflowGraph({ industry, className }: IndustryWorkflowG
                 {/* Node */}
                 <div
                   className={cn(
-                    "w-12 h-12 rounded-xl border-2 flex items-center justify-center cursor-pointer transition-all duration-200 hover:scale-110 hover:shadow-lg flex-shrink-0",
+                    "w-12 h-12 rounded-xl border-2 flex items-center justify-center cursor-pointer transition-all duration-200 hover:scale-110 hover:shadow-lg shrink-0",
                     getNodeColor(node.type)
                   )}
                   onMouseEnter={() => setHoveredNode(node.id)}
@@ -185,7 +185,7 @@ export function IndustryWorkflowGraph({ industry, className }: IndustryWorkflowG
 
               {/* Vertical connector */}
               {index < currentWorkflow.length - 1 && (
-                <div className="w-1 h-6 bg-gradient-to-b from-timberwolf via-jonquil to-timberwolf rounded-full my-2 opacity-60">
+                <div className="w-1 h-6 bg-linear-to-b from-timberwolf via-jonquil to-timberwolf rounded-full my-2 opacity-60">
                 </div>
               )}
             </div>

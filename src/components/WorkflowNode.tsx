@@ -73,7 +73,7 @@ export function WorkflowNode({
     // Executing state takes priority - pulse the existing border
     if (isExecuting) {
       return {
-        bg: "bg-gradient-to-br from-aureolin/30 to-jonquil/20 dark:from-aureolin/20 dark:to-jonquil/10",
+        bg: "bg-linear-to-br from-aureolin/30 to-jonquil/20 dark:from-aureolin/20 dark:to-jonquil/10",
         border: "border-jonquil",
         text: "text-eerie-black dark:text-timberwolf"
       };
@@ -82,7 +82,7 @@ export function WorkflowNode({
     // Selected state takes priority for visual feedback
     if (isSelected) {
       return {
-        bg: "bg-gradient-to-br from-aureolin/30 to-jonquil/20 dark:from-aureolin/20 dark:to-jonquil/10",
+        bg: "bg-linear-to-br from-aureolin/30 to-jonquil/20 dark:from-aureolin/20 dark:to-jonquil/10",
         border: "border-jonquil",
         text: "text-eerie-black dark:text-timberwolf"
       };
@@ -90,20 +90,20 @@ export function WorkflowNode({
     
     if (node.type === "trigger") {
       return {
-        bg: "bg-gradient-to-br from-white to-timberwolf dark:from-eerie-black dark:to-jet",
+        bg: "bg-linear-to-br from-white to-timberwolf dark:from-eerie-black dark:to-jet",
         border: "border-timberwolf dark:border-jet",
         text: "text-eerie-black dark:text-timberwolf"
       };
     }
     if (node.type === "output") {
       return {
-        bg: "bg-gradient-to-br from-white to-timberwolf dark:from-eerie-black dark:to-jet",
+        bg: "bg-linear-to-br from-white to-timberwolf dark:from-eerie-black dark:to-jet",
         border: "border-timberwolf dark:border-jet", 
         text: "text-eerie-black dark:text-timberwolf"
       };
     }
     return {
-      bg: "bg-gradient-to-br from-timberwolf to-white dark:from-jet dark:to-eerie-black",
+      bg: "bg-linear-to-br from-timberwolf to-white dark:from-jet dark:to-eerie-black",
       border: "border-timberwolf dark:border-jet",
       text: "text-eerie-black dark:text-timberwolf"
     };
@@ -206,7 +206,7 @@ export function WorkflowNode({
                 : "opacity-60 group-hover:opacity-100",
               nodeStyles.text
             )}>
-              <InfoCircledIcon className="w-3 h-3 flex-shrink-0" />
+              <InfoCircledIcon className="w-3 h-3 shrink-0" />
               <span className="whitespace-nowrap">
                 {isSelected ? "Details shown" : "Click for details"}
               </span>
