@@ -7,7 +7,7 @@ import { Card } from '../components/ui/card';
 import { ArrowLeft, Zap, Phone, Mail, Clock } from 'lucide-react';
 import { LanguageToggle } from '../components/common/LanguageToggle';
 
-export default function ContactPage() {
+export default function ContactPage() { 
   const { t, language } = useLanguage();
 
   const contactInfo = [

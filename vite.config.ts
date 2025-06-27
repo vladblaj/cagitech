@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
-import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -9,11 +8,6 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-    },
-  },
   build: {
     rollupOptions: {
       output: {
@@ -24,7 +18,11 @@ export default defineConfig({
           utils: ['clsx', 'tailwind-merge', 'class-variance-authority'],
           icons: ['lucide-react'],
           http: ['axios']
-        }
+        },
+        // Optimize chunk file names for better caching
+        chunkFileNames: 'assets/js/[name]-[hash].js',
+        entryFileNames: 'assets/js/[name]-[hash].js',
+        assetFileNames: 'assets/[ext]/[name]-[hash].[ext]'
       }
     },
     sourcemap: false,
@@ -32,12 +30,24 @@ export default defineConfig({
     terserOptions: {
       compress: {
         drop_console: true,
-        drop_debugger: true
+        drop_debugger: true,
+        pure_funcs: [
+          'console.log', 
+          'console.info', 
+          'console.debug', 
+          'console.warn', 
+          'console.error',
+          'console.trace',
+          'console.time',
+          'console.timeEnd'
+        ]
       }
     },
-    target: 'es2015',
+    target: 'es2020',
     cssCodeSplit: true,
-    assetsInlineLimit: 4096
+    assetsInlineLimit: 4096,
+    // Enable CSS minification
+    cssMinify: true
   },
   server: {
     host: true,

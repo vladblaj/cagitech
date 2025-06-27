@@ -1,0 +1,15 @@
+# ads.txt file for bitladssoftware.com
+# This file is used by advertisers and DSPs to verify authorized digital sellers
+# Format: <Field #1>, <Field #2>, <Field #3>, <Field #4>
+# Field #1: Domain name of the advertising system
+# Field #2: Publisher's Account ID
+# Field #3: Type of Account/Relationship
+# Field #4: Certification Authority ID
+
+# Add your advertising partners here when you start monetizing
+# Example format:
+# google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+# facebook.com, 0000000000000000, DIRECT, c3e20eee3f780d68
+
+# Currently no advertising partners configured
+# Contact hello@bitladssoftware.com for advertising inquiries 
