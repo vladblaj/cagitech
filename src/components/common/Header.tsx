@@ -8,7 +8,7 @@ interface HeaderProps {
   subtitle?: string;
 }
 
-export function Header({ showBackButton = false, title, subtitle }: HeaderProps) {
+export function Header({ title, subtitle }: HeaderProps) {
   return (
     <header className="border-b border-jet">
       <div className="max-w-6xl mx-auto px-6 py-8">
