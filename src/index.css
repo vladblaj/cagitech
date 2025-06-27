@@ -68,31 +68,8 @@
 }
 
 @layer base {
-  /* Light mode */
+  /* Single color scheme based on current dark theme */
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 12.5%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 12.5%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 12.5%;
-    --primary: 51 100% 59%;
-    --primary-foreground: 0 0% 12.5%;
-    --secondary: 0 0% 84%;
-    --secondary-foreground: 0 0% 12.5%;
-    --muted: 0 0% 84%;
-    --muted-foreground: 0 0% 40%;
-    --accent: 51 100% 50%;
-    --accent-foreground: 0 0% 12.5%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 84%;
-    --input: 0 0% 84%;
-    --ring: 51 100% 59%;
-  }
-  
-  /* Dark mode (default) */
-  .dark {
     --background: 0 0% 12.5%;
     --foreground: 0 0% 84%;
     --card: 0 0% 12.5%;
@@ -243,7 +220,7 @@
   }
 }
 
-/* Custom scrollbar with theme-aware colors */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -262,12 +239,7 @@
   background: var(--color-aureolin);
 }
 
-/* Light theme scrollbar adjustments */
-:root:not(.dark) ::-webkit-scrollbar-track {
-  background: #d6d6d6;
-}
-
-/* Selection styling with theme awareness */
+/* Selection styling */
 ::selection {
   background: var(--color-jonquil);
   color: var(--color-eerie-black);
@@ -297,11 +269,6 @@
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   :root {
-    --color-jonquil: #ffdd00;
-    --color-aureolin: #fff000;
-  }
-  
-  .dark {
     --color-jonquil: #ffee00;
     --color-aureolin: #ffff00;
   }

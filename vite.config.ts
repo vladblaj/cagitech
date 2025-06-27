@@ -40,6 +40,8 @@ export default defineConfig({
     assetsInlineLimit: 4096
   },
   server: {
+    host: true,
+    hmr: true,
     headers: {
       'Cache-Control': 'public, max-age=31536000'
     }

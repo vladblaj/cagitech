@@ -73,39 +73,39 @@ export function WorkflowNode({
     // Executing state takes priority - pulse the existing border
     if (isExecuting) {
       return {
-        bg: "bg-linear-to-br from-aureolin/30 to-jonquil/20 dark:from-aureolin/20 dark:to-jonquil/10",
+        bg: "bg-linear-to-br from-aureolin/30 to-jonquil/20",
         border: "border-jonquil",
-        text: "text-eerie-black dark:text-timberwolf"
+        text: "text-timberwolf"
       };
     }
     
     // Selected state takes priority for visual feedback
     if (isSelected) {
       return {
-        bg: "bg-linear-to-br from-aureolin/30 to-jonquil/20 dark:from-aureolin/20 dark:to-jonquil/10",
+        bg: "bg-linear-to-br from-aureolin/30 to-jonquil/20",
         border: "border-jonquil",
-        text: "text-eerie-black dark:text-timberwolf"
+        text: "text-timberwolf"
       };
     }
     
     if (node.type === "trigger") {
       return {
-        bg: "bg-linear-to-br from-white to-timberwolf dark:from-eerie-black dark:to-jet",
-        border: "border-timberwolf dark:border-jet",
-        text: "text-eerie-black dark:text-timberwolf"
+        bg: "bg-linear-to-br from-eerie-black to-jet",
+        border: "border-jet",
+        text: "text-timberwolf"
       };
     }
     if (node.type === "output") {
       return {
-        bg: "bg-linear-to-br from-white to-timberwolf dark:from-eerie-black dark:to-jet",
-        border: "border-timberwolf dark:border-jet", 
-        text: "text-eerie-black dark:text-timberwolf"
+        bg: "bg-linear-to-br from-eerie-black to-jet",
+        border: "border-jet", 
+        text: "text-timberwolf"
       };
     }
     return {
-      bg: "bg-linear-to-br from-timberwolf to-white dark:from-jet dark:to-eerie-black",
-      border: "border-timberwolf dark:border-jet",
-      text: "text-eerie-black dark:text-timberwolf"
+      bg: "bg-linear-to-br from-jet to-eerie-black",
+      border: "border-jet",
+      text: "text-timberwolf"
     };
   };
 
@@ -172,9 +172,9 @@ export function WorkflowNode({
             "px-2 py-1 rounded-full text-xs font-mono font-semibold uppercase tracking-wide transition-all duration-300",
             isSelected 
               ? "bg-jonquil/40 text-eerie-black border border-jonquil" 
-              : node.type === "trigger" ? "bg-jonquil/20 text-eerie-black dark:text-timberwolf" :
-              node.type === "output" ? "bg-jonquil/20 text-eerie-black dark:text-timberwolf" :
-              "bg-white/20 dark:bg-eerie-black/20 text-eerie-black dark:text-timberwolf"
+              : node.type === "trigger" ? "bg-jonquil/20 text-timberwolf" :
+              node.type === "output" ? "bg-jonquil/20 text-timberwolf" :
+              "bg-eerie-black/20 text-timberwolf"
           )}>
             {getNodeLabel(node.id, node.type)}
           </div>
@@ -183,7 +183,7 @@ export function WorkflowNode({
         {/* Node Title */}
         <h3 className={cn(
           "font-mono text-sm font-bold mb-2 leading-tight transition-all duration-300",
-          isSelected ? "text-eerie-black dark:text-aureolin" : nodeStyles.text
+          isSelected ? "text-aureolin" : nodeStyles.text
         )}>
           {node.title}
         </h3>
@@ -191,7 +191,7 @@ export function WorkflowNode({
         {/* Node Description - Takes available space */}
         <p className={cn(
           "text-xs font-mono leading-relaxed opacity-80 flex-1 transition-all duration-300",
-          isSelected ? "text-eerie-black dark:text-timberwolf opacity-90" : nodeStyles.text
+          isSelected ? "text-timberwolf opacity-90" : nodeStyles.text
         )}>
           {node.description}
         </p>
@@ -202,7 +202,7 @@ export function WorkflowNode({
             <span className={cn(
               "text-xs font-mono transition-all duration-300 flex items-center gap-1.5",
               isSelected 
-                ? "text-eerie-black dark:text-aureolin opacity-100 font-semibold" 
+                ? "text-aureolin opacity-100 font-semibold" 
                 : "opacity-60 group-hover:opacity-100",
               nodeStyles.text
             )}>

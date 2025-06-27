@@ -60,8 +60,8 @@ const translations = {
     contactMessage: "Tell us about your automation objectives",
     contactSubmit: "Send Message",
     contactInfo: "Contact Details",
-    contactPhoneNumber: "+1 (555) 123-4567",
-    contactEmailAddress: "hello@bitladssoftware.com",
+    contactPhoneNumber: "+40 (754) 921-1191",
+    contactEmailAddress: "vlad.blaj@bitladssoftware.com",
     contactHours: "Business Hours: Monday-Friday, 9:00 AM-6:00 PM EST",
     backToHome: "Return to Home",
 

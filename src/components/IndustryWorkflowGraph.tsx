@@ -177,7 +177,7 @@ export function IndustryWorkflowGraph({ industry, className }: IndustryWorkflowG
 
                 {/* Node title only */}
                 <div className="flex-1 min-w-0">
-                  <h4 className="font-mono font-semibold text-base text-eerie-black dark:text-timberwolf">
+                  <h4 className="font-mono font-semibold text-base text-timberwolf">
                     {language === 'en' ? node.titleEn : node.titleRo}
                   </h4>
                 </div>

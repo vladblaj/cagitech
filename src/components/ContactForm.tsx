@@ -100,7 +100,7 @@ export function ContactForm({ className }: ContactFormProps) {
     <form onSubmit={handleSubmit} className={`space-y-6 ${className}`}>
       {/* Name Field */}
       <div>
-        <label htmlFor="name" className="block text-sm font-mono font-medium text-eerie-black dark:text-timberwolf mb-2">
+        <label htmlFor="name" className="block text-sm font-mono font-medium text-timberwolf mb-2">
           {t('contactName')} *
         </label>
         <input
@@ -111,13 +111,13 @@ export function ContactForm({ className }: ContactFormProps) {
           onChange={handleChange}
           required
           disabled={isSubmitting}
-          className="w-full px-4 py-3 border border-timberwolf dark:border-jet rounded-lg bg-white dark:bg-eerie-black text-eerie-black dark:text-timberwolf font-mono focus:ring-2 focus:ring-jonquil focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+          className="w-full px-4 py-3 border border-jet rounded-lg bg-eerie-black text-timberwolf font-mono focus:ring-2 focus:ring-jonquil focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
         />
       </div>
 
       {/* Email Field */}
       <div>
-        <label htmlFor="email" className="block text-sm font-mono font-medium text-eerie-black dark:text-timberwolf mb-2">
+        <label htmlFor="email" className="block text-sm font-mono font-medium text-timberwolf mb-2">
           {t('contactEmail')} *
         </label>
         <input
@@ -128,13 +128,13 @@ export function ContactForm({ className }: ContactFormProps) {
           onChange={handleChange}
           required
           disabled={isSubmitting}
-          className="w-full px-4 py-3 border border-timberwolf dark:border-jet rounded-lg bg-white dark:bg-eerie-black text-eerie-black dark:text-timberwolf font-mono focus:ring-2 focus:ring-jonquil focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+          className="w-full px-4 py-3 border border-jet rounded-lg bg-eerie-black text-timberwolf font-mono focus:ring-2 focus:ring-jonquil focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
         />
       </div>
 
       {/* Phone Field */}
       <div>
-        <label htmlFor="phone" className="block text-sm font-mono font-medium text-eerie-black dark:text-timberwolf mb-2">
+        <label htmlFor="phone" className="block text-sm font-mono font-medium text-timberwolf mb-2">
           {t('contactPhone')}
         </label>
         <input
@@ -144,13 +144,13 @@ export function ContactForm({ className }: ContactFormProps) {
           value={formData.phone}
           onChange={handleChange}
           disabled={isSubmitting}
-          className="w-full px-4 py-3 border border-timberwolf dark:border-jet rounded-lg bg-white dark:bg-eerie-black text-eerie-black dark:text-timberwolf font-mono focus:ring-2 focus:ring-jonquil focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+          className="w-full px-4 py-3 border border-jet rounded-lg bg-eerie-black text-timberwolf font-mono focus:ring-2 focus:ring-jonquil focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
         />
       </div>
 
       {/* Company Field */}
       <div>
-        <label htmlFor="company" className="block text-sm font-mono font-medium text-eerie-black dark:text-timberwolf mb-2">
+        <label htmlFor="company" className="block text-sm font-mono font-medium text-timberwolf mb-2">
           {t('contactCompany')}
         </label>
         <input
@@ -160,13 +160,13 @@ export function ContactForm({ className }: ContactFormProps) {
           value={formData.company}
           onChange={handleChange}
           disabled={isSubmitting}
-          className="w-full px-4 py-3 border border-timberwolf dark:border-jet rounded-lg bg-white dark:bg-eerie-black text-eerie-black dark:text-timberwolf font-mono focus:ring-2 focus:ring-jonquil focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+          className="w-full px-4 py-3 border border-jet rounded-lg bg-eerie-black text-timberwolf font-mono focus:ring-2 focus:ring-jonquil focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
         />
       </div>
 
       {/* Subject Field */}
       <div>
-        <label htmlFor="subject" className="block text-sm font-mono font-medium text-eerie-black dark:text-timberwolf mb-2">
+        <label htmlFor="subject" className="block text-sm font-mono font-medium text-timberwolf mb-2">
           Subject *
         </label>
         <input
@@ -178,13 +178,13 @@ export function ContactForm({ className }: ContactFormProps) {
           required
           disabled={isSubmitting}
           placeholder="e.g., Automation consultation request"
-          className="w-full px-4 py-3 border border-timberwolf dark:border-jet rounded-lg bg-white dark:bg-eerie-black text-eerie-black dark:text-timberwolf font-mono focus:ring-2 focus:ring-jonquil focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+          className="w-full px-4 py-3 border border-jet rounded-lg bg-eerie-black text-timberwolf font-mono focus:ring-2 focus:ring-jonquil focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
         />
       </div>
 
       {/* Message Field */}
       <div>
-        <label htmlFor="message" className="block text-sm font-mono font-medium text-eerie-black dark:text-timberwolf mb-2">
+        <label htmlFor="message" className="block text-sm font-mono font-medium text-timberwolf mb-2">
           {t('contactMessage')} *
         </label>
         <textarea
@@ -196,7 +196,7 @@ export function ContactForm({ className }: ContactFormProps) {
           required
           disabled={isSubmitting}
           placeholder="Tell us about your automation goals, current challenges, or specific workflows you'd like to optimize..."
-          className="w-full px-4 py-3 border border-timberwolf dark:border-jet rounded-lg bg-white dark:bg-eerie-black text-eerie-black dark:text-timberwolf font-mono focus:ring-2 focus:ring-jonquil focus:border-transparent resize-vertical disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+          className="w-full px-4 py-3 border border-jet rounded-lg bg-eerie-black text-timberwolf font-mono focus:ring-2 focus:ring-jonquil focus:border-transparent resize-vertical disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
         />
       </div>
 

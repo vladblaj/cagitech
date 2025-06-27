@@ -46,7 +46,7 @@ export function NodeDetailsPanel({
   const renderOutputSection = () => {
     if (isExecuting && !isGeneratingOutput) {
       return (
-        <div className="text-xs font-mono text-gray-500 dark:text-gray-400 italic">
+        <div className="text-xs font-mono text-gray-500 italic">
           Waiting for processing to complete...
         </div>
       );
@@ -55,19 +55,19 @@ export function NodeDetailsPanel({
     if (isExecuting && isGeneratingOutput) {
       return (
         <div className="space-y-2">
-          <div className="flex items-center gap-2 text-xs font-mono text-eerie-black dark:text-timberwolf">
+          <div className="flex items-center gap-2 text-xs font-mono text-timberwolf">
             <Loader2 className="w-3 h-3 animate-spin" />
             Computing results...
           </div>
-          <div className="h-16 bg-eerie-black/10 dark:bg-timberwolf/10 rounded border-2 border-dashed border-eerie-black/20 dark:border-timberwolf/20 flex items-center justify-center">
+          <div className="h-16 bg-timberwolf/10 rounded border-2 border-dashed border-timberwolf/20 flex items-center justify-center">
             <div className="flex space-x-1">
-              <div className="w-2 h-2 bg-eerie-black dark:bg-timberwolf rounded-full animate-bounce"></div>
+              <div className="w-2 h-2 bg-timberwolf rounded-full animate-bounce"></div>
               <div
-                className="w-2 h-2 bg-eerie-black dark:bg-timberwolf rounded-full animate-bounce"
+                className="w-2 h-2 bg-timberwolf rounded-full animate-bounce"
                 style={{ animationDelay: "0.1s" }}
               ></div>
               <div
-                className="w-2 h-2 bg-eerie-black dark:bg-timberwolf rounded-full animate-bounce"
+                className="w-2 h-2 bg-timberwolf rounded-full animate-bounce"
                 style={{ animationDelay: "0.2s" }}
               ></div>
             </div>
@@ -78,7 +78,7 @@ export function NodeDetailsPanel({
 
     if (isCompleted && node.output) {
       return (
-        <pre className="text-xs font-mono text-eerie-black dark:text-timberwolf overflow-x-auto whitespace-pre-wrap leading-relaxed animate-slide-down">
+        <pre className="text-xs font-mono text-timberwolf overflow-x-auto whitespace-pre-wrap leading-relaxed animate-slide-down">
           {typeof node.output === "string"
             ? node.output
             : JSON.stringify(node.output, null, 2)}
@@ -87,7 +87,7 @@ export function NodeDetailsPanel({
     }
 
     return (
-      <div className="text-xs font-mono text-gray-500 dark:text-gray-400 italic">
+      <div className="text-xs font-mono text-gray-500 italic">
         Output will appear here after execution
       </div>
     );
@@ -98,29 +98,29 @@ export function NodeDetailsPanel({
       return "bg-jonquil/40 border-jonquil animate-pulse";
     }
     if (isCompleted) {
-      return "bg-aureolin/20 dark:bg-jonquil/10 border-aureolin/50";
+      return "bg-jonquil/10 border-aureolin/50";
     }
-    return "bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-600";
+    return "bg-gray-800 border-gray-600";
   };
 
   const getOutputHeaderStyles = () => {
     if (isExecuting && isGeneratingOutput) {
-      return "text-eerie-black dark:text-eerie-black";
+      return "text-eerie-black";
     }
     if (isCompleted) {
-      return "text-eerie-black dark:text-aureolin";
+      return "text-aureolin";
     }
-    return "text-gray-500 dark:text-gray-400";
+    return "text-gray-400";
   };
 
   return (
     <div className={cn("relative", className)}>
-      <div className="p-6 bg-white dark:bg-eerie-black rounded-xl border-2 border-aureolin shadow-2xl">
+      <div className="p-6 bg-eerie-black rounded-xl border-2 border-aureolin shadow-2xl">
         <div className="space-y-6">
           {/* Header */}
-          <div className="flex items-center justify-between pb-4 border-b border-timberwolf dark:border-jet">
+          <div className="flex items-center justify-between pb-4 border-b border-jet">
             <div>
-              <h4 className="font-mono font-bold text-lg text-eerie-black dark:text-aureolin">
+              <h4 className="font-mono font-bold text-lg text-aureolin">
                 {node.title}
               </h4>
               {isExecuting && (
@@ -136,7 +136,7 @@ export function NodeDetailsPanel({
                 variant="ghost"
                 size="sm"
                 onClick={onClose}
-                className="text-jet dark:text-timberwolf hover:text-eerie-black dark:hover:text-aureolin"
+                className="text-timberwolf hover:text-aureolin"
               >
                 <Cross2Icon className="w-4 h-4" />
               </Button>
@@ -145,21 +145,21 @@ export function NodeDetailsPanel({
 
           {/* Business Description */}
           <div>
-            <h5 className="font-mono font-semibold text-eerie-black dark:text-aureolin mb-3">
+            <h5 className="font-mono font-semibold text-aureolin mb-3">
               What this step does (in simple terms)
             </h5>
-            <p className="text-jet dark:text-timberwolf font-mono text-sm leading-relaxed bg-aureolin/20 dark:bg-jonquil/10 p-4 rounded-lg border border-aureolin/30">
+            <p className="text-timberwolf font-mono text-sm leading-relaxed bg-jonquil/10 p-4 rounded-lg border border-aureolin/30">
               {node.businessDescription}
             </p>
           </div>
 
           {/* Why It Matters */}
           <div>
-            <h5 className="font-mono font-semibold text-eerie-black dark:text-aureolin mb-3 flex items-center gap-2">
+            <h5 className="font-mono font-semibold text-aureolin mb-3 flex items-center gap-2">
               <TargetIcon className="w-4 h-4" />
               {t("whyItMatters")}
             </h5>
-            <p className="text-jet dark:text-timberwolf font-mono text-sm leading-relaxed">
+            <p className="text-timberwolf font-mono text-sm leading-relaxed">
               {node.whyItMatters}
             </p>
           </div>
@@ -173,7 +173,7 @@ export function NodeDetailsPanel({
                   "rounded-lg p-4 border transition-all duration-300",
                   isExecuting
                     ? "bg-aureolin/30 border-aureolin animate-pulse"
-                    : "bg-timberwolf/50 dark:bg-jet/50 border-timberwolf dark:border-jet"
+                    : "bg-jet/50 border-jet"
                 )}
               >
                 <h6
@@ -181,7 +181,7 @@ export function NodeDetailsPanel({
                     "font-mono text-xs font-semibold mb-3 flex items-center gap-2 transition-all duration-300",
                     isExecuting
                       ? "text-eerie-black"
-                      : "text-jet dark:text-timberwolf"
+                      : "text-timberwolf"
                   )}
                 >
                   <DownloadIcon className="w-3 h-3" />
@@ -197,7 +197,7 @@ export function NodeDetailsPanel({
                     "text-xs font-mono overflow-x-auto whitespace-pre-wrap leading-relaxed transition-all duration-300",
                     isExecuting
                       ? "text-eerie-black"
-                      : "text-eerie-black dark:text-timberwolf"
+                      : "text-timberwolf"
                   )}
                 >
                   {typeof node.input === "string"
