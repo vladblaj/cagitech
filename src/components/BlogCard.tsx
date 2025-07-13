@@ -90,10 +90,10 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
         <Link to={`/blog/${post.slug}`}>
           <Button 
             variant="outline"
-            className="w-full font-mono font-semibold border-2 border-jet hover:border-jonquil hover:bg-jonquil hover:text-eerie-black text-timberwolf bg-eerie-black transition-all duration-200 group"
+            className="w-full font-mono font-semibold border-2 border-jet hover:border-jonquil hover:bg-jonquil hover:text-eerie-black text-timberwolf bg-eerie-black transition-all duration-200 group/button"
           >
             Read More
-            <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4 ml-2 group-hover/button:translate-x-1 transition-transform" />
           </Button>
         </Link>
       </div>

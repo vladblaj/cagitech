@@ -50,19 +50,39 @@ export default function BlogPostPage() {
   const estimatedReadTime = Math.ceil(post.content.split(' ').length / 200);
 
   const handleShare = async () => {
-    if (navigator.share) {
+    const shareData = {
+      title: post.title,
+      text: post.description,
+      url: window.location.href,
+    };
+
+    // Check if Web Share API is supported
+    if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
       try {
-        await navigator.share({
-          title: post.title,
-          text: post.description,
-          url: window.location.href,
-        });
+        await navigator.share(shareData);
       } catch (err) {
-        console.log('Error sharing:', err);
+        // User cancelled or error occurred, fallback to clipboard
+        fallbackShare();
       }
     } else {
-      // Fallback: copy to clipboard
-      navigator.clipboard.writeText(window.location.href);
+      // Fallback for browsers without Web Share API
+      fallbackShare();
+    }
+  };
+
+  const fallbackShare = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      // You could add a toast notification here
+      alert('Link copied to clipboard!');
+    } catch (err) {
+      // Final fallback: show share dialog with URL
+      const shareText = `Check out this article: ${post.title}\n${window.location.href}`;
+      if (window.prompt) {
+        window.prompt('Copy this link to share:', window.location.href);
+      } else {
+        console.log('Share failed:', err);
+      }
     }
   };
 

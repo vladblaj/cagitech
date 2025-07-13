@@ -22,8 +22,13 @@ export function useBlogPosts() {
       try {
         setLoading(true);
         
-        // In a real implementation, this would fetch from your CMS API
+        // In a real implementation with Decap CMS, you would:
+        // 1. Fetch from your Git repository's content/blog folder
+        // 2. Parse the markdown frontmatter and content
+        // 3. Or use a headless CMS API if you've configured one
+        
         // For now, we'll use static data that matches our markdown files
+        // This simulates what would come from Decap CMS
         const staticPosts: BlogPost[] = [
           {
             slug: '2025-01-27-welcome-to-our-blog',

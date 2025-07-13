@@ -93,6 +93,35 @@ The contact form uses SparkPost for email delivery via Netlify Functions.
    - Recipient email address
    - Email template
 
+## 📝 Blog Management with Decap CMS
+
+The blog is powered by Decap CMS (formerly Netlify CMS) for easy content management.
+
+### Setup Instructions:
+
+1. **Enable Netlify Identity** (if using git-gateway):
+   - Go to your Netlify dashboard
+   - Navigate to Site settings > Identity
+   - Enable Identity and Git Gateway
+
+2. **Configure GitHub Backend** (recommended):
+   - Update `public/admin/config.yml`
+   - Set your GitHub repository in the backend configuration
+   - Enable GitHub OAuth in Netlify
+
+3. **Access the CMS**:
+   - Visit `/admin` on your deployed site
+   - Login with your configured authentication method
+   - Start creating and managing blog posts
+
+### Features:
+- ✅ Rich markdown editor
+- ✅ Image upload and management
+- ✅ Draft and publish workflow
+- ✅ SEO-friendly frontmatter
+- ✅ Tag management
+- ✅ Featured post designation
+
 ## 🎨 Customization
 
 ### Colors

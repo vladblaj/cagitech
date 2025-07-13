@@ -1,6 +1,10 @@
 [[plugins]]
   package = "@netlify/plugin-functions-install-core"
 
+# Decap CMS configuration
+[[plugins]]
+  package = "netlify-plugin-decap-cms"
+
 [build]
   publish = "dist"
   command = "npm run build"

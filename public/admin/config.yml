@@ -1,6 +1,12 @@
 backend:
-  name: git-gateway
+  name: github
   branch: main
+  repo: your-username/your-repo-name # Update this with your actual GitHub repo
+
+# Alternative: Use git-gateway if you prefer Netlify Identity
+# backend:
+#   name: git-gateway
+#   branch: main
 
 media_folder: "public/images/blog"
 public_folder: "/images/blog"
@@ -20,3 +26,8 @@ collections:
       - { label: "Tags", name: "tags", widget: "list", default: ["automation"] }
       - { label: "Featured", name: "featured", widget: "boolean", default: false }
       - { label: "Body", name: "body", widget: "markdown" }
+
+# Optional: Add site configuration
+site_url: https://www.bitladssoftware.com
+display_url: https://www.bitladssoftware.com
+logo_url: https://www.bitladssoftware.com/favicon-192.png
