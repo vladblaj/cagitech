@@ -2,7 +2,7 @@
 
 A modern, responsive website showcasing intelligent workflow automation solutions built with React, TypeScript, and Tailwind CSS.
 
-## 🚀 Features
+## Features
 
 - **Interactive Workflow Demos** - Step-by-step automation demonstrations
 - **Multi-language Support** - English and Romanian translations
