@@ -11,7 +11,6 @@ import ReactMarkdown from 'react-markdown';
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
-  const { language } = useLanguage();
   const { getPostBySlug, loading, error } = useBlogPosts();
 
   if (loading) {
@@ -77,7 +76,6 @@ export default function BlogPostPage() {
       alert('Link copied to clipboard!');
     } catch (err) {
       // Final fallback: show share dialog with URL
-      const shareText = `Check out this article: ${post.title}\n${window.location.href}`;
       if (window.prompt) {
         window.prompt('Copy this link to share:', window.location.href);
       } else {
