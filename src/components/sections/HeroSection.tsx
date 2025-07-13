@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Target, Wand2, Mail } from 'lucide-react';
+import { ArrowRight, Target, Wand2, Mail, BookOpen } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
 import { useLanguage } from '../../contexts/LanguageContext';
@@ -37,15 +37,28 @@ export function HeroSection() {
           ))}
         </div>
 
-        <Link to="/contact">
-          <Button
-            size="lg"
-            className="bg-jonquil hover:bg-aureolin text-eerie-black font-mono text-lg px-6 py-3 rounded-lg transition-colors"
-          >
-            {t("cta")}
-            <ArrowRight className="w-5 h-5 ml-2" />
-          </Button>
-        </Link>
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Link to="/contact">
+            <Button
+              size="lg"
+              className="bg-jonquil hover:bg-aureolin text-eerie-black font-mono text-lg px-6 py-3 rounded-lg transition-colors"
+            >
+              {t("cta")}
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
+          </Link>
+          
+          <Link to="/blog">
+            <Button
+              variant="outline"
+              size="lg"
+              className="font-mono font-semibold text-lg px-6 py-3 border-2 border-timberwolf text-timberwolf hover:bg-timberwolf hover:text-eerie-black transition-all duration-200"
+            >
+              <BookOpen className="w-5 h-5 mr-2" />
+              Read Our Blog
+            </Button>
+          </Link>
+        </div>
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { Zap } from 'lucide-react';
+import { Zap, BookOpen, Mail } from 'lucide-react';
+import { Button } from '../ui/button';
 import { LanguageToggle } from './LanguageToggle';
 
 interface HeaderProps {
@@ -12,7 +13,7 @@ export function Header({ title, subtitle }: HeaderProps) {
   return (
     <header className="border-b border-jet">
       <div className="max-w-6xl mx-auto px-6 py-8">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
           <Link to="/" className="flex items-center gap-3">
             <div className="w-8 h-8 bg-jonquil rounded-lg flex items-center justify-center">
               <Zap className="w-4 h-4 text-eerie-black" />
@@ -21,7 +22,25 @@ export function Header({ title, subtitle }: HeaderProps) {
               Bitlads Software
             </span>
           </Link>
-          <LanguageToggle />
+          
+          <div className="flex items-center gap-4">
+            <nav className="hidden md:flex items-center gap-4">
+              <Link to="/blog">
+                <Button variant="ghost" className="text-timberwolf hover:text-aureolin font-mono">
+                  <BookOpen className="w-4 h-4 mr-2" />
+                  Blog
+                </Button>
+              </Link>
+              <Link to="/contact">
+                <Button variant="ghost" className="text-timberwolf hover:text-aureolin font-mono">
+                  <Mail className="w-4 h-4 mr-2" />
+                  Contact
+                </Button>
+              </Link>
+            </nav>
+            
+            <LanguageToggle />
+          </div>
         </div>
 
         {(title || subtitle) && (
