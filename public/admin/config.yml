@@ -1,3 +1,5 @@
+# local_backend: true
+# npx decap-server   
 backend:
   name: git-gateway
   repo: vladblaj/cagitech
