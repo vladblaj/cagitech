@@ -1,7 +1,7 @@
 backend:
-  name: github
+  name: git-gateway
   branch: main
-  repo: your-username/your-repo-name # Update this with your actual GitHub repo
+  repo: https://github.com/vladblaj/cagitech # Update this with your actual GitHub repo
 
 # Alternative: Use git-gateway if you prefer Netlify Identity
 # backend:

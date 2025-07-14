@@ -5,7 +5,6 @@ import { SEOHead } from '../components/SEOHead';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { useBlogPosts } from '../hooks/useBlogPosts';
-import { useLanguage } from '../contexts/LanguageContext';
 import { ArrowLeft, Calendar, User, Tag, Share2, Clock, Loader2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
