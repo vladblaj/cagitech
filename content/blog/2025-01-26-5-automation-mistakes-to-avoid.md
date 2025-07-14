@@ -1,10 +1,15 @@
 ---
-title: "5 Common Automation Mistakes That Cost Businesses Time and Money"
-description: "Learn about the most frequent automation pitfalls and how to avoid them when implementing workflow automation in your business."
-author: "Bitlads Software"
-date: "2025-01-26T14:30:00.000Z"
+title: 5 Common Automation Mistakes That Cost Businesses Time and Money
+description: Learn about the most frequent automation pitfalls and how to avoid
+  them when implementing workflow automation in your business
+author: Bitlads Software
+date: 2025-01-26T14:30:00.000Z
 image: ""
-tags: ["automation", "best-practices", "mistakes", "business-tips"]
+tags:
+  - automation
+  - best-practices
+  - mistakes
+  - business-tips
 featured: false
 ---
 
