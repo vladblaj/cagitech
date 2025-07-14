@@ -44,7 +44,10 @@ export function useBlogPosts() {
           const contentResponse = await axios.get(file.url);
 
           const encodedContent = contentResponse.data.content;
-          const decodedContent = atob(encodedContent);
+          // Properly decode base64 as UTF-8 to handle emojis and special characters
+          const binary = atob(encodedContent);
+          const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
+          const decodedContent = new TextDecoder('utf-8').decode(bytes);
 
           const parts = decodedContent.split('---');
           if (parts.length < 3) {

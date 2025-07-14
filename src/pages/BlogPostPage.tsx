@@ -7,6 +7,7 @@ import { Badge } from '../components/ui/badge';
 import { useBlogPosts } from '../hooks/useBlogPosts';
 import { ArrowLeft, Calendar, User, Tag, Share2, Clock, Loader2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+import { MonsteraOverlay } from '../components/MonsteraOverlay';
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();

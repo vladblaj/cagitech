@@ -3,6 +3,7 @@ import { Calendar, User, Tag, ArrowRight } from 'lucide-react';
 import { Card } from './ui/card';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
+import { MonsteraOverlay } from './MonsteraOverlay';
 
 interface BlogPost {
   slug: string;

@@ -3,7 +3,7 @@ title: "How I Made My Houseplant TikTok-Famous with n8n"
 description: "Building a hands‑off sunrise-to-YouTube plant timelapse pipeline with n8n, Home Assistant, FFmpeg, and more."
 author: "Bitlads Software"
 date: "2025-07-14T10:00:00.000Z"
-image: ""
+image: "https://images.squarespace-cdn.com/content/56923fa6a976af0bfc533475/1649177327026-ZSA6Q1UGI3MIVLXV7VAT/IMG_7938.jpg?content-type=image%2Fjpeg"
 tags: ["n8n", "automation", "home-assistant", "ffmpeg", "timelapse"]
 featured: true
 ---

@@ -271,3 +271,8 @@
     --color-aureolin: #ffff00;
   }
 }
+
+/* Emoji font support for blog content */
+.prose, .prose * {
+  font-family: 'Inter', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Apple Color Emoji', 'Noto Color Emoji', Arial, sans-serif;
+}
