@@ -59,7 +59,7 @@ export function useBlogPosts() {
           frontmatter.split('\n').forEach((line) => {
             const [key, ...valueParts] = line.split(':');
             if (key && valueParts.length) {
-              let value = valueParts.join(':').trim();
+              let value: string | string[] | boolean = valueParts.join(':').trim();
               if (value.startsWith('[') && value.endsWith(']')) {
                 value = value.slice(1, -1).split(',').map((v) => v.trim());
               } else if (value === 'true' || value === 'false') {
