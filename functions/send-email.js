@@ -58,7 +58,7 @@ const handler = async (event, context) => {
         subject: `New Contact: ${subject}`,
         html: generateTemplate(name, email, subject, message, company, phone)
       },
-      recipients: [{ address: 'vlad.blaj@bitladssoftware.com' }],
+      recipients: [{ address: 'contact@bitladssoftware.com' }],
     })
 
     console.log('Email sent successfully:', result)
