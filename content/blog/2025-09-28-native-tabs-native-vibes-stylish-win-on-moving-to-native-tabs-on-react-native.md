@@ -119,7 +119,6 @@ export default function TabLayout() {
 
 - **Native motion & haptics:** The tab switch uses platform animations and subtle haptics, so it *feels* like a first-party app instead of a skinned web view.
 - **Material You on Android:** On Android 12+, the tab bar respects dynamic color, proper elevation shadows, and authentic ripples. It picks up the user’s wallpaper-derived palette, so it blends into the system like magic.
-- **“Liquid glass” vibe:** You can give the tab bar a glassy, translucent look so content flows beneath it—think frosted glass with soft blur.
 
 ### Under the hood: actually native (SwiftUI / Compose)
 
