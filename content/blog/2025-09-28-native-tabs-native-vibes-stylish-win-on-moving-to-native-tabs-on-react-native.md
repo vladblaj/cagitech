@@ -1,12 +1,10 @@
 ---
-title: "Native Tabs, Native Vibes: Stylish win on moving to Native Tabs on a
-  React Native app"
+title: Stylish win on moving to Expo Router Native Tabs
 description: "How I swapped Expo Router’s tabs for Swift Native Tabs in a React
   Native app: what changed, what broke (not much), and why it feels way more “at
   home” on iOS."
 author: Vlad
 date: 2025-09-28T22:22:00.000+03:00
-image: /images/blog/tabs.jpg
 tags:
   - react-native
   - expo
