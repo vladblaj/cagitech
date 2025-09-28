@@ -2,7 +2,7 @@
 title: Stylish win on moving to Expo Router Native Tabs
 description: How I swapped Expo Router’s tabs for Swift Native Tabs in React
 author: Vlad
-date: 2025-09-28T22:22:00.000+03:00
+date: 2025-09-28T23:24:00.000+03:00
 tags:
   - react-native
   - expo
@@ -151,6 +151,6 @@ Translation: navigation, focus, accessibility, haptics, and transitions are hand
 
 ## Verdict
 
-If you want your app to *feel* native (and actually use native component) without spending a week on the tab bar: **use Native Tabs**.
+If you want your app to *feel* native (and actually use a native component) without spending a week on the tab bar: **use Native Tabs**.
 
 Happy shipping! 🚀
