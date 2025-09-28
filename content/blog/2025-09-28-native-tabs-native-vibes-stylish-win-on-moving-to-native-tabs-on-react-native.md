@@ -6,6 +6,7 @@ description: "How I swapped Expo Router’s tabs for Swift Native Tabs in a Reac
   home” on iOS."
 author: Vlad
 date: 2025-09-28T22:22:00.000+03:00
+image: /images/blog/tabs.jpg
 tags:
   - react-native
   - expo
