@@ -1,9 +1,9 @@
 ---
-title: "Native Tabs, Native Vibes: Stylish win on moving to Native Tabs on react
-  native"
-description: "How I swapped Expo Router’s tabs for Native Tabs in a React Native
-  app: what changed, what broke (not much), and why it feels way more “at home”
-  on iOS."
+title: "Native Tabs, Native Vibes: Stylish win on moving to Native Tabs on a
+  React Native app"
+description: "How I swapped Expo Router’s tabs for Swift Native Tabs in a React
+  Native app: what changed, what broke (not much), and why it feels way more “at
+  home” on iOS."
 author: Vlad
 date: 2025-09-28T22:22:00.000+03:00
 tags:
@@ -16,19 +16,19 @@ tags:
 featured: false
 ---
 
-# 🧭 Native Tabs, Native Vibes: My Quick Win Moving Expo Router Tabs → Native Tabs
+# 🧭 Native Tabs, Native Vibes: A quick winn moving from Expo Router Tabs to Native Tabs
 
-I’ve been a loyal user of `Tabs` from `expo-router`—they’re good, they’re fast, they’re… a little *webby*.
-Then I tried **Native Tabs** and suddenly my app felt like it stopped cosplaying as native and actually became native.
+I’ve been using `Tabs` from `expo-router`—they’re good, they’re fast but they’re… a little *outdated*.
+Then I tried **Native Tabs** and suddenly my app felt like it stopped cosplaying as native and actually looks and file like a native iOS App.
 
-- Docs I followed: https://docs.expo.dev/router/advanced/native-tabs/
+- Docs I followed: [Expo Native Tabs docs](https://docs.expo.dev/router/advanced/native-tabs/)
 - Goal: keep my routes unchanged, upgrade the tab bar UX, stop wrestling with styling.
 
 ---
 
-## The “Before” (JS Tabs)
+## The “Before” (Expo Router Tabs)
 
-Solid, themeable, predictable—but lots of styling knobs and a non-native feel:
+Solid, themeable, predictable—but lots of styling properties and a non-native feel:
 
 ```tsx
 import { Tabs } from 'expo-router';
@@ -108,14 +108,11 @@ export default function TabLayout() {
   );
 }
 ```
-
-> iOS can use SF Symbols via `sf=""`; Android can use `drawable=""`. For custom icons, keep your assets in the platform projects or map them from your design system.
-
 ---
 
 ## See It In Motion
 
-**Old tabs (JS):**  
+**Old tabs (Plain JS):**  
 <video src="/videos/native_tab_old.mov" controls playsinline width="480"></video>
 
 **New tabs (Native):**  
@@ -157,14 +154,6 @@ import { Tabs } from 'expo-router';
   {/* ...your screens... */}
 </Tabs>
 ```
-
-With **Native Tabs**, deep theming hooks are still evolving, but you can get close:
-- Use semi-transparent surfaces from your theme (e.g., `rgba(… ,0.25)`).
-- Prefer system icons (SF Symbols on iOS, drawables on Android) for crisp, platform-true visuals.
-- Let Android handle elevation instead of fake shadows; it renders more naturally with Material.
-
-> TL;DR: Android gets dynamic color, real ripples, and proper elevation; iOS gets buttery transitions and crisp SF Symbols. Add a touch of translucency and you’ve got that sleek **liquid glass** finish without fighting CSS.
-
 ---
 
 
@@ -188,7 +177,7 @@ Translation: navigation, focus, accessibility, haptics, and transitions are hand
 
 ---
 
-## Migration Notes That Saved Me Minutes
+## Migration Notes That Saved Me Precious time
 
 - Routes stay the same; you mostly swap the layout component.
 - Keep your icon strategy consistent (SF Symbols on iOS, drawables on Android, or pick a cross-platform icon lib and wrap).
@@ -198,7 +187,6 @@ Translation: navigation, focus, accessibility, haptics, and transitions are hand
 
 ## Verdict
 
-If you want your app to *feel* native without spending a week on the tab bar: **use Native Tabs**.
-My app now looks like it belongs on the phone, not like it snuck in through a webview wearing a mustache.
+If you want your app to *feel* native (and actually use native component) without spending a week on the tab bar: **use Native Tabs**.
 
 Happy shipping! 🚀
