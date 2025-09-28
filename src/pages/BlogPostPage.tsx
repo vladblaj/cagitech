@@ -7,6 +7,9 @@ import { Badge } from '../components/ui/badge';
 import { useBlogPosts } from '../hooks/useBlogPosts';
 import { ArrowLeft, Calendar, User, Tag, Share2, Clock, Loader2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -184,6 +187,7 @@ export default function BlogPostPage() {
         <article className="prose prose-lg max-w-none">
           <div className="text-timberwolf font-mono leading-relaxed">
             <ReactMarkdown
+              rehypePlugins={[rehypeRaw]}
               components={{
                 h1: ({ children }) => (
                   <h1 className="text-3xl font-bold text-aureolin mb-6 mt-8 first:mt-0">{children}</h1>
@@ -214,16 +218,34 @@ export default function BlogPostPage() {
                     <div className="text-timberwolf italic">{children}</div>
                   </blockquote>
                 ),
-                code: ({ children }) => (
-                  <code className="bg-jet px-2 py-1 rounded text-aureolin font-mono text-sm">
-                    {children}
-                  </code>
-                ),
-                pre: ({ children }) => (
-                  <pre className="bg-jet p-4 rounded-lg overflow-x-auto mb-4 border border-jet">
-                    <code className="text-aureolin font-mono text-sm">{children}</code>
-                  </pre>
-                ),
+                code: ({ node, className, children, ...props }: any) => {
+                  const inline = !className;
+                  const match = /language-(\w+)/.exec(className || '');
+                  const language = match ? match[1] : '';
+                  
+                  return !inline && language ? (
+                    <SyntaxHighlighter
+                      style={vscDarkPlus as any}
+                      language={language}
+                      PreTag="div"
+                      customStyle={{
+                        background: '#1a1a1a',
+                        border: '1px solid #333533',
+                        borderRadius: '0.5rem',
+                        padding: '1rem',
+                        margin: '1rem 0',
+                        fontSize: '0.875rem',
+                        lineHeight: '1.5',
+                      }}
+                    >
+                      {String(children).replace(/\n$/, '')}
+                    </SyntaxHighlighter>
+                  ) : (
+                    <code className="bg-jet px-2 py-1 rounded text-aureolin font-mono text-sm" {...props}>
+                      {children}
+                    </code>
+                  );
+                },
                 a: ({ href, children }) => (
                   <a 
                     href={href} 
@@ -239,6 +261,16 @@ export default function BlogPostPage() {
                 ),
                 em: ({ children }) => (
                   <em className="text-aureolin italic">{children}</em>
+                ),
+                video: ({ src, controls, width, ...props }: any) => (
+                  <video 
+                    src={src}
+                    controls={controls}
+                    playsInline={props.playsinline}
+                    width={width}
+                    className="w-full max-w-full rounded-lg mb-4 shadow-lg"
+                    style={{ maxWidth: width ? `${width}px` : '100%' }}
+                  />
                 ),
               }}
             >
