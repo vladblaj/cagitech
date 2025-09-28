@@ -1,8 +1,6 @@
 ---
 title: Stylish win on moving to Expo Router Native Tabs
-description: "How I swapped Expo Router’s tabs for Swift Native Tabs in a React
-  Native app: what changed, what broke (not much), and why it feels way more “at
-  home” on iOS."
+description: How I swapped Expo Router’s tabs for Swift Native Tabs in React
 author: Vlad
 date: 2025-09-28T22:22:00.000+03:00
 tags:
