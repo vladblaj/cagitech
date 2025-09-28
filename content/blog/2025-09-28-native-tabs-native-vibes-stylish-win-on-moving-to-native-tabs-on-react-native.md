@@ -126,7 +126,7 @@ export default function TabLayout() {
 Translation: navigation, focus, accessibility, haptics, and transitions are handled by the **OS itself**, not a JavaScript view pretending to be native.
 
 
-## Pros & Cons (No Marketing Fluff)
+## Pros & Cons
 
 **Why Native Tabs slapped (in a good way):**
 - Real native feel + transitions out of the box
