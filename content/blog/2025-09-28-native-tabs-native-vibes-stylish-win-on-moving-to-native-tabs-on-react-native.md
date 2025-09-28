@@ -122,7 +122,7 @@ export default function TabLayout() {
 
 ### Under the hood: actually native (SwiftUI / Compose)
 
-`NativeTabs` isn’t a JS facsimile. On iOS it bridges to **real SwiftUI/UITabBarController-powered tabs** (think `TabView` behavior), and on Android it hooks into **Material-native tab components** (Jetpack Compose/`TabRow` territory).  
+`NativeTabs` isn’t a JS imitation of SwiftUI Tabs. On iOS it bridges to **real SwiftUI/UITabBarController-powered tabs** (think `TabView` behavior), and on Android it hooks into **Material-native tab components** (Jetpack Compose/`TabRow` territory).  
 Translation: navigation, focus, accessibility, haptics, and transitions are handled by the **OS itself**, not a JavaScript view pretending to be native.
 
 
