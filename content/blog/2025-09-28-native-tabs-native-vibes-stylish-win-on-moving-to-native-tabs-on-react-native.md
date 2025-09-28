@@ -16,9 +16,9 @@ tags:
 featured: false
 ---
 
-# 🧭 Native Tabs, Native Vibes: Moving Expo Router Tabs to Native Tabs
+# 🧭 Native Tabs, Native Vibes: My Quick Win Moving Expo Router Tabs → Native Tabs
 
-I’ve been a user of `Tabs` from `expo-router`—they’re good, they’re fast, they’re… a little left behind.
+I’ve been a loyal user of `Tabs` from `expo-router`—they’re good, they’re fast, they’re… a little *webby*.
 Then I tried **Native Tabs** and suddenly my app felt like it stopped cosplaying as native and actually became native.
 
 - Docs I followed: https://docs.expo.dev/router/advanced/native-tabs/
@@ -129,7 +129,7 @@ export default function TabLayout() {
 
 #### Quick “liquid glass” recipe
 
-If you want that frosted effect, you can blur *behind* the bar.`Tabs` you can do:
+If you want that frosted effect, you can blur *behind* the bar. With JS `Tabs` you can do:
 
 ```tsx
 import { BlurView } from 'expo-blur';
@@ -167,7 +167,14 @@ With **Native Tabs**, deep theming hooks are still evolving, but you can get clo
 
 ---
 
-## Pros & Cons
+
+### Under the hood: actually native (SwiftUI / Compose)
+
+`NativeTabs` isn’t a JS facsimile. On iOS it bridges to **real SwiftUI/UITabBarController-powered tabs** (think `TabView` behavior), and on Android it hooks into **Material-native tab components** (Jetpack Compose/`TabRow` territory).  
+Translation: navigation, focus, accessibility, haptics, and transitions are handled by the **OS itself**, not a JavaScript view pretending to be native.
+
+
+## Pros & Cons (No Marketing Fluff)
 
 **Why Native Tabs slapped (in a good way):**
 - Real native feel + transitions out of the box
