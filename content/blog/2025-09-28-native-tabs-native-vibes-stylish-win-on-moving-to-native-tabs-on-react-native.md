@@ -1,9 +1,9 @@
 ---
-title: "Native Tabs, Native Vibes: Stylish win on moving to Native Tabs on react
-  native"
-description: "How I swapped Expo Router’s tabs for Native Tabs in a React Native
-  app: what changed, what broke (not much), and why it feels way more “at home”
-  on iOS."
+title: "Native Tabs, Native Vibes: Stylish win on moving to Native Tabs on a
+  React Native app"
+description: "How I swapped Expo Router’s tabs for Swift Native Tabs in a React
+  Native app: what changed, what broke (not much), and why it feels way more “at
+  home” on iOS."
 author: Vlad
 date: 2025-09-28T22:22:00.000+03:00
 tags:
@@ -16,12 +16,12 @@ tags:
 featured: false
 ---
 
-# 🧭 Native Tabs, Native Vibes: My Quick Win Moving Expo Router Tabs → Native Tabs
+# 🧭 Native Tabs, Native Vibes: A quick winn moving from Expo Router Tabs to Native Tabs
 
-I’ve been a loyal user of `Tabs` from `expo-router`—they’re good, they’re fast, they’re… a little *webby*.
+I’ve been using `Tabs` from `expo-router`—they’re good, they’re fast but they’re… a little *outdates*.
 Then I tried **Native Tabs** and suddenly my app felt like it stopped cosplaying as native and actually became native.
 
-- Docs I followed: https://docs.expo.dev/router/advanced/native-tabs/
+- Docs I followed: [Expo Native Tabs docs](https://docs.expo.dev/router/advanced/native-tabs/)
 - Goal: keep my routes unchanged, upgrade the tab bar UX, stop wrestling with styling.
 
 ---
@@ -157,14 +157,6 @@ import { Tabs } from 'expo-router';
   {/* ...your screens... */}
 </Tabs>
 ```
-
-With **Native Tabs**, deep theming hooks are still evolving, but you can get close:
-- Use semi-transparent surfaces from your theme (e.g., `rgba(… ,0.25)`).
-- Prefer system icons (SF Symbols on iOS, drawables on Android) for crisp, platform-true visuals.
-- Let Android handle elevation instead of fake shadows; it renders more naturally with Material.
-
-> TL;DR: Android gets dynamic color, real ripples, and proper elevation; iOS gets buttery transitions and crisp SF Symbols. Add a touch of translucency and you’ve got that sleek **liquid glass** finish without fighting CSS.
-
 ---
 
 
