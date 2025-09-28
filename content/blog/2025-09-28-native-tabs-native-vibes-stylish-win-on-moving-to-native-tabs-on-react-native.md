@@ -15,9 +15,9 @@ tags:
 featured: false
 ---
 
-# 🧭 Native Tabs, Native Vibes: A quick winn moving from Expo Router Tabs to Native Tabs
+# 🧭 Native Tabs, Native Vibes: A quick win moving from Expo Router Tabs to Native Tabs
 
-I’ve been using `Tabs` from `expo-router`—they’re good, they’re fast but they’re… a little *outdated*.
+I’ve been using `Tabs` from `expo-router`they re good, they are fast but they’re… a little *outdated*.
 Then I tried **Native Tabs** and suddenly my app felt like it stopped cosplaying as native and actually looks and file like a native iOS App.
 
 - Docs I followed: [Expo Native Tabs docs](https://docs.expo.dev/router/advanced/native-tabs/)
@@ -122,39 +122,6 @@ export default function TabLayout() {
 - **Native motion & haptics:** The tab switch uses platform animations and subtle haptics, so it *feels* like a first-party app instead of a skinned web view.
 - **Material You on Android:** On Android 12+, the tab bar respects dynamic color, proper elevation shadows, and authentic ripples. It picks up the user’s wallpaper-derived palette, so it blends into the system like magic.
 - **“Liquid glass” vibe:** You can give the tab bar a glassy, translucent look so content flows beneath it—think frosted glass with soft blur.
-
-#### Quick “liquid glass” recipe
-
-If you want that frosted effect, you can blur *behind* the bar. With JS `Tabs` you can do:
-
-```tsx
-import { BlurView } from 'expo-blur';
-import { Tabs } from 'expo-router';
-
-<Tabs
-  screenOptions={{
-    headerShown: false,
-    tabBarBackground: () => (
-      <BlurView
-        intensity={50}
-        tint="light"              // "dark" also looks great with AMOLED
-        style={{ flex: 1 }}
-      />
-    ),
-    tabBarStyle: {
-      position: 'absolute',
-      backgroundColor: 'rgba(255,255,255,0.25)', // keeps the “liquid” translucency
-      borderTopWidth: 0,
-      elevation: 0,
-      backdropFilter: 'blur(20px)' as any,       // iOS webview hint; harmless elsewhere
-    },
-  }}
->
-  {/* ...your screens... */}
-</Tabs>
-```
----
-
 
 ### Under the hood: actually native (SwiftUI / Compose)
 
