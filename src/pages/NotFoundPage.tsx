@@ -135,7 +135,7 @@ export default function NotFoundPage() {
             </span>
           </div>
           <p className="text-timberwolf font-mono text-sm">
-            © 2025 Bitlads Software.
+            © 2025 Bagawhey Solutions S.R.L.
           </p>
         </div>
       </footer>
