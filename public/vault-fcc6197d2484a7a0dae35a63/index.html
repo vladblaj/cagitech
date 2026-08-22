@@ -4,29 +4,130 @@
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Private Vault</title>
+<title>The Vault — Private Index</title>
 <style>
-  :root{--bg:#0a0c13;--panel:#12162a;--line:#242c4a;--text:#e8eaf2;--dim:#98a0bd;--gold:#f0c04a}
-  *{box-sizing:border-box}
-  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
-    background:var(--bg);color:var(--text);
-    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-  main{max-width:520px;width:100%;padding:32px}
-  h1{font-size:20px;margin:0 0 6px;color:var(--gold)}
-  p{margin:0 0 24px;color:var(--dim);font-size:14px}
-  a.card{display:block;background:var(--panel);border:1px solid var(--line);border-radius:10px;
-    padding:16px 18px;margin-bottom:12px;color:var(--text);text-decoration:none;transition:border-color .15s}
-  a.card:hover{border-color:var(--gold)}
-  a.card small{display:block;color:var(--dim);margin-top:4px}
+:root{
+  --bg:#0a0c13; --bg2:#0f1220; --panel:#12162a; --panel2:#171c33;
+  --line:#242c4a; --line2:#2f3a5f;
+  --text:#e8eaf2; --dim:#98a0bd; --dimmer:#69708c; --gold:#f0c04a;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:
+    radial-gradient(1100px 620px at 50% -10%, #161c33 0%, transparent 62%),
+    var(--bg);
+  color:var(--text);min-height:100vh;
+  font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+.wrap{max-width:860px;margin:0 auto;padding:64px 22px 80px}
+
+header{margin-bottom:42px}
+.eyebrow{
+  font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);
+  margin-bottom:12px;display:flex;align-items:center;gap:9px;
+}
+.eyebrow:after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--gold),transparent);opacity:.4}
+h1{font-size:32px;line-height:1.15;margin:0 0 12px;font-weight:660;letter-spacing:-.015em}
+.lede{color:var(--dim);font-size:14.5px;max-width:60ch;margin:0}
+
+.sect{
+  font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--dimmer);
+  margin:0 0 14px;padding-bottom:9px;border-bottom:1px solid var(--line);font-weight:600;
+}
+.grid{display:grid;gap:12px;margin-bottom:38px}
+
+a.card{
+  display:block;background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  padding:20px 22px;color:var(--text);text-decoration:none;position:relative;overflow:hidden;
+  transition:border-color .18s,transform .18s,background .18s;
+}
+a.card:before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent,var(--gold));
+  opacity:.75;
+}
+a.card:hover{border-color:var(--line2);transform:translateY(-2px);background:var(--panel2)}
+a.card h2{margin:0 0 5px;font-size:17px;font-weight:640;letter-spacing:-.005em}
+a.card p{margin:0 0 13px;color:var(--dim);font-size:13.5px;line-height:1.55;max-width:62ch}
+.meta{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.pill{
+  font-size:10.5px;letter-spacing:.06em;padding:3px 9px;border-radius:20px;
+  background:#0b0f1c;border:1px solid var(--line);color:var(--dimmer);
+}
+.pill.new{border-color:var(--gold);color:var(--gold)}
+
+footer{
+  margin-top:8px;padding-top:22px;border-top:1px solid var(--line);
+  color:var(--dimmer);font-size:12.5px;line-height:1.6;
+}
+footer b{color:var(--dim);font-weight:600}
 </style>
 </head>
 <body>
-<main>
-  <h1>Private Vault</h1>
-  <p>Unlisted pages — do not share this URL.</p>
-  <a class="card" href="roman-universe.html">The Roman Universe<small>Gods, demigods &amp; their connections</small></a>
-  <a class="card" href="hindu-universe.html">The Hindu Universe<small>Devas, devis, avatars and their connections</small></a>
-  <a class="card" href="atlas-of-human-making.html">Atlas of Human Making<small>A world map of the art that changed us</small></a>
-</main>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Private Index</div>
+    <h1>The Vault</h1>
+    <p class="lede">Unlisted interactive maps. Nothing here is linked from the public site, indexed by
+    search engines, or listed in the sitemap — but the URL is the only lock on the door, so treat it
+    like a password.</p>
+  </header>
+
+  <div class="sect">Maps</div>
+  <div class="grid">
+
+    <a class="card" href="cartography-of-strangeness.html" style="--accent:#f0c04a">
+      <h2>The Cartography of Strangeness</h2>
+      <p>The most symbolically dense images ever painted, plotted by date against how deeply they were
+      encoded — from public sermon to private cipher. Alchemical manuscripts, Neoplatonic puzzle-pictures,
+      Bosch's hells, Tibetan cosmologies, occult modernism. Follow a single motif across six centuries.</p>
+      <div class="meta">
+        <span class="pill new">New</span>
+        <span class="pill">1400–1970</span>
+        <span class="pill">Constellation map</span>
+        <span class="pill">Motif threading</span>
+      </div>
+    </a>
+
+    <a class="card" href="atlas-of-human-making.html" style="--accent:#4fc78a">
+      <h2>Atlas of Human Making</h2>
+      <p>A world map of the art that changed us — where it was made, what it displaced, and what it made
+      possible afterwards.</p>
+      <div class="meta">
+        <span class="pill">World map</span>
+        <span class="pill">Timeline</span>
+      </div>
+    </a>
+
+    <a class="card" href="roman-universe.html" style="--accent:#e8604c">
+      <h2>The Roman Universe</h2>
+      <p>Gods, demigods and their connections — the full genealogical and functional network of Roman
+      religion, from the primordials to the deified emperors.</p>
+      <div class="meta">
+        <span class="pill">Network graph</span>
+        <span class="pill">13 tiers</span>
+      </div>
+    </a>
+
+    <a class="card" href="hindu-universe.html" style="--accent:#c084d8">
+      <h2>The Hindu Universe</h2>
+      <p>Devas, devis, avatars and their connections — the relational structure of the Hindu pantheon
+      across its major traditions.</p>
+      <div class="meta">
+        <span class="pill">Network graph</span>
+        <span class="pill">Avatars &amp; consorts</span>
+      </div>
+    </a>
+
+  </div>
+
+  <footer>
+    <b>Access.</b> This is a static site with no login layer, so the secret URL is the whole security
+    model. Anyone who has the link has the vault. If you ever need a real password prompt in front of
+    it, that requires Netlify password protection or a small edge-function gate.
+  </footer>
+
+</div>
 </body>
 </html>
