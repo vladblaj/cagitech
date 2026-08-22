@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>The Roman Universe — Gods, Demigods & Their Connections</title>
 <style>
 :root{
@@ -16,12 +16,12 @@
   --t-hero:#e8604c; --t-mortal:#bfae8e; --t-deified:#ffd9a0; --t-monster:#b06848;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0;height:100%;overflow:hidden}
+html,body{margin:0;padding:0;height:100%;overflow:hidden;overscroll-behavior:none}
 body{
   background:var(--bg); color:var(--text);
   font:14px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 }
-#app{display:flex;flex-direction:column;height:100%}
+#app{display:flex;flex-direction:column;height:100%;height:100dvh}
 
 /* ---------- top bar ---------- */
 header{
@@ -53,7 +53,7 @@ header{
 /* ---------- body ---------- */
 main{flex:1;display:flex;min-height:0;position:relative}
 #stage{flex:1;position:relative;min-width:0;overflow:hidden}
-canvas{display:block;width:100%;height:100%;cursor:grab}
+canvas{display:block;width:100%;height:100%;cursor:grab;touch-action:none}
 canvas.grabbing{cursor:grabbing}
 .scrollview{position:absolute;inset:0;overflow-y:auto;padding:22px 26px 60px;display:none}
 .scrollview.on{display:block}
@@ -218,6 +218,58 @@ aside.detail.on{display:block}
   .gen{gap:10px}
   .gen-label{width:78px;font-size:9px}
 }
+/* ================= mobile & touch ================= */
+.scrim{position:absolute;inset:0;background:rgba(4,6,12,.5);z-index:29;opacity:0;
+  pointer-events:none;transition:opacity .2s}
+.scrim.on{opacity:1;pointer-events:auto}
+.railclose{display:none;position:absolute;top:8px;right:8px;width:38px;height:38px;border-radius:50%;
+  background:#151a30;border:1px solid var(--line);color:var(--dim);font-size:20px;line-height:1;cursor:pointer}
+
+@media (max-width:900px){
+  aside.rail{width:min(82vw,268px);z-index:37;padding:38px 12px calc(48px + env(safe-area-inset-bottom))}
+  .scrim{z-index:36}
+  .railclose{display:block}
+  .views{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .views::-webkit-scrollbar{display:none}
+  .views button{flex:1 0 auto;min-width:23%}
+  .zoombox{bottom:calc(12px + env(safe-area-inset-bottom))}
+  .hint{bottom:calc(12px + env(safe-area-inset-bottom));max-width:calc(100vw - 104px);
+    white-space:normal;text-align:center;line-height:1.35}
+}
+
+/* phones: the detail panel becomes a bottom sheet, so the map stays visible behind it */
+@media (max-width:640px){
+  aside.detail{
+    top:auto;left:0;right:0;bottom:0;width:100%;max-width:none;
+    height:64%;min-height:290px;border-left:0;border-top:1px solid var(--line);
+    border-radius:16px 16px 0 0;box-shadow:0 -16px 46px rgba(0,0,0,.55);
+    overscroll-behavior:contain;
+  }
+  aside.detail .dt-head{position:sticky;top:0;z-index:3;padding:14px 16px 12px;border-radius:16px 16px 0 0}
+  aside.detail .dt-head h2{font-size:20px}
+  aside.detail .dt-body{padding:14px 16px calc(46px + env(safe-area-inset-bottom))}
+}
+
+/* fingers need larger targets than a mouse pointer */
+@media (pointer:coarse){
+  .zoombox{gap:8px}
+  .zoombox button{width:44px;height:44px;font-size:20px;border-radius:11px}
+  .dt-close{top:9px;right:10px;width:40px;height:40px;font-size:25px;border-radius:50%;
+    background:rgba(10,13,26,.7);border:1px solid var(--line);color:var(--text);
+    display:flex;align-items:center;justify-content:center;padding:0}
+  .dt-head h2{padding-right:48px}
+  #search{font-size:16px;padding:10px 12px}
+  .views button{padding:10px 13px;font-size:13px}
+  #toggleRail{padding:10px 12px;font-size:15px}
+  .chip{padding:9px 8px;font-size:13px}
+  .railbtn{padding:11px 8px;font-size:12.5px}
+  .rel{padding:10px 8px;font-size:13.5px}
+  .tnode{padding:10px 13px;font-size:13.5px}
+  .card{padding:12px 14px;min-width:44%}
+  .month .ev{padding:9px 0;font-size:13px}
+  .sec ul li{padding-bottom:11px}
+  .tag{padding:5px 11px;font-size:12.5px}
+}
 </style>
 </head>
 <body>
@@ -240,6 +292,7 @@ aside.detail.on{display:block}
 
   <main>
     <aside class="rail" id="rail">
+      <button class="railclose" id="railClose" aria-label="Close filters">&times;</button>
       <h3>Orders of Being</h3>
       <div id="tierChips"></div>
       <button class="railbtn" id="allTiers">Show all orders</button>
@@ -252,12 +305,13 @@ aside.detail.on{display:block}
       </div>
       <button class="railbtn" id="resetView">Recentre the sky</button>
     </aside>
+    <div class="scrim" id="scrim"></div>
 
     <div id="stage">
       <canvas id="cv"></canvas>
       <div class="hint" id="hint">Drag to pan · scroll to zoom · click a figure</div>
       <div class="zoombox">
-        <button id="zin">+</button><button id="zout">−</button>
+        <button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button><button id="zfit" aria-label="Recentre the sky">⤢</button>
       </div>
       <div class="scrollview" id="v-hier"></div>
       <div class="scrollview" id="v-tree"></div>
@@ -374,8 +428,14 @@ Object.keys(LINKTYPES).forEach(k => {
   linkChips.appendChild(d);
 });
 
-document.getElementById('toggleRail').onclick = () =>
-  document.getElementById('rail').classList.toggle('open');
+const railEl = document.getElementById('rail'), scrimEl = document.getElementById('scrim');
+function setRail(open){
+  railEl.classList.toggle('open', open);
+  scrimEl.classList.toggle('on', open);
+}
+document.getElementById('toggleRail').onclick = () => setRail(!railEl.classList.contains('open'));
+document.getElementById('railClose').onclick = () => setRail(false);
+scrimEl.onclick = () => setRail(false);
 
 /* ============================ search ============================ */
 const searchEl = document.getElementById('search');
@@ -585,81 +645,147 @@ function toWorld(px,py){
   const c = state.cam;
   return { x:(px - W/2 - c.x)/c.k, y:(py - H/2 - c.y)/c.k };
 }
+const ZMIN = 0.22, ZMAX = 6;
+const COARSE = window.matchMedia('(pointer:coarse)').matches;
+
+/* how far off a dot a tap may land and still count as hitting it */
+function pickSlop(){ return (touchInput ? 22 : 9) / state.cam.k; }
+
 function pick(px,py){
   const p = toWorld(px,py);
+  const slop = pickSlop();
   let best = null, bd = 1e9;
   for (const n of nodes){
     if (!visible(n)) continue;
     const d = Math.hypot(n.x-p.x, n.y-p.y);
-    if (d < n.r + 9/state.cam.k && d < bd){ bd = d; best = n; }
+    if (d < n.r + slop && d < bd){ bd = d; best = n; }
   }
   return best;
 }
-let panning = false, last = null, moved = false;
+
+/* keep the world point under (px,py) fixed while the scale changes */
+function zoomAt(px,py,k){
+  const before = toWorld(px,py);
+  state.cam.k = Math.max(ZMIN, Math.min(ZMAX, k));
+  const after = toWorld(px,py);
+  state.cam.x += (after.x-before.x)*state.cam.k;
+  state.cam.y += (after.y-before.y)*state.cam.k;
+}
+function zoomCentre(f){ zoomAt(W/2, H/2, state.cam.k*f); }
+function resetCam(){ state.cam = {x:0, y:0, k: fitK()}; alpha = 0.7; }
+
+function localPt(ev){
+  const r = cv.getBoundingClientRect();
+  return {x: ev.clientX - r.left, y: ev.clientY - r.top};
+}
+
+/* one gesture engine for mouse, pen and touch: 1 pointer pans or drags a
+   figure, 2 pointers pinch-zoom and pan around the point between them */
+const pointers = new Map();
+let panning = false, last = null, moved = false, downAt = null, pinch = null, tapNode = null;
+let touchInput = COARSE, lastTapAt = 0;
+const tapSlop = () => touchInput ? 16 : 4;   /* a finger rolls a little on every tap */
+
 cv.addEventListener('pointerdown', ev => {
+  touchInput = ev.pointerType !== 'mouse';
   cv.setPointerCapture(ev.pointerId);
-  const n = pick(ev.offsetX, ev.offsetY);
-  moved = false;
-  if (n){ dragNode = n; alpha = Math.max(alpha, .35); }
+  const p = localPt(ev);
+  /* a primary pointer means nothing else is down: drop any id the browser
+     never sent an up for, so a lost event can't wedge the gesture state */
+  if (ev.isPrimary) pointers.clear();
+  pointers.set(ev.pointerId, p);
+
+  if (pointers.size === 2){
+    const [a,b] = [...pointers.values()];
+    pinch = {d: Math.hypot(a.x-b.x, a.y-b.y) || 1,
+             mx: (a.x+b.x)/2, my: (a.y+b.y)/2, k: state.cam.k};
+    dragNode = null; panning = false; moved = true;
+    cv.classList.remove('grabbing');
+    return;
+  }
+  if (pointers.size > 2) return;
+
+  const n = pick(p.x, p.y);
+  moved = false; downAt = p; last = p; tapNode = n;
+  /* a finger is wide enough that it lands on a figure almost anywhere, so on
+     touch a drag always pans and figures are opened by tapping instead */
+  if (n && !touchInput){ dragNode = n; alpha = Math.max(alpha, .35); }
   else { panning = true; cv.classList.add('grabbing'); }
-  last = {x:ev.offsetX, y:ev.offsetY};
 });
+
 cv.addEventListener('pointermove', ev => {
+  const p = localPt(ev);
+  if (pointers.has(ev.pointerId)) pointers.set(ev.pointerId, p);
+
+  if (pinch && pointers.size >= 2){
+    const [a,b] = [...pointers.values()];
+    const d = Math.hypot(a.x-b.x, a.y-b.y) || 1;
+    const mx = (a.x+b.x)/2, my = (a.y+b.y)/2;
+    state.cam.x += mx - pinch.mx;
+    state.cam.y += my - pinch.my;
+    pinch.mx = mx; pinch.my = my;
+    zoomAt(mx, my, pinch.k * d / pinch.d);
+    return;
+  }
+
+  if (downAt && !moved && Math.hypot(p.x-downAt.x, p.y-downAt.y) > tapSlop()) moved = true;
+
   if (dragNode){
-    const p = toWorld(ev.offsetX, ev.offsetY);
-    dragNode.x = p.x; dragNode.y = p.y; dragNode.vx = dragNode.vy = 0;
-    moved = true; alpha = Math.max(alpha, .3);
+    const w = toWorld(p.x, p.y);
+    dragNode.x = w.x; dragNode.y = w.y; dragNode.vx = dragNode.vy = 0;
+    alpha = Math.max(alpha, .3);
   } else if (panning){
-    state.cam.x += ev.offsetX-last.x; state.cam.y += ev.offsetY-last.y;
-    last = {x:ev.offsetX, y:ev.offsetY};
-    if (Math.abs(ev.offsetX-last.x)>2) moved = true;
-    moved = true;
-  } else {
-    const n = pick(ev.offsetX, ev.offsetY);
+    state.cam.x += p.x-last.x; state.cam.y += p.y-last.y;
+    last = p;
+  } else if (!touchInput){
+    const n = pick(p.x, p.y);
     const id = n ? n.id : null;
     if (id !== state.hover){ state.hover = id; cv.style.cursor = n ? 'pointer' : 'grab'; }
   }
 });
-cv.addEventListener('pointerup', ev => {
-  if (dragNode && !moved) select(dragNode.id);
-  else if (!dragNode && !moved){
-    const n = pick(ev.offsetX, ev.offsetY);
-    if (!n) select(null);
+
+function endPointer(ev, cancelled){
+  const p = localPt(ev);
+  const wasPinch = !!pinch;
+  pointers.delete(ev.pointerId);
+  if (pointers.size < 2) pinch = null;
+
+  if (pointers.size === 1){
+    /* one finger left after a pinch — carry on panning from where it is */
+    last = [...pointers.values()][0];
+    panning = true; dragNode = null; moved = true; downAt = null;
+    return;
   }
-  dragNode = null; panning = false; cv.classList.remove('grabbing');
+  if (pointers.size > 1) return;
+
+  if (!cancelled && !wasPinch && !moved){
+    const now = performance.now();
+    if (tapNode) select(tapNode.id);
+    else if (touchInput && now - lastTapAt < 320) zoomAt(p.x, p.y, state.cam.k*1.7);
+    else select(null);
+    lastTapAt = now;
+  }
+  dragNode = null; tapNode = null; panning = false; moved = false; downAt = null;
+  cv.classList.remove('grabbing');
+  if (touchInput && state.hover){ state.hover = null; }
+}
+cv.addEventListener('pointerup', ev => endPointer(ev, false));
+cv.addEventListener('pointercancel', ev => endPointer(ev, true));
+cv.addEventListener('pointerleave', () => {
+  if (!pointers.size && state.hover){ state.hover = null; }
 });
+
 cv.addEventListener('wheel', ev => {
   ev.preventDefault();
+  const p = localPt(ev);
   const f = ev.deltaY < 0 ? 1.13 : 1/1.13;
-  const before = toWorld(ev.offsetX, ev.offsetY);
-  state.cam.k = Math.max(0.22, Math.min(4.5, state.cam.k*f));
-  const after = toWorld(ev.offsetX, ev.offsetY);
-  state.cam.x += (after.x-before.x)*state.cam.k;
-  state.cam.y += (after.y-before.y)*state.cam.k;
+  zoomAt(p.x, p.y, state.cam.k*f);
 }, {passive:false});
 
-/* pinch */
-let pinch = null;
-cv.addEventListener('touchstart', ev => {
-  if (ev.touches.length === 2){
-    pinch = {d: Math.hypot(ev.touches[0].clientX-ev.touches[1].clientX,
-                           ev.touches[0].clientY-ev.touches[1].clientY), k: state.cam.k};
-  }
-}, {passive:true});
-cv.addEventListener('touchmove', ev => {
-  if (pinch && ev.touches.length === 2){
-    const d = Math.hypot(ev.touches[0].clientX-ev.touches[1].clientX,
-                         ev.touches[0].clientY-ev.touches[1].clientY);
-    state.cam.k = Math.max(0.22, Math.min(4.5, pinch.k * d/pinch.d));
-  }
-}, {passive:true});
-cv.addEventListener('touchend', () => { pinch = null; }, {passive:true});
-
-document.getElementById('zin').onclick = () => state.cam.k = Math.min(4.5, state.cam.k*1.28);
-document.getElementById('zout').onclick = () => state.cam.k = Math.max(0.22, state.cam.k/1.28);
-document.getElementById('resetView').onclick = () => {
-  state.cam = {x:0, y:0, k: fitK()}; alpha = 0.7;
-};
+document.getElementById('zin').onclick = () => zoomCentre(1.28);
+document.getElementById('zout').onclick = () => zoomCentre(1/1.28);
+document.getElementById('zfit').onclick = resetCam;
+document.getElementById('resetView').onclick = () => { resetCam(); setRail(false); };
 
 /* ============================ detail panel ============================ */
 const detail = document.getElementById('detail');
@@ -735,6 +861,7 @@ function select(id){
 
   detail.classList.add('on');
   detail.scrollTop = 0;
+  if (state.view === 'graph') requestAnimationFrame(() => keepClear(id));
   detail.querySelector('.dt-close').onclick = () => select(null);
   detail.querySelectorAll('[data-go]').forEach(el =>
     el.onclick = () => { select(el.dataset.go); centreOn(el.dataset.go); });
@@ -746,6 +873,26 @@ function centreOn(id){
   state.cam.k = Math.max(state.cam.k, 0.9);
   state.cam.x = -n.x * state.cam.k;
   state.cam.y = -n.y * state.cam.k;
+}
+
+/* on phones the detail panel is a bottom sheet: nudge the camera so the
+   figure you just tapped is not left hidden underneath it */
+function sheetHeight(){
+  if (!detail.classList.contains('on')) return 0;
+  const r = detail.getBoundingClientRect(), s = document.getElementById('stage').getBoundingClientRect();
+  return r.top > s.top ? Math.max(0, s.bottom - r.top) : 0;
+}
+function keepClear(id){
+  const n = nmap[id]; if (!n) return;
+  const h = sheetHeight();
+  if (h < 60) return;
+  const top = 34, bot = H - h - 22;
+  if (bot <= top) return;
+  const sy = H/2 + state.cam.y + n.y*state.cam.k;
+  if (sy < top || sy > bot) state.cam.y += (top+bot)/2 - sy;
+  const sx = W/2 + state.cam.x + n.x*state.cam.k;
+  if (sx < 30) state.cam.x += 30 - sx;
+  else if (sx > W-30) state.cam.x -= sx - (W-30);
 }
 
 const ORIGINS = {
@@ -940,7 +1087,10 @@ resize();
 state.cam.k = fitK();
 render();
 loop();
-setTimeout(() => { const h = document.getElementById('hint'); if (h) h.style.opacity = '0'; h.style.transition='opacity .8s'; }, 6000);
+const hintEl = document.getElementById('hint');
+if (COARSE) hintEl.textContent = 'Drag to pan · pinch to zoom · tap a figure';
+setTimeout(() => { if (hintEl){ hintEl.style.transition = 'opacity .8s'; hintEl.style.opacity = '0'; } }, 6000);
+window.addEventListener('orientationchange', () => setTimeout(resize, 250));
 </script>
 </body>
 </html>
