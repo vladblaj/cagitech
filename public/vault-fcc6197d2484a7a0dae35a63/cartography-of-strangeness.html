@@ -154,6 +154,67 @@ main{flex:1;position:relative;overflow:hidden}
 .closing h3{font-size:17px;margin:0 0 12px;color:var(--gold);font-weight:650}
 .closing p{margin:0 0 12px;font-size:13.5px;line-height:1.68;color:#d3d8ea}
 
+
+/* ---------- artwork imagery ---------- */
+.artframe{
+  position:relative;width:100%;border-radius:9px;overflow:hidden;border:1px solid var(--line);
+  background:#0b0f1c;margin-bottom:16px;
+}
+.artframe .plate{display:flex;width:100%;height:100%}
+.artframe .plate i{flex:1}
+.artframe.ratio{aspect-ratio:4/3}
+.artframe img{display:block;width:100%;height:auto;max-height:62vh;object-fit:contain;background:#07090f}
+.artframe .cap{
+  position:absolute;left:0;right:0;bottom:0;padding:16px 12px 7px;font-size:10.5px;color:#c3c9de;
+  background:linear-gradient(180deg,transparent,rgba(6,8,14,.88));pointer-events:none;
+}
+.artframe.pending:after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.05),transparent);
+  animation:sheen 1.5s infinite;
+}
+@keyframes sheen{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.artnote{
+  font-size:11.5px;color:var(--dimmer);line-height:1.5;margin:-8px 0 18px;
+}
+.artnote a{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-dim)}
+.artnote a:hover{color:#f5cd6a}
+
+/* thumbnails in lists */
+.thumb{
+  width:54px;height:54px;flex:none;border-radius:6px;overflow:hidden;border:1px solid var(--line);
+  background:#0b0f1c;position:relative;
+}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb .plate{display:flex;width:100%;height:100%}
+.thumb .plate i{flex:1}
+
+#tip .tipimg{width:100%;height:92px;border-radius:5px;overflow:hidden;margin-bottom:7px;background:#0b0f1c}
+#tip .tipimg img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* ---------- gallery view ---------- */
+#galleryview{position:absolute;inset:0;overflow-y:auto;padding:22px 16px 70px;display:none}
+#galleryview.on{display:block}
+.gv-inner{max-width:1240px;margin:0 auto}
+.ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+.gcard{
+  background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;cursor:pointer;
+  transition:border-color .15s,transform .15s;display:flex;flex-direction:column;
+}
+.gcard:hover{border-color:var(--ac,var(--gold));transform:translateY(-2px)}
+.gcard .gimg{aspect-ratio:1/1;background:#0b0f1c;position:relative;overflow:hidden}
+.gcard .gimg img{width:100%;height:100%;object-fit:cover;display:block}
+.gcard .plate{display:flex;width:100%;height:100%}
+.gcard .plate i{flex:1}
+.gcard .gmeta{padding:9px 11px 11px}
+.gcard b{display:block;font-size:12.5px;font-weight:620;line-height:1.3;margin-bottom:3px}
+.gcard span{display:block;font-size:11px;color:var(--dimmer);line-height:1.4}
+.gcard .yr{color:var(--ac,var(--gold));font-variant-numeric:tabular-nums}
+.gbadge{
+  position:absolute;top:7px;right:7px;font-size:9px;letter-spacing:.08em;text-transform:uppercase;
+  padding:2px 7px;border-radius:20px;background:rgba(6,8,14,.82);color:var(--dim);border:1px solid var(--line);
+}
+
 /* ---------- dossier ---------- */
 #dossier{
   position:absolute;top:0;right:0;bottom:0;width:min(560px,100%);
@@ -279,6 +340,7 @@ main{flex:1;position:relative;overflow:hidden}
       <button class="tab on" data-view="map">Map</button>
       <button class="tab" data-view="motifs">Motifs</button>
       <button class="tab" data-view="currents">Currents</button>
+      <button class="tab" data-view="gallery">Plates</button>
     </div>
     <div class="searchwrap hidesm">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -328,6 +390,18 @@ main{flex:1;position:relative;overflow:hidden}
           which produced images that made complete sense inside it and very little outside it.</p>
         </div>
         <div id="cvbody"></div>
+      </div>
+    </div>
+
+    <div id="galleryview">
+      <div class="gv-inner">
+        <div class="mv-head">
+          <h2>The Plates</h2>
+          <p>All seventy-two works as a contact sheet, oldest first. Plates are fetched from Wikipedia by
+          your own browser as you scroll. Thirteen of these are still in copyright and are not reproduced —
+          those show the work's sampled colours instead, with a link out to the source.</p>
+        </div>
+        <div class="ggrid" id="ggrid"></div>
       </div>
     </div>
 
@@ -387,6 +461,14 @@ main{flex:1;position:relative;overflow:hidden}
         for six hundred years.</span></div>
     </div>
 
+    <h5>On the plates</h5>
+    <p>The pictures are not stored here. Your browser asks Wikipedia for each one as you scroll, which
+    keeps this page small and means no image is ever served from a guessed address. Where a work is still
+    in copyright — de Chirico, Duchamp, Dalí, Ernst, Carrington, Varo, Lam and seven others — nothing is
+    reproduced; you get the colours sampled from the work and a link to the source. Where a plate cannot
+    be fetched at all, the same colour bar stands in. The <b>Plates</b> tab shows all seventy-two as a
+    contact sheet.</p>
+
     <h5>On credulity</h5>
     <p>A map like this attracts nonsense, so a rule was applied throughout: scholarly consensus, live
     scholarly dispute, and popular fantasy are labelled as such and never blended. Where a famous occult
@@ -442,6 +524,198 @@ const MOTIFS = [
   {id:'architecture', name:'The Architecture',  gloss:'The impossible or emblematic building; space as an argument'},
 ];
 const MMAP = Object.fromEntries(MOTIFS.map(m=>[m.id,m]));
+
+// wiki: en.wikipedia article title to resolve at runtime.
+// free: false => still in copyright; never fetch an image, show palette + link.
+const ART = {
+ 'voynich-manuscript':{wiki:'Voynich manuscript'},
+ 'van-eyck-arnolfini':{wiki:'Arnolfini Portrait'},
+ 'kalachakra-mandala':{wiki:'Kalachakra'},
+ 'codex-borgia':{wiki:'Codex Borgia'},
+ 'botticelli-primavera':{wiki:'Primavera (Botticelli)'},
+ 'piero-satyr-nymph':{wiki:'A Satyr Mourning over a Nymph'},
+ 'bosch-garden':{wiki:'The Garden of Earthly Delights'},
+ 'bosch-anthony-lisbon':{wiki:'The Temptation of St. Anthony (Bosch)'},
+ 'lotto-virtue-vice':{wiki:'Allegory of Virtue and Vice'},
+ 'giorgione-tempest':{wiki:'The Tempest (Giorgione)'},
+ 'bosch-haywain':{wiki:'The Haywain Triptych'},
+ 'massys-ugly-duchess':{wiki:'The Ugly Duchess'},
+ 'grunewald-isenheim':{wiki:'Isenheim Altarpiece'},
+ 'durer-melencolia':{wiki:'Melencolia I'},
+ 'titian-sacred-profane':{wiki:'Sacred and Profane Love'},
+ 'patinir-charon':{wiki:'Charon Crossing the Styx'},
+ 'parmigianino-convex-mirror':{wiki:'Self-portrait in a Convex Mirror'},
+ 'holbein-ambassadors':{wiki:'The Ambassadors (Holbein)'},
+ 'splendor-solis':{wiki:'Splendor Solis'},
+ 'bronzino-allegory':{wiki:'Venus, Cupid, Folly and Time'},
+ 'rosarium-philosophorum':{wiki:'Rosarium philosophorum sive pretiosissimum donum Dei'},
+ 'hyakki-yagyo':{wiki:'Hyakki Yagyō'},
+ 'ripley-scroll':{wiki:'Ripley Scroll'},
+ 'bruegel-triumph-death':{wiki:'The Triumph of Death'},
+ 'bruegel-rebel-angels':{wiki:'The Fall of the Rebel Angels (Bruegel)'},
+ 'bruegel-dulle-griet':{wiki:'Dulle Griet'},
+ 'arcimboldo-vertumnus':{wiki:'Vertumnus (Arcimboldo)'},
+ 'khunrath-amphitheatrum':{wiki:'Heinrich Khunrath'},
+ 'atalanta-fugiens':{wiki:'Atalanta Fugiens'},
+ 'fludd-utriusque-cosmi':{wiki:'Robert Fludd'},
+ 'poussin-arcadia':{wiki:'Et in Arcadia ego'},
+ 'rosa-witches':{wiki:'Salvator Rosa'},
+ 'teniers-alchemist':{wiki:'David Teniers the Younger'},
+ 'velazquez-meninas':{wiki:'Las Meninas'},
+ 'mutus-liber':{wiki:'Mutus Liber'},
+ 'yamantaka-vajrabhairava':{wiki:'Yamantaka'},
+ 'bhavachakra':{wiki:'Bhavacakra'},
+ 'wright-alchymist':{wiki:'The Alchemist in Search of the Philosopher’s Stone'},
+ 'fuseli-nightmare':{wiki:'The Nightmare'},
+ 'blake-newton':{wiki:'Newton (Blake)'},
+ 'goya-aquelarre':{wiki:'Witches’ Sabbath (Goya, 1798)'},
+ 'goya-sueno-razon':{wiki:'The Sleep of Reason Produces Monsters'},
+ 'blake-red-dragon':{wiki:'The Great Red Dragon Paintings'},
+ 'blake-flea':{wiki:'The Ghost of a Flea'},
+ 'goya-saturn':{wiki:'Saturn Devouring His Son'},
+ 'kuniyoshi-takiyasha':{wiki:'Takiyasha the Witch and the Skeleton Spectre'},
+ 'moreau-apparition':{wiki:'The Apparition (Moreau)'},
+ 'rops-pornokrates':{wiki:'Pornokrates'},
+ 'bocklin-isle-dead':{wiki:'Isle of the Dead (painting)'},
+ 'neijing-tu':{wiki:'Neijing Tu'},
+ 'stuck-the-sin':{wiki:'The Sin (Stuck)'},
+ 'toorop-three-brides':{wiki:'Jan Toorop'},
+ 'delville-treasures-satan':{wiki:'The Treasures of Satan'},
+ 'khnopff-caresses':{wiki:'Caresses (Khnopff)'},
+ 'simberg-wounded-angel':{wiki:'The Wounded Angel'},
+ 'af-klint-ten-largest':{wiki:'Hilma af Klint'},
+ 'ciurlionis-sonata-stars':{wiki:'Mikalojus Konstantinas Čiurlionis'},
+ 'redon-cyclops':{wiki:'The Cyclops (Redon)'},
+ 'wolfli-riesen-schopfung':{wiki:'Adolf Wölfli'},
+ // --- still in copyright: palette + link only, never fetch ---
+ 'de-chirico-melancholy-street':{wiki:'Mystery and Melancholy of a Street',free:false},
+ 'duchamp-large-glass':{wiki:'The Bride Stripped Bare by Her Bachelors, Even',free:false},
+ 'pelton-star-gazer':{wiki:'Agnes Pelton',free:false},
+ 'brauner-enucleated-eye':{wiki:'Victor Brauner',free:false},
+ 'dali-narcissus':{wiki:'Metamorphosis of Narcissus',free:false},
+ 'carrington-inn-dawn-horse':{wiki:'Leonora Carrington',free:false},
+ 'colquhoun-scylla':{wiki:'Ithell Colquhoun',free:false},
+ 'kahlo-two-fridas':{wiki:'The Two Fridas',free:false},
+ 'ernst-robing-bride':{wiki:'The Robing of the Bride',free:false},
+ 'darger-realms-unreal':{wiki:'Henry Darger',free:false},
+ 'lam-the-jungle':{wiki:'The Jungle (Lam)',free:false},
+ 'emma-kunz-pendulum-drawings':{wiki:'Emma Kunz',free:false},
+ 'varo-creation-birds':{wiki:'Remedios Varo',free:false},
+};
+
+/* ----------------------------------------------------------------
+   Artwork imagery.
+
+   Images are resolved in the VIEWER'S browser at runtime, by Wikipedia
+   article title rather than by hardcoded file URL. Commons filenames are
+   unguessable, so a hardcoded list would rot into broken images; asking
+   Wikipedia to resolve the title means a bad guess degrades to the
+   palette plate instead. Results are cached in localStorage.
+
+   Works still in copyright (free:false) are never fetched — they show
+   the palette plate and a link out to the source.
+   ---------------------------------------------------------------- */
+const WIKI='https://en.wikipedia.org';
+const artMem=new Map();
+
+function artCacheGet(id){
+  try{const v=localStorage.getItem('cos-art:'+id);return v?JSON.parse(v):null;}catch(_){return null;}
+}
+function artCacheSet(id,v){
+  try{localStorage.setItem('cos-art:'+id,JSON.stringify(v));}catch(_){}
+}
+function atWidth(u,px){
+  return (u && /\/\d+px-/.test(u)) ? u.replace(/\/\d+px-/,'/'+px+'px-') : u;
+}
+async function wikiSummary(title){
+  const r=await fetch(WIKI+'/api/rest_v1/page/summary/'+encodeURIComponent(title),
+    {headers:{accept:'application/json'}});
+  if(!r.ok) return null;
+  return r.json();
+}
+async function wikiSearch(q){
+  const r=await fetch(WIKI+'/w/api.php?action=query&list=search&srlimit=1&format=json&origin=*&srsearch='
+    +encodeURIComponent(q));
+  if(!r.ok) return null;
+  const j=await r.json();
+  const hit=j&&j.query&&j.query.search&&j.query.search[0];
+  return hit?hit.title:null;
+}
+
+async function resolveArt(w){
+  if(artMem.has(w.id)) return artMem.get(w.id);
+  const cached=artCacheGet(w.id);
+  if(cached){artMem.set(w.id,cached);return cached;}
+
+  const meta=ART[w.id]||{};
+  const free=meta.free!==false;
+  const out={img:null,thumb:null,page:null,free};
+  try{
+    let j = meta.wiki ? await wikiSummary(meta.wiki) : null;
+    if(!j || j.type==='disambiguation'){
+      const t=await wikiSearch(w.title+' '+w.artist.split(/[;(,]/)[0]);
+      if(t) j=await wikiSummary(t);
+    }
+    if(j){
+      if(j.content_urls && j.content_urls.desktop) out.page=j.content_urls.desktop.page;
+      if(free){
+        const th=(j.thumbnail&&j.thumbnail.source)||null;
+        if(th){ out.img=atWidth(th,1000); out.thumb=atWidth(th,400); }
+        else if(j.originalimage&&j.originalimage.source){ out.img=j.originalimage.source; }
+      }
+    }
+  }catch(_){ /* blocked, offline, or CORS — palette plate stands in */ }
+  if(!out.page){
+    out.page=WIKI+'/w/index.php?search='+encodeURIComponent(w.title+' '+w.artist.split(/[;(,]/)[0]);
+  }
+  artMem.set(w.id,out); artCacheSet(w.id,out);
+  return out;
+}
+
+/* the always-available stand-in: the work's own colours as a plate */
+function plateHTML(w){
+  return '<div class="plate">'+(w.palette||['#2a2f45']).map(c=>
+    '<i style="background:'+esc(c)+'"></i>').join('')+'</div>';
+}
+
+/* drop an image into a host element once resolved; never blocks render */
+function fillArt(host,w,which,stillWanted){
+  if(!host) return;
+  resolveArt(w).then(a=>{
+    if(stillWanted && !stillWanted()) return;
+    const src = which==='thumb' ? (a.thumb||a.img) : (a.img||a.thumb);
+    if(!src){ host.classList.remove('pending'); return; }
+    const img=new Image();
+    img.alt=w.title+' — '+w.artist;
+    img.loading='lazy';
+    img.onload=()=>{
+      if(stillWanted && !stillWanted()) return;
+      host.classList.remove('pending');
+      const cap=host.querySelector('.cap');
+      host.innerHTML=''; host.appendChild(img);
+      if(cap) host.appendChild(cap);
+      host.classList.remove('ratio');
+    };
+    img.onerror=()=>{ host.classList.remove('pending'); };
+    img.src=src;
+  }).catch(()=>host.classList.remove('pending'));
+}
+
+/* lazily fill thumbs as they scroll into view, so opening a list does not
+   fire sixty requests at once */
+const artObserver = ('IntersectionObserver' in window) ? new IntersectionObserver((es,o)=>{
+  es.forEach(e=>{
+    if(!e.isIntersecting) return;
+    o.unobserve(e.target);
+    const w=WORKS.find(x=>x.id===e.target.dataset.art);
+    if(w) fillArt(e.target,w,e.target.dataset.artsize||'thumb');
+  });
+},{rootMargin:'250px'}) : null;
+
+function watchArt(root){
+  if(!artObserver) return;
+  root.querySelectorAll('[data-art]').forEach(el=>artObserver.observe(el));
+}
 
 const CURRENT_ESSAYS = {
   'alchemy': {
@@ -826,8 +1100,12 @@ function clampPan(){
 const tip=document.getElementById('tip');
 function showTip(id,e){
   const w=WORKS.find(x=>x.id===id); if(!w) return;
-  tip.innerHTML = `<b>${esc(w.title)}</b><div class="who">${esc(w.artist)} · ${esc(w.dateLabel)}</div>
+  const cachedArt = artMem.get(w.id) || artCacheGet(w.id);
+  const tImg = cachedArt && (cachedArt.thumb||cachedArt.img);
+  tip.innerHTML = (tImg?`<div class="tipimg"><img src="${esc(tImg)}" alt=""></div>`:'')
+    + `<b>${esc(w.title)}</b><div class="who">${esc(w.artist)} · ${esc(w.dateLabel)}</div>
     <div class="hk">${esc(w.hook)}</div>`;
+  if(!cachedArt) resolveArt(w).catch(()=>{});   // warm it for the next hover
   tip.style.display='block';
   const r=svg.getBoundingClientRect();
   let x=e.clientX-r.left+14, y=e.clientY-r.top+14;
@@ -863,6 +1141,8 @@ function openDossier(id){
   const sw=(w.palette||[]).map(p=>`<i style="background:${esc(p)}"></i>`).join('');
 
   document.getElementById('dbody').innerHTML = `
+    <div class="artframe ratio pending" id="dart">${plateHTML(w)}</div>
+    <div class="artnote" id="dartnote"></div>
     ${sw?`<div class="swatches">${sw}</div>`:''}
     <div class="dhook">${esc(w.hook)}</div>
     <dl class="dmeta">
@@ -880,6 +1160,21 @@ function openDossier(id){
   `;
   document.getElementById('dbody').scrollTop=0;
   dossier.classList.add('open');
+
+  // load the plate, but only paint it if this work is still the open one
+  const wanted=()=>S.sel===w.id;
+  fillArt(document.getElementById('dart'),w,'full',wanted);
+  resolveArt(w).then(a=>{
+    if(!wanted()) return;
+    const note=document.getElementById('dartnote');
+    if(!note) return;
+    note.innerHTML = !a.free
+      ? 'Still in copyright, so not reproduced here \u2014 the bar shows the work\u2019s own colours. <a href="'+esc(a.page)+'" target="_blank" rel="noopener">See it at the source &rarr;</a>'
+      : a.img
+        ? 'Plate resolved from Wikipedia. Colour bar sampled from the work. <a href="'+esc(a.page)+'" target="_blank" rel="noopener">Read the article &rarr;</a>'
+        : 'No plate could be fetched \u2014 the bar shows the work\u2019s own colours. <a href="'+esc(a.page)+'" target="_blank" rel="noopener">Look it up &rarr;</a>';
+  }).catch(()=>{});
+
   refresh();
 }
 function bandOf(r){ const b=BANDS.find(b=>r>=b.lo&&r<=b.hi); return b?b.label:''; }
@@ -905,7 +1200,7 @@ function buildRail(){
     b.onclick=()=>{
       if(S.offCurrents.has(c.id)){S.offCurrents.delete(c.id);b.className='chip on';}
       else {S.offCurrents.add(c.id);b.className='chip off';}
-      refresh(); if(S.view==='motifs') buildMotifGrid();
+      refresh(); if(S.view==='motifs') buildMotifGrid(); if(S.view==='gallery') buildGallery();
     };
     cc.appendChild(b);
   });
@@ -975,12 +1270,18 @@ function buildLineage(){
       return `<div class="litem" data-id="${w.id}" style="--c:${c.color}">
         <span style="position:absolute;left:-21px;top:5px;width:9px;height:9px;border-radius:50%;
           background:${c.color};border:2px solid var(--bg)"></span>
-        <b>${esc(w.title)}</b><span class="yr">${w.year}</span><span class="who">${esc(w.artist)}</span>
-        <p>${esc(w.hook)}</p></div>`;
+        <div style="display:flex;gap:11px;align-items:flex-start">
+          <div class="thumb" data-art="${w.id}" data-artsize="thumb">${plateHTML(w)}</div>
+          <div style="min-width:0">
+            <b>${esc(w.title)}</b><span class="yr">${w.year}</span><span class="who">${esc(w.artist)}</span>
+            <p>${esc(w.hook)}</p>
+          </div>
+        </div></div>`;
     }).join('')}</div>`;
   box.querySelectorAll('.litem').forEach(it=>{
     it.onclick=()=>openDossier(it.dataset.id);
   });
+  watchArt(box);
 }
 
 /* ================================================================
@@ -993,7 +1294,10 @@ function buildCurrents(){
     const works=WORKS.filter(w=>w.current===c.id).sort((a,b)=>a.year-b.year);
     const span=works.length?`${works[0].year}–${works[works.length-1].year} · ${works.length} works`:'';
     const ex=works.slice(0,8).map(w=>
-      `<button class="ex" data-id="${w.id}">${esc(w.title)}</button>`).join('');
+      `<button class="ex" data-id="${w.id}" style="display:inline-flex;align-items:center;gap:7px;padding:3px 10px 3px 3px">
+        <span class="thumb" data-art="${w.id}" data-artsize="thumb"
+          style="width:26px;height:26px;border-radius:4px">${plateHTML(w)}</span>
+        ${esc(w.title)}</button>`).join('');
     return `<div class="cur" style="--ac:${c.color}">
       <div class="ch"><h3>${esc(c.label)}</h3><span class="span">${span}</span></div>
       <div class="tag">${esc(e.tag)}</div>
@@ -1005,6 +1309,31 @@ function buildCurrents(){
     ${CLOSING.map(p=>`<p>${esc(p)}</p>`).join('')}</div>`;
 
   box.querySelectorAll('.ex').forEach(b=>b.onclick=()=>openDossier(b.dataset.id));
+  watchArt(box);
+}
+
+/* ================================================================
+   GALLERY VIEW
+   ================================================================ */
+function buildGallery(){
+  const g=document.getElementById('ggrid');
+  const list=WORKS.filter(visible).sort((a,b)=>a.year-b.year);
+  g.innerHTML=list.map(w=>{
+    const c=CMAP[w.current]||CURRENTS[0];
+    const inCopyright=(ART[w.id]||{}).free===false;
+    return `<div class="gcard" data-id="${w.id}" style="--ac:${c.color}">
+      <div class="gimg${inCopyright?'':' pending'}"${inCopyright?'':` data-art="${w.id}" data-artsize="thumb"`}>
+        ${plateHTML(w)}${inCopyright?'<span class="gbadge">in copyright</span>':''}
+      </div>
+      <div class="gmeta">
+        <b>${esc(w.title)}</b>
+        <span>${esc(w.artist.split(/[;(]/)[0].trim())}</span>
+        <span class="yr">${w.year}</span>
+      </div>
+    </div>`;
+  }).join('');
+  g.querySelectorAll('.gcard').forEach(c=>c.onclick=()=>openDossier(c.dataset.id));
+  watchArt(g);
 }
 
 /* ================================================================
@@ -1016,15 +1345,17 @@ function setView(v){
   document.getElementById('mapwrap').style.display = v==='map'?'block':'none';
   document.getElementById('motifview').classList.toggle('on',v==='motifs');
   document.getElementById('currentsview').classList.toggle('on',v==='currents');
+  document.getElementById('galleryview').classList.toggle('on',v==='gallery');
   if(v==='motifs') buildMotifGrid();
   if(v==='currents') buildCurrents();
+  if(v==='gallery') buildGallery();
   if(v==='map') render();
 }
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>setView(t.dataset.view));
 
 document.getElementById('search').addEventListener('input',e=>{
   S.q=e.target.value.trim().toLowerCase();
-  refresh(); if(S.view==='motifs') buildMotifGrid();
+  refresh(); if(S.view==='motifs') buildMotifGrid(); if(S.view==='gallery') buildGallery();
 });
 
 const about=document.getElementById('about');
