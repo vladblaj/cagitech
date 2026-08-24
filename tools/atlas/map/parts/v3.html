@@ -1,0 +1,256 @@
+<script>/*LEAFLET_JS*/</script>
+<script>
+const B      = /*BOUNDS*/;
+const IMG    = /*IMAGES*/;
+const GEO    = /*GEO*/;
+const PLACES = /*PLACES*/;
+</script>
+<script>/*ERAS*/</script>
+<script>
+"use strict";
+const CITY = PLACES.cities, ANCH = PLACES.anchors;
+const COL = {'f-core':'#2c6ba8','f-core2':'#4a90d0','f-core3':'#8fbee4',
+             'f-gold':'#d2a03f','f-loss':'#b34c33','f-out':'#5c7286','f-out2':'#46596b'};
+const OP  = {'f-core':.62,'f-core2':.58,'f-core3':.52,'f-gold':.56,'f-loss':.60,
+             'f-out':.34,'f-out2':.34};
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+/* ------------------------------------------------------------------- map */
+const bounds = L.latLngBounds([[B.south, B.west], [B.north, B.east]]);
+const map = L.map('map', {
+  minZoom: 6, maxZoom: 11, zoomSnap: 0.25, zoomDelta: 0.5,
+  attributionControl: false, zoomControl: true,
+  renderer: L.svg({ padding: 0.7 }), maxBoundsViscosity: 0.85
+});
+map.fitBounds([[43.3, 19.9], [48.6, 30.1]]);
+map.setMaxBounds(bounds.pad(0.04));
+L.control.scale({ imperial: false, position: 'bottomleft' }).addTo(map);
+
+const bases = {
+  relief: L.imageOverlay(IMG.relief, bounds, { opacity: 1, className: 'base-img' }),
+  land:   L.imageOverlay(IMG.land,   bounds, { opacity: 1, className: 'base-img' })
+};
+let curBase = null;
+function setBase(k){
+  Object.values(bases).forEach(l => map.hasLayer(l) && map.removeLayer(l));
+  if (bases[k]) { bases[k].addTo(map); bases[k].bringToBack(); }
+  curBase = k;
+}
+setBase('relief');
+
+/* --------------------------------------------------------------- layers */
+const paneOrder = [['terr', 410], ['riv', 420], ['cty', 415], ['lbl', 640]];
+paneOrder.forEach(([n, z]) => { map.createPane(n); map.getPane(n).style.zIndex = z; });
+map.getPane('lbl').style.pointerEvents = 'none';
+
+const NAMES = {};
+GEO.regions.features.forEach(f => NAMES[f.properties.id] = f.properties.name);
+
+const hidden = { fillOpacity: 0, opacity: 0, weight: 0, interactive: false };
+const regionLayers = {};
+const regions = L.geoJSON(GEO.regions, {
+  pane: 'terr', smoothFactor: 0.5,
+  style: () => hidden,
+  onEachFeature: (f, l) => {
+    regionLayers[f.properties.id] = l;
+    l.on('click', () => {
+      const era = ERAS[cur], id = f.properties.id;
+      const cls = era.fills[id];
+      if (!cls) return;
+      const role = {
+        'f-core':'Romanian polity of the period','f-core2':'Romanian polity of the period',
+        'f-core3':'Romanian polity of the period','f-gold':'gained in this period',
+        'f-loss':'lost in this period','f-out':'held by another power',
+        'f-out2':'held by another power'}[cls];
+      l.bindPopup(`<b>${esc(f.properties.name)}</b><br>${esc(era.y)} &middot; ${esc(role)}`).openPopup();
+    });
+  }
+}).addTo(map);
+
+const rivers = L.geoJSON(GEO.rivers, { pane: 'riv',
+  style: { color: '#5fb0e6', weight: 1.6, opacity: .8, fill: false } });
+const counties = L.geoJSON(GEO.counties, { pane: 'cty',
+  style: { color: '#8f9ab0', weight: .7, opacity: .5, fill: false },
+  onEachFeature: (f, l) => l.bindTooltip(f.properties.name, { sticky: true, direction: 'top' }) });
+const modernBorder = L.geoJSON(
+  GEO.regions.features.find(f => f.properties.id === 'romania_mod'),
+  { pane: 'riv', style: { color: '#e8eaf2', weight: 1.6, opacity: .8, dashArray: '3 4', fill: false } });
+
+const labelLayer = L.layerGroup([], { pane: 'lbl' }).addTo(map);
+const siteLayer  = L.layerGroup().addTo(map);
+
+const show = { regions: true, labels: true, sites: true, rivers: false, counties: false, modern: false };
+
+/* ------------------------------------------------------------- geometry */
+function quad(p0, c, p1, n){
+  const out = [];
+  for (let i = 0; i <= n; i++){
+    const t = i / n, u = 1 - t;
+    out.push([u*u*p0[0] + 2*u*t*c[0] + t*t*p1[0],
+              u*u*p0[1] + 2*u*t*c[1] + t*t*p1[1]]);
+  }
+  return out;
+}
+function bearing(a, b){
+  const y = Math.sin((b[1]-a[1])*Math.PI/180) * Math.cos(b[0]*Math.PI/180);
+  const x = Math.cos(a[0]*Math.PI/180)*Math.sin(b[0]*Math.PI/180) -
+            Math.sin(a[0]*Math.PI/180)*Math.cos(b[0]*Math.PI/180)*Math.cos((b[1]-a[1])*Math.PI/180);
+  return Math.atan2(y, x) * 180 / Math.PI;
+}
+
+/* ----------------------------------------------------------------- draw */
+let cur = 0;
+function draw(){
+  const era = ERAS[cur];
+
+  Object.entries(regionLayers).forEach(([id, l]) => {
+    const cls = show.regions ? era.fills[id] : null;
+    if (!cls){ l.setStyle(hidden); if (l._path) l._path.style.pointerEvents = 'none'; return; }
+    const foreign = cls === 'f-out' || cls === 'f-out2';
+    l.setStyle({ fillColor: COL[cls], fillOpacity: OP[cls], color: COL[cls],
+                 weight: foreign ? 1 : 1.3, opacity: foreign ? .55 : .9,
+                 dashArray: foreign ? '4 4' : null, interactive: true });
+    if (l._path) l._path.style.pointerEvents = 'auto';
+  });
+
+  labelLayer.clearLayers(); siteLayer.clearLayers();
+
+  (era.outline || []).forEach(id => {
+    const f = GEO.regions.features.find(x => x.properties.id === id);
+    if (f) L.geoJSON(f, { pane: 'riv', style: { color: '#d2a03f', weight: 2.2,
+      opacity: .95, dashArray: '9 7', fill: false } }).addTo(siteLayer);
+  });
+  (era.border || []).forEach(id => {
+    const f = GEO.regions.features.find(x => x.properties.id === id);
+    if (f) L.geoJSON(f, { pane: 'riv', style: { color: '#e8eaf2', weight: 1.7,
+      opacity: .85, fill: false } }).addTo(siteLayer);
+  });
+
+  (era.arrows || []).forEach(a => {
+    const p0 = ANCH[a[0]], p1 = ANCH[a[1]];
+    if (!p0 || !p1) return;
+    const mid = [(p0[0]+p1[0])/2, (p0[1]+p1[1])/2];
+    const dLat = p1[0]-p0[0], dLon = p1[1]-p0[1];
+    const len = Math.hypot(dLat, dLon) || 1, bow = (a[2] || 0) / 90;
+    const c = [mid[0] + dLon/len*bow, mid[1] - dLat/len*bow];
+    const pts = quad(p0, c, p1, 26);
+    L.polyline(pts, { pane: 'riv', color: '#b34c33', weight: 2.2, opacity: .9 }).addTo(siteLayer);
+    const tip = pts[pts.length-1], prev = pts[pts.length-3];
+    L.marker(tip, { pane: 'lbl', interactive: false, icon: L.divIcon({
+      className: 'lbl-site', iconSize: [18,18], iconAnchor: [9,9],
+      html: `<span style="display:block;transform:rotate(${bearing(prev,tip)-90}deg);
+             color:#b34c33;font-size:15px;line-height:18px;text-align:center">&#10148;</span>` })
+    }).addTo(siteLayer);
+    if (a[3] && show.labels){
+      const q = pts[Math.round(pts.length*0.8)];
+      L.marker(q, { pane: 'lbl', interactive: false, icon: L.divIcon({
+        className: 'lbl-foreign', iconSize: [200,16], iconAnchor: [100,26],
+        html: `<span style="color:#c2705c">${esc(a[3])}</span>` }) }).addTo(labelLayer);
+    }
+  });
+
+  if (show.labels){
+    (era.areas || []).forEach(a => {
+      const p = ANCH[a.k]; if (!p) return;
+      L.marker(p, { pane: 'lbl', interactive: false, icon: L.divIcon({
+        className: 'lbl-region', iconSize: [300,20], iconAnchor: [150,10],
+        html: `<span>${esc(a.l)}</span>` }) }).addTo(labelLayer);
+    });
+    (era.foreign || []).forEach(a => {
+      const p = ANCH[a.k]; if (!p) return;
+      L.marker(p, { pane: 'lbl', interactive: false, icon: L.divIcon({
+        className: 'lbl-foreign', iconSize: [260,18], iconAnchor: [130,9],
+        html: `<span>${esc(a.l)}</span>` }) }).addTo(labelLayer);
+    });
+  }
+
+  if (show.sites){
+    (era.marks || []).forEach(mk => {
+      const p = CITY[mk.k]; if (!p) return;
+      L.circleMarker(p, { radius: mk.hi ? 5 : 3.6, color: '#0a0c13', weight: 1.4,
+        fillColor: mk.hi ? '#d2a03f' : '#e8eaf2', fillOpacity: 1 })
+        .bindPopup(`<b>${esc(mk.l || mk.k)}</b>`).addTo(siteLayer);
+      if (show.labels){
+        const left = mk.a === 'e';
+        L.marker(p, { pane: 'lbl', interactive: false, icon: L.divIcon({
+          className: 'lbl-site', iconSize: [210,18],
+          iconAnchor: left ? [218,9] : [-9,9],
+          html: `<span style="display:block;text-align:${left?'right':'left'}">${esc(mk.l||mk.k)}</span>` })
+        }).addTo(labelLayer);
+      }
+    });
+  }
+
+  document.getElementById('eraBody').innerHTML =
+    `<div class="era-years">Plate ${esc(era.n)} &middot; ${esc(era.y)}</div>
+     <h2>${esc(era.t)}</h2>
+     <p class="era-lead">${era.lead}</p>
+     ${era.ev.map(e => `<div class="ev${e.odd ? ' odd' : ''}">
+        <div class="ev-d">${esc(e.d)}</div>
+        <h3>${esc(e.h)}${e.odd ? '<span class="tagodd">ODD</span>' : ''}</h3>
+        <p>${e.b}</p></div>`).join('')}`;
+  document.getElementById('eraBody').scrollTop = 0;
+  [...document.querySelectorAll('#eraStrip button')].forEach((b, i) =>
+    b.setAttribute('aria-selected', String(i === cur)));
+}
+
+/* ------------------------------------------------------------------- ui */
+const SHORT = ['40k BC','657 BC','AD 106','271','1330','1457','1541',
+               '1699','1821','1878','1920','1941','1947','1989'];
+const strip = document.getElementById('eraStrip');
+ERAS.forEach((e, i) => {
+  const b = document.createElement('button');
+  b.type = 'button'; b.setAttribute('role', 'tab');
+  b.title = `${e.n} · ${e.y} — ${e.t}`;
+  b.innerHTML = `<b>${esc(e.n)}</b>${esc(SHORT[i] || '')}`;
+  b.addEventListener('click', () => {
+    cur = i; draw();
+    b.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  });
+  strip.appendChild(b);
+});
+
+document.getElementById('hudLayers').addEventListener('change', e => {
+  const t = e.target;
+  if (t.name === 'base') setBase(t.value);
+  else if (t.dataset.layer){
+    const k = t.dataset.layer;
+    show[k] = t.checked;
+    if (k === 'rivers')   t.checked ? rivers.addTo(map)       : map.removeLayer(rivers);
+    if (k === 'counties') t.checked ? counties.addTo(map)     : map.removeLayer(counties);
+    if (k === 'modern')   t.checked ? modernBorder.addTo(map) : map.removeLayer(modernBorder);
+    if (['regions','labels','sites'].includes(k)) draw();
+  }
+  [...document.querySelectorAll('#hudLayers .opt')].forEach(o => {
+    const inp = o.querySelector('input');
+    o.dataset.on = inp.checked ? '1' : '0';
+  });
+});
+
+document.addEventListener('keydown', e => {
+  if (e.target.matches('input,textarea')) return;
+  if (e.key === 'ArrowRight' && cur < ERAS.length - 1){ cur++; draw(); }
+  if (e.key === 'ArrowLeft'  && cur > 0){ cur--; draw(); }
+});
+
+const hudBtn = document.getElementById('hudToggle');
+hudBtn.addEventListener('click', () => {
+  const open = document.getElementById('hudLayers').classList.toggle('open');
+  hudBtn.setAttribute('aria-expanded', String(open));
+});
+map.on('click', () => {
+  document.getElementById('hudLayers').classList.remove('open');
+  hudBtn.setAttribute('aria-expanded', 'false');
+});
+
+const CREDIT =
+  'Elevation: AWS Terrain Tiles (SRTM/NED, public domain) &middot; ' +
+  'Land cover: &copy; ESA WorldCover 2021 (CC BY 4.0) &middot; ' +
+  'Boundaries from Natural Earth (public domain). Pre-1850 frontiers were zones, not lines.';
+document.getElementById('credit').innerHTML = CREDIT;
+document.getElementById('railCredit').innerHTML = CREDIT;
+
+draw();
+</script>
+</body>
+</html>

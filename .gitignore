@@ -17,3 +17,8 @@ yarn.lock
 .netlify
 dist/
 .env
+
+# atlas map build artefacts (regenerable)
+tools/atlas/map/artifact_atlas.html
+tools/atlas/map/terrain/
+tools/atlas/map/elev.npy

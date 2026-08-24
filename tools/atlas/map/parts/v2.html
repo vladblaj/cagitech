@@ -1,0 +1,44 @@
+<div id="app">
+  <aside id="rail">
+    <div class="rail-head">
+      <div class="eyebrow">Private Index &middot; Maps</div>
+      <h1>The Shape of Romania</h1>
+      <p>Fourteen territorial states of the same ground, over real terrain and 10&nbsp;m land cover.
+         Pick a plate; the borders move, the map does not.</p>
+    </div>
+    <div id="eraStrip" role="tablist" aria-label="Historical plates"></div>
+    <div id="eraBody" tabindex="0"></div>
+    <div class="rail-credit" id="railCredit"></div>
+  </aside>
+
+  <div id="mapWrap">
+    <div id="map"></div>
+
+    <button id="hudToggle" type="button" aria-expanded="false" aria-controls="hudLayers">Layers</button>
+    <div class="hud" id="hudLayers">
+      <h4>Base</h4>
+      <label class="opt" data-on="1"><input type="radio" name="base" value="relief" checked>Shaded relief</label>
+      <label class="opt"><input type="radio" name="base" value="land">Land cover&nbsp;10&nbsp;m</label>
+      <label class="opt"><input type="radio" name="base" value="none">None</label>
+      <h4>Overlays</h4>
+      <label class="opt" data-on="1"><input type="checkbox" data-layer="regions" checked>Territories</label>
+      <label class="opt" data-on="1"><input type="checkbox" data-layer="labels" checked>Labels</label>
+      <label class="opt" data-on="1"><input type="checkbox" data-layer="sites" checked>Sites &amp; events</label>
+      <label class="opt"><input type="checkbox" data-layer="rivers">Rivers</label>
+      <label class="opt"><input type="checkbox" data-layer="counties">Counties (today)</label>
+      <label class="opt"><input type="checkbox" data-layer="modern">Today's border</label>
+    </div>
+
+    <div class="hud" id="legend">
+      <h4>Reading the fills</h4>
+      <div class="row"><i style="background:#2c6ba8"></i>Romanian polity of the period</div>
+      <div class="row"><i style="background:#4a90d0"></i>Second Romanian polity</div>
+      <div class="row"><i style="background:#8fbee4"></i>Third</div>
+      <div class="row"><i style="background:#d2a03f"></i>Gained in this period</div>
+      <div class="row"><i style="background:#b34c33"></i>Lost in this period</div>
+      <div class="row"><i style="background:#5c7286"></i>Held by another power</div>
+    </div>
+
+    <div id="credit"></div>
+  </div>
+</div>
