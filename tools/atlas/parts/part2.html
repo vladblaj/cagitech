@@ -1,0 +1,196 @@
+
+<svg class="vis" aria-hidden="true" focusable="false"><defs>
+<!--DEFS-->
+<pattern id="hatchA" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+  <line x1="0" y1="0" x2="0" y2="7" stroke="var(--text-faint)" stroke-width="1.4"/></pattern>
+<pattern id="hatchB" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)">
+  <line x1="0" y1="0" x2="0" y2="7" stroke="var(--text-faint)" stroke-width="1.4"/></pattern>
+<pattern id="hatchC" width="6" height="6" patternUnits="userSpaceOnUse">
+  <circle cx="1.6" cy="1.6" r="1.05" fill="var(--text-faint)"/></pattern>
+<pattern id="seaRule" width="9" height="9" patternUnits="userSpaceOnUse">
+  <line x1="0" y1="4.5" x2="9" y2="4.5" stroke="var(--voronet-pale)" stroke-width="1" opacity=".22"/></pattern>
+<marker id="arwR" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+  <path d="M0 1L9 5L0 9z" fill="var(--oxide)"/></marker>
+<marker id="arw" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+  <path d="M0 1L9 5L0 9z" fill="var(--ochre)"/></marker>
+</defs></svg>
+
+<header class="mast">
+  <div class="wrap">
+    <div class="mast-eyebrow"><span class="lab">An atlas in fourteen plates</span><i></i></div>
+    <h1>The Shape<br>of <em>Romania</em></h1>
+    <p class="mast-sub">Every plate below is drawn on one projection, at one scale, in one frame — so the
+      territory moves and the frame does not. Forty thousand years, from a jawbone in a Banat cave to a
+      border that has not shifted since 1947.</p>
+    <div class="mast-meta">
+      <div><b>14</b><span class="lab">map plates</span></div>
+      <div><b>~40,000</b><span class="lab">years covered</span></div>
+      <div><b>4</b><span class="lab">months to lose a third of it, 1940</span></div>
+      <div><b>91.5 t</b><span class="lab">gold sent to Moscow, never returned</span></div>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <figure class="plate" style="margin:0">
+          <div id="heroMap"></div>
+          <figcaption class="plate-cap">
+            <span class="lab">Romania today &middot; historical regions, relief and rivers</span>
+            <span class="n">PLATE 0</span>
+          </figcaption>
+        </figure>
+      </div>
+      <div class="controls" id="heroControls">
+        <h3>Read the map</h3>
+        <button class="tg" data-layer="regions" aria-pressed="true"><i class="box"></i>Historical regions</button>
+        <button class="tg" data-layer="relief" aria-pressed="true"><i class="box"></i>Carpathian arc</button>
+        <button class="tg" data-layer="rivers" aria-pressed="true"><i class="box"></i>Rivers</button>
+        <button class="tg" data-layer="cities" aria-pressed="true"><i class="box"></i>Cities</button>
+        <button class="tg" data-layer="greater" aria-pressed="false"><i class="box"></i>Greater Romania, 1920&ndash;40</button>
+        <div class="legend">
+          <div><i style="background:var(--voronet-deep)"></i>Transylvania, Banat, Crișana, Maramureș</div>
+          <div><i style="background:var(--voronet)"></i>Moldavia and Bukovina</div>
+          <div><i style="background:var(--voronet-pale)"></i>Wallachia — Muntenia and Oltenia</div>
+          <div><i style="background:var(--ochre)"></i>Dobruja</div>
+          <div><i style="background:var(--oxide)"></i>Lost in 1940, never recovered</div>
+        </div>
+      </div>
+    </div>
+    <p class="note"><b>Why the Carpathians decide everything.</b> Romania is the only country in Europe
+      built around a mountain range rather than against one. The arc encloses Transylvania like a wall with
+      gates; the lands outside it — Wallachia on the Danube plain, Moldavia on the eastern approaches — face
+      open ground and every army that ever crossed it. For most of recorded history the inside and the
+      outside belonged to different empires. That single fact explains more of what follows than any king does.</p>
+  </div>
+</section>
+
+<hr class="rule">
+
+<nav class="scrub" aria-label="Timeline"><div class="scrub-in" id="scrub"></div></nav>
+
+<main id="eras"></main>
+
+<hr class="rule">
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="lab">All fourteen plates</span>
+      <h2>Two thousand years in one glance</h2>
+      <p>Same projection, same frame, same scale. What moves is the territory. Select a plate to jump to it.</p>
+    </div>
+    <div class="grid-maps" id="gridMaps"></div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="lab">One thread, two thousand years</span>
+      <h2>The gold that keeps leaving</h2>
+      <p>If you want a single story that runs the whole length of this map, it is not a dynasty or a language.
+        It is bullion — repeatedly accumulated here, and repeatedly removed.</p>
+    </div>
+    <div class="thread">
+      <article>
+        <span class="lab">AD 106</span>
+        <h4>Trajan empties Dacia</h4>
+        <p>Trajan's own physician, Crito, recorded a haul so large — millions of pounds of gold — that modern
+          historians read it as a copying error and revise it down to roughly <b>165 tonnes of gold and 331 of
+          silver</b>. Even revised, it paid for 123 consecutive days of games, a new forum, and a column.</p>
+        <p>Rome then mined Alburnus Maior for 166 years and took out an estimated 500 tonnes more.</p>
+      </article>
+      <article>
+        <span class="lab">c. 375 &middot; 1799</span>
+        <h4>Two hoards, both abroad</h4>
+        <p>The Pietroasele treasure — Gothic, 22 gold pieces — was found in 1837, sold to a stonemason,
+          recovered, then stolen from the National Museum in 1875 and partly hammered flat.</p>
+        <p>The 23 gold vessels of Sânnicolau Mare, 9.9 kg, carry an inscription in a runiform script nobody
+          has convincingly read. Found in the Banat in 1799; in Vienna ever since.</p>
+      </article>
+      <article>
+        <span class="lab">1916</span>
+        <h4>The train to Moscow</h4>
+        <p>With the front collapsing, the government sent the national reserve to its Russian ally for
+          safekeeping: <b>91.5 tonnes of fine gold in 1,738 sealed crates</b>, seventeen wagons, out of Iași on
+          16 December 1916. A second shipment in 1917 carried the Academy's archives, the crown jewels and the
+          Pietroasele gold.</p>
+        <p>Lenin's government repudiated the deposit in January 1918. Some artefacts returned in 1935 and 1956.
+          <b>Not one gram of the gold ever has.</b></p>
+      </article>
+      <article>
+        <span class="lab">1995&ndash;2021</span>
+        <h4>The one that stayed</h4>
+        <p>A plan to reopen Roșia Montană — the Roman gold mountain — as an open-cast cyanide operation would
+          have destroyed four peaks and moved a village. It produced the largest street protests since 1989.</p>
+        <p>The project was stopped; the state won the resulting $4.4bn arbitration in 2024. In 2021 UNESCO
+          listed the Roman galleries. The gold is still in the mountain — which, on this timeline, is the
+          anomaly.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="lab">Method &amp; caveats</span>
+      <h2>How these maps were drawn</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:34px">
+      <div>
+        <h4 class="lab" style="color:var(--ochre);margin-bottom:10px">Projection</h4>
+        <p style="margin:0;color:var(--text-dim);font-size:.97rem">Lambert conformal conic, standard parallels
+          44&deg;N and 48&deg;N, central meridian 25&deg;E. Frame: 18.4&deg;&ndash;31.6&deg;E, 42.6&deg;&ndash;49.2&deg;N.
+          Identical on every plate, which is the whole point — shapes are directly comparable.</p>
+      </div>
+      <div>
+        <h4 class="lab" style="color:var(--ochre);margin-bottom:10px">Coastlines &amp; regions</h4>
+        <p style="margin:0;color:var(--text-dim);font-size:.97rem">Natural Earth 1:10m administrative units
+          and rivers (public domain). Historical regions are built by grouping modern units, then clipping
+          against real river geometry — Bessarabia and Bukovina are cut on the actual Dniester, not a
+          straight line.</p>
+      </div>
+      <div>
+        <h4 class="lab" style="color:var(--ochre);margin-bottom:10px">Checked against the record</h4>
+        <p style="margin:0;color:var(--text-dim);font-size:.97rem">Where a treaty states an area, the drawn
+          polygon was measured against it. Northern Transylvania comes out at <b>43,423 km²</b> against the
+          Second Vienna Award's 43,104. Bessarabia: 44,804 against ~44,422. Transnistria 1941: 38,358 against
+          ~39,700.</p>
+      </div>
+      <div>
+        <h4 class="lab" style="color:var(--oxide);margin-bottom:10px">What is approximate</h4>
+        <p style="margin:0;color:var(--text-dim);font-size:.97rem">Burebista's realm is a sphere of influence,
+          not a border, and is drawn deliberately soft. Roman Dacia's limes, the 1940 award line and southern
+          Bessarabia are hand-digitised. Medieval frontiers were zones, not lines; treat every pre-1850 edge
+          as an argument, not a measurement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head"><span class="lab">Sources</span><h2>Where this came from</h2>
+      <p>Beyond the encyclopedia entries: the primary scholarship, the commission reports and the archives that
+        the popular accounts are summarising.</p></div>
+    <ul class="srcs" id="srcs"></ul>
+  </div>
+</section>
+
+<footer><div class="wrap">
+  <p style="margin:0 0 8px">Cartography generated from Natural Earth public-domain vectors; projection, region
+    derivation and simplification computed for this page.</p>
+  <p style="margin:0">Dated 24 August 2026. Figures are cited as the sources state them; where historians
+    disagree — the 1907 death toll, the size of Decebalus's treasure — the range is given rather than a
+    single number.</p>
+</div></footer>

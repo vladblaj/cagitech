@@ -1,0 +1,162 @@
+
+<script>
+/* ------------------------------------------------------------- hero plate */
+const HERO = {
+  fills:{banat:'f-core',crisana:'f-core',maramures:'f-core',ardeal:'f-core',
+         moldova:'f-core2',bucovina_s:'f-core2',muntenia:'f-core3',oltenia:'f-core3',
+         dobrogea:'f-gold'},
+  greater:{basarabia:'f-loss',hotin:'f-loss',budjak:'f-loss',bucovina_n:'f-loss',dobrogea_s:'f-loss'},
+  border:['romania_mod'],
+  areas:[{k:'TRANSILVANIA',l:'Transilvania'},{k:'BANAT',l:'Banat'},{k:'CRIȘANA',l:'Crișana'},
+         {k:'MARAMUREȘ',l:'Maramureș'},{k:'MOLDOVA',l:'Moldova'},{k:'BUCOVINA',l:'Bucovina'},
+         {k:'MUNTENIA',l:'Muntenia'},{k:'OLTENIA',l:'Oltenia'},{k:'DOBROGEA',l:'Dobrogea'}],
+  foreign:[{k:'UNGARIA',l:'Ungaria'},{k:'SERBIA',l:'Serbia'},{k:'BULGARIA',l:'Bulgaria'},
+           {k:'UCRAINA',l:'Ucraina'},{k:'BASARABIA',l:'Moldova / Ucraina'}],
+  marks:[{k:'București',l:'București',hi:true},{k:'Cluj',l:'Cluj-Napoca',a:'e'},
+         {k:'Timișoara',l:'Timișoara',a:'e'},{k:'Iași',l:'Iași'},{k:'Constanța',l:'Constanța'},
+         {k:'Brașov',l:'Brașov'},{k:'Craiova',l:'Craiova',a:'e'},{k:'Galați',l:'Galați'},
+         {k:'Sibiu',l:'Sibiu',a:'e'},{k:'Oradea',l:'Oradea',a:'e'},{k:'Suceava',l:'Suceava'},
+         {k:'Alba Iulia',l:'Alba Iulia',a:'e'},{k:'Tulcea',l:'Tulcea'}]
+};
+
+const heroBox = document.getElementById('heroMap');
+heroBox.innerHTML = shell(false);
+const heroSvg = heroBox.querySelector('svg');
+heroSvg.setAttribute('aria-label','Map of Romania showing its nine historical regions, the Carpathian arc, major rivers and cities');
+const heroState = {regions:true, relief:true, rivers:true, cities:true, greater:false};
+
+function drawHero(){
+  const era = {
+    fills: heroState.regions
+      ? Object.assign({}, HERO.fills, heroState.greater?HERO.greater:{})
+      : (heroState.greater?Object.assign({},HERO.greater):{}),
+    border: HERO.border,
+    areas: heroState.regions?HERO.areas:[],
+    foreign: HERO.foreign,
+    marks: heroState.cities?HERO.marks:[]
+  };
+  if(!heroState.regions && !heroState.greater) era.fills = {};
+  paint(heroSvg, era, false);
+  heroSvg.querySelector('.relief').style.display = heroState.relief?'':'none';
+  heroSvg.querySelector('.rivers').style.display = heroState.rivers?'':'none';
+  heroSvg.querySelector('.ghostL').style.display = 'none';
+}
+drawHero();
+
+document.getElementById('heroControls').addEventListener('click', e=>{
+  const b = e.target.closest('.tg'); if(!b) return;
+  const k = b.dataset.layer;
+  heroState[k] = !heroState[k];
+  b.setAttribute('aria-pressed', String(heroState[k]));
+  drawHero();
+});
+
+/* ------------------------------------------------------------ era sections */
+const erasEl = document.getElementById('eras');
+const scrubEl = document.getElementById('scrub');
+
+ERAS.forEach((era, i)=>{
+  const id = 'era-'+i;
+  const sec = document.createElement('section');
+  sec.className = 'era'; sec.id = id;
+  sec.innerHTML = `
+    <div class="wrap"><div class="era-grid">
+      <div class="era-map"><figure class="plate" style="margin:0">
+        <div class="mapslot"></div>
+        <figcaption class="plate-cap">
+          <span class="lab">${esc(era.y)}</span><span class="n">PLATE ${esc(era.n)}</span>
+        </figcaption>
+      </figure></div>
+      <div class="era-body">
+        <div class="era-head">
+          <span class="lab">Plate ${esc(era.n)} &middot; ${esc(era.y)}</span>
+          <h3>${esc(era.t)}</h3>
+        </div>
+        <p class="era-lead">${era.lead}</p>
+        <div class="events">${era.ev.map(e=>`
+          <div class="ev${e.odd?' odd':''}">
+            <div class="ev-d">${esc(e.d)}</div>
+            <div><h4>${esc(e.h)}</h4><p>${e.b}</p></div>
+          </div>`).join('')}</div>
+      </div>
+    </div></div>`;
+  erasEl.appendChild(sec);
+
+  const slot = sec.querySelector('.mapslot');
+  slot.innerHTML = shell(false);
+  const svg = slot.querySelector('svg');
+  svg.setAttribute('aria-label', `Map plate ${era.n}: ${era.t}, ${era.y}`);
+  paint(svg, era, false);
+
+  const b = document.createElement('button');
+  b.type='button'; b.setAttribute('role','tab'); b.setAttribute('aria-selected', i===0?'true':'false');
+  b.dataset.i = i;
+  b.innerHTML = `<span>${esc(era.n)}</span>${esc(era.y)}`;
+  b.addEventListener('click', ()=> document.getElementById(id).scrollIntoView({behavior:'smooth', block:'start'}));
+  scrubEl.appendChild(b);
+});
+
+/* highlight the plate currently being read */
+const tabs = [...scrubEl.querySelectorAll('button')];
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(en=>{
+    if(!en.isIntersecting) return;
+    const i = [...erasEl.children].indexOf(en.target);
+    if(i<0) return;
+    tabs.forEach((t,j)=> t.setAttribute('aria-selected', String(j===i)));
+    const t = tabs[i];
+    const l = t.offsetLeft - scrubEl.clientWidth/2 + t.clientWidth/2;
+    scrubEl.scrollTo({left:l, behavior:'smooth'});
+  });
+}, {rootMargin:'-45% 0px -50% 0px', threshold:0});
+[...erasEl.children].forEach(s=> io.observe(s));
+
+/* ---------------------------------------------------------- small multiples */
+const grid = document.getElementById('gridMaps');
+ERAS.forEach((era,i)=>{
+  const b = document.createElement('button');
+  b.type='button'; b.className='gm';
+  b.innerHTML = shell(true) + `<div class="gm-cap">
+      <span class="n">PLATE ${esc(era.n)}</span>
+      <span class="y">${esc(era.y)}</span>
+      <span class="t">${esc(era.t)}</span></div>`;
+  const svg = b.querySelector('svg');
+  svg.setAttribute('aria-label', `Plate ${era.n}: ${era.t}`);
+  paint(svg, era, true);
+  b.addEventListener('click', ()=> document.getElementById('era-'+i).scrollIntoView({behavior:'smooth',block:'start'}));
+  grid.appendChild(b);
+});
+
+/* ------------------------------------------------------------------ sources */
+const SOURCES = [
+ ['Trinkaus et al., “An early modern human from the Peştera cu Oase, Romania”, <i>PNAS</i> 100 (2003)','https://www.pnas.org/doi/10.1073/pnas.2035108100'],
+ ['Fu et al., “An early modern human from Romania with a recent Neanderthal ancestor”, <i>Nature</i> 524 (2015)','https://www.nature.com/articles/nature14558'],
+ ['UNESCO World Heritage Centre — Roșia Montană Mining Cultural Landscape (ref. 1552)','https://whc.unesco.org/en/list/1552/'],
+ ['“Digitising a Roman <i>tabula cerata</i> from Alburnus Maior” — the Roșia Montană wax tablets','https://www.researchgate.net/publication/366511747_Digitising_a_Roman_tabula_cerata_from_Rosia_Montana_jud_AlbaRO'],
+ ['Cassius Dio and Crito on the Decebalus treasure; Carcopino’s revised estimate','https://en.wikipedia.org/wiki/Decebalus_treasure'],
+ ['Vlad III’s letter to Matthias Corvinus, 2 Feb 1462, and the night attack at Târgoviște','https://en.wikipedia.org/wiki/Night_attack_at_T%C3%A2rgovi%C8%99te'],
+ ['Military career of Stephen the Great — 48 battles, Vaslui, <i>Athleta Christi</i>','https://en.wikipedia.org/wiki/Military_career_of_Stephen_the_Great'],
+ ['“The Religious Tolerance Act of 1568 — The Edict of Turda”','https://www.researchgate.net/publication/381229567_The_Religious_Tolerance_Act_of_1568_-_The_Edict_of_Turda'],
+ ['Mathias Corvinus Collegium — “Faith can only be true if it is free”: the 1568 Edict and its legacy','https://mcc.ro/en/article/faith-can-only-be-true-if-it-is-free-the-1568-edict-of-torda-and-its-legacy'],
+ ['“Romani Slavery in Romanian Historiography (1837–2023)”, <i>Critical Romani Studies</i> (CEU)','https://crs.ceu.edu/index.php/crs/article/view/234'],
+ ['Viorel Achim, “Gypsy Slavery in Wallachia and Moldavia”','https://www.academia.edu/1132654/Gypsy_Slavery_in_Wallachia_and_Moldavia'],
+ ['Election to the Romanian throne, 1866 — Carol’s journey as “Karl Hettingen”','https://en.wikipedia.org/wiki/Election_to_the_Romanian_throne,_1866'],
+ ['Permanent Representation of Romania to the Council of Europe — “The Odyssey of the Romanian treasure taken to Moscow”','https://coe.mae.ro/en/local-news/1655'],
+ ['“The Romanian Historical Treasury under the Padlock of …” — Danubius University proceedings','https://www.dp.univ-danubius.ro/index.php/EIRP/article/download/686/432'],
+ ['Europe Centenary — “Sabotaging the German war machine: the destruction of the Romanian oilfields, November 1916”','https://europecentenary.eu/sabotaging-the-german-war-machine-the-destruction-of-the-romanian-oilfields-in-november-1916/'],
+ ['1907 Romanian peasants’ revolt — the disputed death toll and the destroyed records','https://en.wikipedia.org/wiki/1907_Romanian_peasants%27_revolt'],
+ ['Second Vienna Award, 30 August 1940 — 43,104 km², and Manoilescu’s collapse','https://en.wikipedia.org/wiki/Second_Vienna_Award'],
+ ['Final Report of the International Commission on the Holocaust in Romania (the Wiesel Commission, 2004)','https://www.yadvashem.org/docs/international-commission-on-romania-holocaust.html'],
+ ['Elie Wiesel Commission report — Romanian National Institute (ISHG, Babeș-Bolyai)','https://ishg.fspac.ubbcluj.ro/en/Resources/publications/wiesel-report'],
+ ['1944 Romanian coup d’état — King Michael, 23 August 1944','https://en.wikipedia.org/wiki/1944_Romanian_coup_d%27%C3%A9tat'],
+ ['Literary Encyclopedia — the Pitești “re-education” experiment','https://www.litencyc.com/php/stopics.php?rec=true&UID=7114'],
+ ['Pitești Prison Memorial — Museums and Memorials of European Political &amp; Social Violence','https://batafiche.trentu.ca/mmepsv/node/169'],
+ ['UNESCO tentative list — Former Communist Prisons in Romania','https://whc.unesco.org/en/tentativelists/6760/'],
+ ['“The ‘Black’ Danube: Life and Poetry in the Forced Labour Camps of the Danube–Black Sea Canal”','https://www.gup.ugal.ro/ugaljournals/index.php/cultural-intertexts/article/view/8384'],
+ ['<i>The Washington Post</i>, 14 April 1989 — “Debts Paid, Romania Says”','https://www.washingtonpost.com/archive/politics/1989/04/14/debts-paid-romania-says/89557c5f-9f4d-4810-8e15-91538f134a3f/'],
+ ['Foreign debt of the Socialist Republic of Romania, and the 1980s austerity policy','https://en.wikipedia.org/wiki/1980s_austerity_policy_in_Romania'],
+ ['Natural Earth — public-domain 1:10m cultural and physical vectors (base geometry)','https://www.naturalearthdata.com/']
+];
+document.getElementById('srcs').innerHTML = SOURCES.map(
+  s=>`<li><a href="${s[1]}" target="_blank" rel="noopener">${s[0]}</a></li>`).join('');
+</script>

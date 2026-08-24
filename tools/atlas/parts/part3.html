@@ -1,0 +1,388 @@
+
+<script>
+const MAP = /*MAPDATA*/;
+const W = MAP.w, H = MAP.h, C = MAP.cities, A = MAP.anchors;
+
+/* painting order: broad aggregates first, fine regions last, overlays on top */
+const ORDER = ['dacia_bureb','moesia','dacia_romana','transnistria_ww2',
+  'hungary','serbia','vojvodina','bulgaria','ua_rest','transcarpathia',
+  'dobrogea_s','basarabia','hotin','budjak','bucovina_n',
+  'banat','crisana','maramures','ardeal','bucovina_s','moldova','muntenia','oltenia','dobrogea',
+  'sud_transilvania','nord_transilvania','basarabia_sud'];
+const RIVERS = ['danube','tisza','prut','dniester','mures','olt','bug'];
+const RELIEF = ['carp_east','carp_south','carp_west'];
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function shell(mini){
+  let s = `<svg class="mp${mini?' mini':''}" viewBox="0 0 ${W} ${H}" role="img" preserveAspectRatio="xMidYMid meet">`;
+  s += `<rect class="sea" width="${W}" height="${H}"/>`;
+  s += `<rect width="${W}" height="${H}" fill="url(#seaRule)"/>`;
+  s += `<use href="#p-land" class="land"/>`;
+  s += ORDER.map(r=>`<use href="#p-${r}" class="reg" data-r="${r}"/>`).join('');
+  s += ORDER.map(r=>`<use href="#p-${r}" class="reg hx" data-h="${r}"/>`).join('');
+  s += `<g class="relief">`
+     + RELIEF.map(r=>`<path class="relief-case" d="${MAP.paths[r]}"/>`).join('')
+     + RELIEF.map(r=>`<path class="relief" d="${MAP.paths[r]}"/>`).join('') + `</g>`;
+  s += `<g class="rivers">`
+     + RIVERS.map(r=>`<path class="riv-case ${r}" d="${MAP.paths['riv_'+r]}"/>`).join('')
+     + RIVERS.map(r=>`<path class="riv ${r}" d="${MAP.paths['riv_'+r]}"/>`).join('') + `</g>`;
+  s += `<g class="ghostL"><use href="#p-romania_mod" class="ghost"/></g>`;
+  s += `<g class="marks"></g>`;
+  s += `<rect class="neat" x="4" y="4" width="${W-8}" height="${H-8}"/>`;
+  s += `<rect class="neat" x="9" y="9" width="${W-18}" height="${H-18}" opacity=".5"/>`;
+  s += `</svg>`;
+  return s;
+}
+
+function arrow(a,b,bow,label){
+  const p=A[a],q=A[b]; if(!p||!q) return '';
+  const mx=(p[0]+q[0])/2, my=(p[1]+q[1])/2;
+  const dx=q[0]-p[0], dy=q[1]-p[1], L=Math.hypot(dx,dy)||1;
+  const cx=mx - dy/L*(bow||0), cy=my + dx/L*(bow||0);
+  let s = `<path class="mig" d="M${p[0]} ${p[1]} Q${cx} ${cy} ${q[0]} ${q[1]}"/>`;
+  if(label){
+    const t=0.80, u=1-t;
+    const lx=u*u*p[0]+2*u*t*cx+t*t*q[0], ly=u*u*p[1]+2*u*t*cy+t*t*q[1];
+    const right = q[0] >= p[0];
+    s += `<text class="mig-l" x="${lx+(right?9:-9)}" y="${ly-9}"
+      text-anchor="${right?'start':'end'}">${esc(label)}</text>`;
+  }
+  return s;
+}
+
+function paint(svg, era, mini){
+  svg.querySelectorAll('.reg[data-r]').forEach(u=>{
+    const f = era.fills[u.dataset.r];
+    u.setAttribute('class', f ? `reg on ${f}` : 'reg');
+  });
+  svg.querySelectorAll('.reg[data-h]').forEach(u=>{
+    const h = (era.hatch||{})[u.dataset.h];
+    u.setAttribute('class', h ? 'reg hx on' : 'reg hx');
+    u.style.fill = h ? `url(#hatch${h})` : '';
+    u.style.stroke = 'none';
+  });
+  const g = svg.querySelector('.marks');
+  let m = '';
+  (era.arrows||[]).forEach(a=> m += arrow(a[0],a[1],a[2], mini?null:a[3]));
+  (era.outline||[]).forEach(r=> m += `<use href="#p-${r}" class="sphere"/>`);
+  (era.border||[]).forEach(r=> m += `<use href="#p-${r}" class="bord"/>`);
+  if(mini){
+    (era.marks||[]).forEach(mk=>{ const p=C[mk.k]; if(!p) return;
+      m += `<circle cx="${p[0]}" cy="${p[1]}" r="${mk.hi?4.5:3}" class="${mk.hi?'dot-hi':'dot'}"/>`; });
+    g.innerHTML = m; return;
+  }
+  (era.areas||[]).forEach(a=>{
+    const p=A[a.k]; if(!p) return;
+    m += `<text class="rgn" x="${p[0]}" y="${p[1]}" text-anchor="middle"
+      ${a.fill?`style="fill:${a.fill}"`:''}>${esc(a.l)}</text>`;
+  });
+  (era.foreign||[]).forEach(a=>{
+    const p=A[a.k]; if(!p) return;
+    m += `<text class="foreign" x="${p[0]}" y="${p[1]}" text-anchor="middle">${esc(a.l)}</text>`;
+  });
+  (era.marks||[]).forEach(mk=>{
+    const p=C[mk.k]; if(!p) return;
+    const r = mk.hi?4:3;
+    m += `<circle cx="${p[0]}" cy="${p[1]}" r="${r}" class="${mk.hi?'dot-hi':'dot'}"/>`;
+    m += `<text x="${p[0]+(mk.a==='e'?-7:7)}" y="${p[1]+(mk.dy||4)}"
+      text-anchor="${mk.a==='e'?'end':'start'}">${esc(mk.l||mk.k)}</text>`;
+  });
+  if(era.sea!==false){ const p=A.SEA;
+    m += `<text class="sea-l" x="${p[0]}" y="${p[1]}" text-anchor="middle">Marea Neagră</text>`; }
+  g.innerHTML = m;
+}
+
+/* ------------------------------------------------------------------ eras */
+const F_OTT={hatch:'A'}, F_HAB={hatch:'B'}, F_RUS={hatch:'C'};
+const ALL_RO=['banat','crisana','maramures','ardeal','bucovina_s','moldova','muntenia','oltenia','dobrogea'];
+const fillAll=(list,cls)=>Object.fromEntries(list.map(r=>[r,cls]));
+
+const ERAS = [
+{n:'I', y:'c. 40,000 – 3,500 BC', t:'Before there is a name',
+ lead:'No borders to draw. Four sites, though, that between them hold the oldest modern human in Europe, a contender for the oldest writing anywhere, and a culture that burned its own towns down on a schedule.',
+ fills:{}, sea:true,
+ marks:[{k:'Peștera cu Oase',l:'Peștera cu Oase — 40,000 BP',hi:true},
+        {k:'Tărtăria',l:'Tărtăria',hi:true},{k:'Cucuteni',l:'Cucuteni',hi:true,a:'w'},
+        {k:'Hamangia',l:'Hamangia',hi:true}],
+ areas:[{k:'TRANSILVANIA',l:'Carpathian arc'}],
+ ev:[
+ {d:'c. 40,000 BP',h:'A jawbone in a bear cave',odd:true,
+  b:'Cavers in the Banat found a mandible in 2002 in a chamber reachable only by diving. <b>Oase 1</b> is the oldest directly dated modern human in Europe. Its genome is 6–9% Neanderthal — and the Neanderthal ancestor sits only <b>four to six generations back</b>. That is a great-great-great-grandparent. The lineage left no descendants among living Europeans.'},
+ {d:'c. 5,300 BC',h:'Three clay tablets at Tărtăria',odd:true,
+  b:'Incised with signs roughly two millennia older than Sumerian cuneiform. Whether they are writing is still fought over — the excavation stratigraphy is disputed, and a well-meaning post-excavation baking destroyed any chance of dating them directly.'},
+ {d:'c. 5,000 BC',h:'The Thinker of Hamangia',
+  b:'A seated clay figure, chin on fists, from a Dobrujan cemetery. It has become the single most reproduced object in European prehistory, which is an odd fate for a small grey man with no face.'},
+ {d:'c. 4,800–3,000 BC',h:'Cucuteni: the towns that burned themselves',odd:true,
+  b:'Settlements of thousands, with planned streets and two-storey houses — and every 60 to 80 years the whole place was burned to the ground and rebuilt on the ashes. The regularity is what argues against accident.'}]},
+
+{n:'II', y:'657 BC – AD 106', t:'Getae, Greeks, and a king who banned wine',
+ lead:'Milesian traders plant cities on the coast; inland, a confederation forms that Rome takes seriously enough to invade twice. Burebista holds a sphere of influence from the middle Danube to the Dniester — a sphere, not a state, which is why the line below is dashed.',
+ fills:{}, outline:['dacia_bureb'],
+ marks:[{k:'Sarmizegetusa',l:'Sarmizegetusa Regia',hi:true},{k:'Histria',l:'Histria (657 BC)',hi:true},
+        {k:'Tomis',l:'Tomis — Ovid, AD 8',hi:true},{k:'Callatis',l:'Callatis'},
+        {k:'Roșia Montană',l:'gold districts',a:'e'}],
+ areas:[{k:'DACIA',l:'Dacia',fill:'var(--ochre)'}],
+ foreign:[{k:'SERBIA',l:'Illyria'},{k:'BULGARIA',l:'Thrace'}],
+ ev:[
+ {d:'657 BC',h:'Histria',b:'Greeks from Miletus found a port on a lagoon — the oldest urban settlement on Romanian soil, and the start of six centuries of Black Sea trade that pulled Dacian gold and grain into the Mediterranean economy.'},
+ {d:'c. 82–44 BC',h:'Burebista cuts down the vineyards',odd:true,
+  b:'Strabo reports that Burebista, on the advice of his high priest Deceneus, persuaded the Getae to <b>uproot their vines and live without wine</b> — a temperance policy as an instrument of military discipline. He was assassinated in the same year as Caesar, and the realm immediately split into four or five parts.'},
+ {d:'AD 8',h:'Ovid is sent to the edge of the world',odd:true,
+  b:'Relegated to Tomis by Augustus for "a poem and a mistake," Rome\'s most fashionable poet spent his last decade writing the <i>Tristia</i> and the <i>Epistulae ex Ponto</i> — Europe\'s most famous complaint about the weather. He claims to have learned Getic and written a poem in it. He never saw Rome again.'},
+ {d:'AD 101–106',h:'Trajan\'s two Dacian wars',
+  b:'Decebalus cuts his own throat rather than be taken; the moment is carved on <b>Trajan\'s Column</b>. That column is now our best pictorial source for the war — because Trajan\'s own written account, the <i>Dacica</i>, survives as a <b>single quoted sentence</b>.'}]},
+
+{n:'III', y:'AD 106 – 271', t:'The gold province',
+ lead:'Rome annexes the only province it ever held north of the lower Danube — a salient pushed into hostile ground, held for 165 years, and abandoned in an orderly evacuation that started the longest-running argument in Central European history.',
+ fills:{dacia_romana:'f-core', moesia:'f-core3'},
+ marks:[{k:'Ulpia Traiana',l:'Ulpia Traiana Sarmizegetusa',hi:true},{k:'Apulum',l:'Apulum',a:'e'},
+        {k:'Napoca',l:'Napoca',a:'e'},{k:'Roșia Montană',l:'Alburnus Maior',hi:true,a:'e'},
+        {k:'Tomis',l:'Tomis'},{k:'Adamclisi',l:'Tropaeum Traiani',hi:true}],
+ areas:[{k:'DACIA',l:'Dacia'},{k:'MOESIA',l:'Moesia Inferior'}],
+ foreign:[{k:'UNGARIA',l:'Iazyges'},{k:'UCRAINA',l:'Free Dacians · Carpi'}],
+ ev:[
+ {d:'106',h:'Dacia becomes a province',b:'Roads, forts, veteran colonies and 165 years of Latin. The province\'s shape — Banat, Oltenia and the Transylvanian basin, stopping short of the eastern Carpathian corner — is the outline drawn here.'},
+ {d:'106–272',h:'Alburnus Maior: 500 tonnes of gold',odd:true,
+  b:'At Roșia Montană the Romans drove <b>7 km of engineered galleries</b>, ran waterwheels underground, and left behind <b>25 wax writing tablets</b>: wage contracts, a partnership agreement, the minutes of a burial society being wound up, a bill of sale for a slave girl. Ordinary Latin, written by the people who were actually there. UNESCO listed the site in 2021.'},
+ {d:'c. 106',h:'The treasure in the riverbed',odd:true,
+  b:'Cassius Dio says Decebalus diverted the Sargetia with prisoner labour, buried his treasure in the bed, restored the river and killed the workmen. A noble named Bicilis talked. Trajan\'s physician recorded a figure so vast that historians read it as a scribal error and revise it to roughly <b>165 tonnes of gold</b>. Some archaeologists now argue it was never hidden from Rome at all — it was sacrificed to the gods.'},
+ {d:'271–275',h:'Aurelian pulls out',
+  b:'Army and administration withdraw south of the Danube; a new "Dacia" is created there on paper. What happened to everyone who stayed is the <b>most politically loaded question in the region\'s historiography</b> — Romanian continuity against later immigration from the south. It has been used to justify borders in both directions, and it is not settled.'}]},
+
+{n:'IV', y:'271 – 1300', t:'The thousand-year gap',
+ lead:'Ten waves in a millennium, most of them arriving from the same north-eastern gap between the Carpathians and the sea. There is almost no written record from inside — which is precisely why the continuity argument can never be closed.',
+ fills:{}, sea:true,
+ arrows:[['a_got0','a_got1',22,'Goths · 3rd c.'],['a_hun0','a_hun1',-30,'Huns · 5th c.'],
+         ['a_slv0','a_slv1',26,'Slavs · 6–7th c.'],['a_bul0','a_bul1',-22,'Bulgars · 7th c.'],
+         ['a_mag0','a_mag1',44,'Magyars · 9th c.'],['a_mon0','a_mon1',-46,'Mongols · 1241']],
+ marks:[{k:'Pietroasele',l:'Pietroasele hoard',hi:true},{k:'Sânnicolau Mare',l:'Sânnicolau Mare hoard',hi:true,a:'e'}],
+ foreign:[{k:'UCRAINA',l:'the steppe corridor'}],
+ ev:[
+ {d:'271–1241',h:'Goths, Huns, Gepids, Avars, Slavs, Bulgars, Magyars, Pechenegs, Cumans, Mongols',
+  b:'The arrows are the shape of the problem: an open north-eastern approach, a mountain wall, and a Danube behind it. Every one of these groups passed through; several stayed long enough to leave a language layer.'},
+ {d:'c. 375',h:'The brooding hen with the golden chicks',odd:true,
+  b:'The Pietroasele hoard — Gothic, 22 gold pieces including a great eagle-headed fibula — was found by two peasants in 1837 and sold to a stonemason. Recovered by the state, it was then <b>stolen from the National Museum in 1875 and partly hammered flat</b> by the thieves. It is still known by its folk name, <i>Cloșca cu puii de aur</i>.'},
+ {d:'1799',h:'Twenty-three vessels nobody can read',odd:true,
+  b:'A hoard of 23 gold vessels weighing 9.9 kg turned up in the Banat at Sânnicolau Mare. Two carry inscriptions in Greek letters; others use a runiform script that <b>has never been convincingly deciphered</b>. It went to Vienna in 1799 and has stayed there.'},
+ {d:'1241–42',h:'The Mongols force the passes',
+  b:'A catastrophic invasion that broke both the Hungarian kingdom and the Cuman polities. The political vacuum it left on the outer slopes of the Carpathians is exactly the space the first Romanian principalities grew into a generation later.'}]},
+
+{n:'V', y:'1330 – 1437', t:'Three lands appear',
+ lead:'Wallachia and Moldavia establish themselves as autonomous principalities on the outside of the mountains. Transylvania, on the inside, stays within the Hungarian crown — and in 1437 formalises a constitutional order that leaves its Romanian majority out.',
+ fills:{muntenia:'f-core3',oltenia:'f-core3',moldova:'f-core2',bucovina_s:'f-core2',
+        basarabia:'f-core2',budjak:'f-core2',hotin:'f-core2',bucovina_n:'f-core2',
+        ardeal:'f-core',crisana:'f-core',maramures:'f-core',banat:'f-core',dobrogea:'f-out'},
+ hatch:{ardeal:'B',crisana:'B',maramures:'B',banat:'B',dobrogea:'A'},
+ marks:[{k:'Curtea de Argeș',l:'Curtea de Argeș',a:'e'},{k:'Câmpulung',l:'Câmpulung',a:'e'},
+        {k:'Baia',l:'Baia',a:'e'},{k:'Suceava',l:'Suceava'},{k:'Alba Iulia',l:'Alba Iulia',a:'e'},
+        {k:'Cetatea Albă',l:'Cetatea Albă'},{k:'Chilia',l:'Chilia'}],
+ areas:[{k:'VALAHIA',l:'Ţara Românească'},{k:'MOLDOVA',l:'Moldova'},{k:'TRANSILVANIA',l:'Transilvania'}],
+ foreign:[{k:'UNGARIA',l:'Kingdom of Hungary'},{k:'BULGARIA',l:'Ottoman advance'}],
+ ev:[
+ {d:'1330',h:'Posada: four days in a defile',
+  b:'Basarab I let Charles I of Hungary\'s army into a narrow Carpathian valley and held both ends. The Hungarian <i>Chronicon Pictum</i> illustrates its own side\'s destruction in unusual, almost masochistic detail. Wallachia was independent in fact from that week on.'},
+ {d:'1359',h:'Bogdan crosses the mountains',
+  b:'A voivode from Maramureș crossed east and took Moldavia out of Hungarian control. Both principalities were thus founded by movement <b>outward</b> from the Carpathian ring — the mountains as a reservoir, not a barrier.'},
+ {d:'16 Sept 1437',h:'Unio Trium Nationum',
+  b:'With a peasant revolt burning at Bobâlna, Transylvania\'s nobles, Saxons and Székelys swore mutual defence. The pact hardened into a constitution of <b>three recognised nations</b> — and the Romanian majority, overwhelmingly serfs, was politically <i>tolerated</i> rather than represented. That arrangement outlived the pact by four hundred years.'},
+ {d:'1400s',h:'A Latin island',odd:true,
+  b:'Romanian is the only Eastern Romance language to survive as a state language, surrounded on every side by Slavic, Hungarian and Turkic speakers. Its written form used <b>Cyrillic script until the 1860s</b> — a Latin language in a Slavic alphabet, which is a fair summary of the whole country.'}]},
+
+{n:'VI', y:'1457 – 1504', t:'Two princes and a printing press',
+ lead:'The generation that Europe remembers — one of them for the wrong reasons entirely. Moldavia reaches its greatest extent under a prince who won 46 of 48 battles; Wallachia gets a ruler whose PR problem outlived his state by five centuries.',
+ fills:{moldova:'f-core',bucovina_s:'f-core',basarabia:'f-core',budjak:'f-core',hotin:'f-core',
+        bucovina_n:'f-core',muntenia:'f-core3',oltenia:'f-core3',
+        ardeal:'f-out2',crisana:'f-out2',maramures:'f-out2',banat:'f-out2',dobrogea:'f-out'},
+ hatch:{ardeal:'B',crisana:'B',maramures:'B',banat:'B',dobrogea:'A'},
+ marks:[{k:'Suceava',l:'Suceava'},{k:'Putna',l:'Putna',a:'e'},{k:'Voroneț',l:'Voroneț',hi:true,a:'e'},
+        {k:'Vaslui',l:'Vaslui 1475',hi:true},{k:'Târgoviște',l:'Târgoviște 1462',hi:true,a:'e'},
+        {k:'Chilia',l:'Chilia'},{k:'Cetatea Albă',l:'Cetatea Albă'}],
+ areas:[{k:'MOLDOVA',l:'Moldova'},{k:'VALAHIA',l:'Ţara Românească'}],
+ foreign:[{k:'TRANSILVANIA',l:'Hungary'},{k:'BULGARIA',l:'Ottoman Empire'}],
+ ev:[
+ {d:'17 June 1462',h:'The Night Attack',odd:true,
+  b:'Vlad III rode into Mehmed II\'s camp after dark, reportedly in Ottoman dress, trying to reach the Sultan\'s tent. Earlier that year he had written to Matthias Corvinus with a tally of his winter campaign: <b>"We killed 23,884 Turks, without counting those whom we burned in their homes."</b> An itemised body count, in a diplomatic letter, in 1462.'},
+ {d:'1480s–90s',h:'The first mass-market horror bestseller',odd:true,
+  b:'German printers turned Vlad into a pamphlet industry — woodcut, verse, atrocity, reprint. It is one of the earliest cases of the printing press manufacturing a monster for profit. Stoker\'s 1897 novel is the downstream product of a <b>fifteenth-century smear campaign that worked too well</b>.'},
+ {d:'10 Jan 1475',h:'Vaslui',b:'Stephen the Great destroyed a far larger Ottoman army in fog and marsh. Pope Sixtus IV called him <i>verus christianae fidei athleta</i> — true champion of the Christian faith — and then sent no help.'},
+ {d:'1457–1504',h:'Forty-seven years, forty-eight battles',
+  b:'Stephen won about 46 of them and, by tradition, founded a church for each victory. Roughly 48 foundations survive. His son\'s generation frescoed their exteriors — and <b>Voroneț</b> is painted in a blue whose preparation has never been reproduced. <i>Albastru de Voroneț</i> is now a colour name, and the recipe is genuinely lost.'}]},
+
+{n:'VII', y:'1541 – 1699', t:'The Ottoman century, and six months of unity',
+ lead:'After Mohács the region settles into a long equilibrium: two tributary principalities that keep their own princes and laws, and an autonomous Transylvania that becomes, briefly, the most religiously tolerant polity in Europe.',
+ fills:{muntenia:'f-core3',oltenia:'f-core3',moldova:'f-core2',bucovina_s:'f-core2',
+        basarabia:'f-core2',budjak:'f-core2',hotin:'f-core2',bucovina_n:'f-core2',
+        ardeal:'f-core',crisana:'f-core',maramures:'f-core',banat:'f-core',
+        dobrogea:'f-out',bulgaria:'f-out',serbia:'f-out'},
+ hatch:{dobrogea:'A',bulgaria:'A',serbia:'A'},
+ border:['romania_mod'],
+ marks:[{k:'Alba Iulia',l:'Alba Iulia 1600',hi:true,a:'e'},{k:'Turda',l:'Turda — 1568, and 1601',hi:true,a:'e'},
+        {k:'Târgoviște',l:'Târgoviște'},{k:'Iași',l:'Iași'},{k:'Biertan',l:'Biertan'}],
+ areas:[{k:'TRANSILVANIA',l:'Transilvania'},{k:'VALAHIA',l:'Ţara Românească'},{k:'MOLDOVA',l:'Moldova'}],
+ foreign:[{k:'BULGARIA',l:'Ottoman Empire'},{k:'UNGARIA',l:'Ottoman Hungary'}],
+ ev:[
+ {d:'Jan 1568',h:'The Edict of Turda',odd:true,
+  b:'The Transylvanian Diet ruled that preachers should preach as they understood scripture, and that <b>faith is a gift of God</b> which cannot be compelled — legalising Catholic, Lutheran, Calvinist and Unitarian worship side by side. It is generally cited as the first act of its kind in Europe, thirteen years after Augsburg had settled instead for letting each ruler pick one. The Orthodox Romanian majority remained "tolerated" rather than "received."'},
+ {d:'May–Sept 1600',h:'Michael the Brave holds all three',
+  b:'After Șelimbăr he entered Alba Iulia as prince of Transylvania, then took Moldavia. For roughly <b>four months</b> one man ruled all three lands. He was murdered near Turda on 9 August 1601 on the orders of Giorgio Basta — <b>his own Habsburg ally</b>. The union lasted a season; the idea of it lasted three centuries and is on the currency.'},
+ {d:'1500s–1600s',h:'Vassals, not provinces',
+  b:'Wallachia and Moldavia paid tribute but were <b>never made Ottoman provinces</b>. They kept their princes, their Orthodox church, their law and their language. That distinction — visible on this map as a colour, not a hatch — is the reason a Romanian-speaking state existed at all in 1859.'},
+ {d:'1400s–1700s',h:'Villages with fortified churches',odd:true,
+  b:'Transylvanian Saxons ringed their parish churches with walls, towers and grain lofts, storing a year\'s food and each family\'s bacon in the tower. Seven survive as UNESCO sites. Biertan\'s sacristy door has a <b>nineteen-bolt lock operated by one handle</b>, and the village kept a room where couples seeking divorce were locked in together with one bed, one plate and one spoon.'}]},
+
+{n:'VIII', y:'1699 – 1821', t:'Everyone takes a slice',
+ lead:'Three empires converge on the same ground and each removes a piece: the Habsburgs take the inside of the mountains, then the Banat, then Bukovina; Russia takes half of Moldavia. The Ottomans, meanwhile, stop appointing native princes altogether.',
+ fills:{ardeal:'f-out2',crisana:'f-out2',maramures:'f-out2',banat:'f-out2',
+        bucovina_s:'f-out2',bucovina_n:'f-out2',
+        basarabia:'f-loss',budjak:'f-loss',hotin:'f-loss',
+        muntenia:'f-core3',oltenia:'f-core3',moldova:'f-core2',dobrogea:'f-out',bulgaria:'f-out'},
+ hatch:{ardeal:'B',crisana:'B',maramures:'B',banat:'B',bucovina_s:'B',bucovina_n:'B',
+        basarabia:'C',budjak:'C',hotin:'C',dobrogea:'A',bulgaria:'A'},
+ marks:[{k:'Alba Iulia',l:'Alba Iulia 1784',hi:true,a:'e'},{k:'Blaj',l:'Blaj — Supplex 1791',hi:true,a:'e'},
+        {k:'Timișoara',l:'Timișoara 1718',a:'e'},{k:'Cernăuți',l:'Cernăuți 1775',hi:true},
+        {k:'Chișinău',l:'Bessarabia 1812',hi:true},{k:'București',l:'București'}],
+ areas:[{k:'VALAHIA',l:'Ţara Românească'},{k:'MOLDOVA',l:'Moldova'}],
+ foreign:[{k:'IMP_HABSBURGIC',l:'Habsburg Monarchy'},{k:'IMP_RUS',l:'Russian Empire'},{k:'BULGARIA',l:'Ottoman Empire'}],
+ ev:[
+ {d:'1699 · 1718 · 1775 · 1812',h:'Four treaties, four pieces',
+  b:'<b>Karlowitz</b> gives Transylvania to Vienna. <b>Passarowitz</b> adds the Banat. In <b>1775</b> Austria simply takes Bukovina off Moldavia as payment for diplomatic services, drawing a new crownland out of an old principality. In <b>1812</b>, at Bucharest, Russia takes Bessarabia — half of Moldavia — in a treaty signed <b>weeks before Napoleon crossed the Niemen</b>.'},
+ {d:'1711–1821',h:'The Phanariot century',odd:true,
+  b:'Constantinople stopped trusting native princes and began appointing Greeks from the Phanar quarter. The thrones were effectively auctioned, and the buyer had to recoup the price. <b>Average reign: about two and a half years.</b> Some men bought the same throne three or four times; one dynasty supplied rulers to both principalities simultaneously.'},
+ {d:'1784',h:'Horea, Cloșca and Crișan',
+  b:'A Transylvanian peasant rising put down with deliberate theatre: Horea and Cloșca were <b>broken on the wheel</b> at Alba Iulia in front of an audience of peasants compelled to attend. Crișan strangled himself in his cell first. Serfdom in Transylvania was formally abolished the following year — the connection was not coincidental.'},
+ {d:'1791',h:'A petition that lost and won',
+  b:'The <i>Supplex Libellus Valachorum</i> asked Vienna to recognise Romanians as a fourth Transylvanian nation, arguing from Roman descent and demographic weight. It was rejected. The argument it made became the spine of Romanian nationalism for the next 130 years — and, eventually, the case presented in Paris in 1919.'}]},
+
+{n:'IX', y:'1821 – 1878', t:'A country is assembled',
+ lead:'In fifty-seven years: the end of Phanariot rule, the abolition of slavery, a union achieved by exploiting a loophole in a treaty, an imported prince travelling under a false name, and independence won in the field and then billed for.',
+ fills:{muntenia:'f-core',oltenia:'f-core',moldova:'f-core',bucovina_s:'f-out2',bucovina_n:'f-out2',
+        dobrogea:'f-gold',basarabia:'f-loss',hotin:'f-loss',budjak:'f-loss',basarabia_sud:'f-loss',
+        ardeal:'f-out2',crisana:'f-out2',maramures:'f-out2',banat:'f-out2',bulgaria:'f-out'},
+ hatch:{ardeal:'B',crisana:'B',maramures:'B',banat:'B',bucovina_s:'B',bucovina_n:'B',
+        basarabia:'C',hotin:'C',budjak:'C',bulgaria:'A'},
+ marks:[{k:'București',l:'București',hi:true},{k:'Iași',l:'Iași',hi:true},
+        {k:'Constanța',l:'Dobruja, 1878',hi:true},{k:'Turnu Severin',l:'Turnu Severin — 1866',a:'e'},
+        {k:'Ismail',l:'S. Bessarabia, back to Russia 1878'}],
+ areas:[{k:'VALAHIA',l:'Principatele Unite'},{k:'DOBROGEA',l:'Dobrogea',fill:'var(--ink)'}],
+ foreign:[{k:'IMP_HABSBURGIC',l:'Austria-Hungary'},{k:'IMP_RUS',l:'Russian Empire'}],
+ ev:[
+ {d:'1821',h:'Tudor Vladimirescu',b:'A rising in Oltenia that ended the Phanariot system. Native princes returned in 1822 for the first time in 111 years.'},
+ {d:'Dec 1855 · Feb 1856',h:'The abolition of slavery',odd:true,
+  b:'Roma had been held as <b>hereditary chattel slaves</b> in Moldavia and Wallachia since the fourteenth century — princely, monastic and boyar slaves, bought, sold, mortgaged and inherited. Moldavia abolished it in December 1855, Wallachia in February 1856. Roughly <b>five hundred years of slavery, ended three years before the country was founded</b> — and left almost entirely out of the national story until the last two decades.'},
+ {d:'Jan 1859',h:'The loophole',odd:true,
+  b:'The 1858 Paris Convention said Moldavia and Wallachia would each elect their own prince. It did not say the two princes had to be <b>different people</b>. Both assemblies elected Alexandru Ioan Cuza — Moldavia on 5/17 January, Wallachia on 24 January. The powers, presented with a fait accompli, accepted it.'},
+ {d:'1866',h:'The prince who arrived under a false name',odd:true,
+  b:'Karl of Hohenzollern-Sigmaringen travelled to his new throne on a <b>Swiss passport in the name of "Karl Hettingen"</b>, by rail across an Austria then at war with Prussia, then by Danube steamer from Baziaș to Turnu Severin because no railway reached the country. He reigned 48 years, the longest in Romanian history.'},
+ {d:'1877–78',h:'Independence, and the bill',
+  b:'Romania fought alongside Russia at Plevna and declared independence. At the Congress of Berlin the ally took back <b>southern Bessarabia</b> and compensated Romania with <b>Dobruja</b> — a province it had not asked for, containing few Romanians, which happened to come with a Black Sea coast. On this map that is the single ochre patch.'}]},
+
+{n:'X', y:'1878 – 1918', t:'Greater Romania',
+ lead:'A generation of growth, one enormous massacre of its own peasants, a catastrophic war entry — and then, in nine months of 1918, the largest expansion in the country\'s history.',
+ fills:Object.assign(fillAll(ALL_RO,'f-core'),
+   {bucovina_s:'f-gold',bucovina_n:'f-gold',basarabia:'f-gold',hotin:'f-gold',budjak:'f-gold',
+    ardeal:'f-gold',crisana:'f-gold',maramures:'f-gold',banat:'f-gold',dobrogea_s:'f-gold'}),
+ border:['romania_mod'],
+ marks:[{k:'Alba Iulia',l:'Alba Iulia — 1 Dec 1918',hi:true,a:'e'},{k:'Chișinău',l:'Chișinău — 27 Mar 1918',hi:true},
+        {k:'Cernăuți',l:'Cernăuți — 28 Nov 1918',hi:true},{k:'Ploiești',l:'Ploiești — burned 1916',hi:true},
+        {k:'Iași',l:'Iași — capital 1916–18',hi:true},{k:'Silistra',l:'Cadrilater, 1913'}],
+ areas:[{k:'TRANSILVANIA',l:'România Mare'}],
+ foreign:[{k:'UNGARIA',l:'Hungary'},{k:'BULGARIA',l:'Bulgaria'}],
+ ev:[
+ {d:'1907',h:'The revolt the state erased',odd:true,
+  b:'A peasant rising put down by the army with artillery. Estimates of the dead run from a few hundred to <b>11,000 and beyond</b> — Austrian diplomats said 3,000–5,000, the French embassy said 10,000–20,000, the official figure was 419. We will never know, because <b>the government ordered the documents destroyed</b>.'},
+ {d:'1913',h:'The Cadrilater',b:'Romania entered the Second Balkan War late, marched on Sofia, and took Southern Dobruja from Bulgaria without a significant battle. It is the one 1940 loss the country never subsequently contested.'},
+ {d:'3–6 Dec 1916',h:'"Empire Jack" burns the oil',odd:true,
+  b:'With the front collapsing, British Lt-Col John Norton-Griffiths — a Member of Parliament and tunnelling engineer — spent four days wrecking Ploiești: refinery machinery smashed with sledgehammers, drill stems dropped down the wells, and roughly <b>800,000 tonnes of crude pumped into pits and set alight</b>. Output in 1917 was under a third of peacetime. Ludendorff later blamed him, by name, for German shortages.'},
+ {d:'16 Dec 1916',h:'Seventeen wagons to Moscow',odd:true,
+  b:'The government sent the national reserve to its Russian ally for safekeeping: <b>91.5 tonnes of fine gold in 1,738 lead-sealed crates</b>. A second shipment in 1917 carried the Academy\'s archives, the crown jewels and the Pietroasele hoard. Lenin\'s government repudiated the deposit in January 1918. Some artefacts came back in 1935 and 1956. <b>Not one gram of the gold has ever been returned</b> — it remains an open bilateral question a century later.'},
+ {d:'1918',h:'Nine months, three unions',
+  b:'Bessarabia votes to join on <b>27 March</b>; Bukovina on <b>28 November</b>; Transylvania at Alba Iulia on <b>1 December</b>, before a crowd of some 100,000. The country roughly doubles in territory and population.'},
+ {d:'1919–20',h:'The queen who lobbied Paris',odd:true,
+  b:'Queen Marie — a granddaughter of Queen Victoria and of Alexander II — went to the peace conference <b>in person</b> and worked Clemenceau, Wilson and the press directly, at a time when monarchs did not do this. Contemporaries credited her personally with a meaningful share of the resulting map.'}]},
+
+{n:'XI', y:'1920 – 1940', t:'Twenty years, then four months',
+ lead:'The interwar state at its widest — and then, between June and September 1940, the loss of about a third of its territory and population without a battle being fought for any of it.',
+ fills:Object.assign(fillAll(ALL_RO,'f-core'),
+   {basarabia:'f-loss',hotin:'f-loss',budjak:'f-loss',bucovina_n:'f-loss',
+    nord_transilvania:'f-loss',dobrogea_s:'f-loss'}),
+ marks:[{k:'Cernăuți',l:'to the USSR — 28 June',hi:true},{k:'Chișinău',l:'to the USSR — 28 June',hi:true},
+        {k:'Cluj',l:'to Hungary — 30 Aug',hi:true,a:'e'},{k:'Târgu Mureș',l:'to Hungary',a:'e'},
+        {k:'Silistra',l:'to Bulgaria — 7 Sept',hi:true},{k:'București',l:'București'},
+        {k:'Brașov',l:'Brașov — stayed'}],
+ areas:[{k:'VALAHIA',l:'România'}],
+ foreign:[{k:'UNGARIA',l:'Hungary'},{k:'IMP_RUS',l:'USSR'},{k:'BULGARIA',l:'Bulgaria'}],
+ ev:[
+ {d:'1920–38',h:'Little Paris, and its shadow',
+  b:'Bucharest built an Arch of Triumph and an Athenaeum; Enescu, Brâncuși, Eliade and Ionesco all belong to this window. So does the <b>Legion of the Archangel Michael</b> — a fascist movement organised as a mystical death cult, with its own liturgy, oaths sworn over soil, and a genuine enthusiasm for martyrdom that puzzled even other European fascists.'},
+ {d:'26–28 June 1940',h:'Forty-eight hours to leave',
+  b:'A Soviet ultimatum demanded Bessarabia and Northern Bukovina. Romania was given two days to decide and four to withdraw from roughly <b>50,000 km²</b>. The Hertsa district, not named in the ultimatum, was taken as well.'},
+ {d:'30 Aug 1940',h:'The foreign minister faints',odd:true,
+  b:'At the Belvedere Palace in Vienna, Ribbentrop and Ciano handed <b>43,104 km²</b> of Northern Transylvania to Hungary. When the map was unrolled and Romanian Foreign Minister <b>Mihail Manoilescu saw the line, he collapsed across the table</b> and had to be revived with camphor. The line on this plate is that map: Oradea, Cluj, Târgu Mureș and the Székely Land go; Arad, Turda, Alba Iulia, Sighișoara, Sibiu and Brașov stay.'},
+ {d:'7 Sept · 10 Nov 1940',h:'And then the ground moved',
+  b:'The Treaty of Craiova returned Southern Dobruja to Bulgaria with a population exchange. Two months later a <b>magnitude 7.7 earthquake</b> brought down Bucharest\'s tallest building and killed around a thousand people. The kingdom lost a third of itself, and its king, in a single season.'}]},
+
+{n:'XII', y:'1941 – 1947', t:'On both sides',
+ lead:'Romania fielded the largest Axis army after Germany\'s, administered occupied Soviet territory, participated in the Holocaust, then changed sides overnight in August 1944 and finished the war with the fourth-largest Allied army in Europe.',
+ fills:Object.assign(fillAll(ALL_RO,'f-core'),
+   {basarabia:'f-gold',hotin:'f-gold',budjak:'f-gold',bucovina_n:'f-gold',
+    transnistria_ww2:'f-out',nord_transilvania:'f-loss'}),
+ hatch:{transnistria_ww2:'A'},
+ marks:[{k:'Iași',l:'Iași pogrom — June 1941',hi:true},{k:'Odesa',l:'Odesa',hi:true},
+        {k:'Ploiești',l:'Ploiești — 1 Aug 1943',hi:true},{k:'București',l:'23 August 1944',hi:true},
+        {k:'Chișinău',l:'Chișinău'},{k:'Cluj',l:'Hungarian 1940–44',a:'e'}],
+ areas:[{k:'TRANSNISTRIA',l:'Transnistria'},{k:'VALAHIA',l:'România'}],
+ foreign:[{k:'UNGARIA',l:'Hungary'}],
+ ev:[
+ {d:'1941–44',h:'The governorate between two rivers',odd:true,
+  b:'Romania administered roughly <b>40,000 km² between the Dniester and the Southern Bug</b>, including Odesa — the only occupied Soviet territory ever governed by a German ally as a civil administration rather than by the Wehrmacht or the SS. It issued its own currency and postage.'},
+ {d:'2004 finding',h:'The Holocaust in Romania',
+  b:'The international commission chaired by <b>Elie Wiesel</b> concluded that <b>280,000 to 380,000 Jews</b> were murdered or died under the authority of the Romanian state, along with some 11,000 Roma. The <b>Iași pogrom</b> of June 1941 killed around 15,000, thousands of them sealed into freight wagons and shunted back and forth until they suffocated — the "death trains." Romania officially denied all of this until the report was accepted in 2004.'},
+ {d:'1 Aug 1943',h:'Black Sunday over Ploiești',
+  b:'Operation Tidal Wave sent 178 B-24s from Libya to bomb the refineries from rooftop height. <b>53 aircraft and 660 airmen were lost</b> — the costliest American air mission of the war. Five Medals of Honor were awarded, three of them posthumously. Production recovered within weeks.'},
+ {d:'23 Aug 1944',h:'A 22-year-old arrests a marshal',odd:true,
+  b:'King Michael summoned Marshal Antonescu to the palace, had him <b>arrested and locked in a safe built for the royal stamp collection</b>, and announced an armistice that night. The entire southern front folded; the coup is commonly estimated to have <b>shortened the war by up to six months</b>. Stalin gave him the Order of Victory. In 1947 Romania\'s communists forced him to abdicate at gunpoint.'},
+ {d:'10 Feb 1947',h:'The line that stayed',
+  b:'The Paris peace treaties returned Northern Transylvania. Bessarabia, Northern Bukovina and Southern Dobruja were not returned. <b>The border agreed in 1947 is the border today</b> — the longest period of frontier stability in the country\'s recorded history.'}]},
+
+{n:'XIII', y:'1947 – 1989', t:'The closed country',
+ lead:'The borders stop moving and everything else is done to the inside: a prison experiment designed to turn victims into torturers, a canal dug to consume a class, half the villages marked for demolition, and a foreign debt repaid by exporting the food.',
+ fills:fillAll(ALL_RO,'f-core'),
+ hatch:{},
+ marks:[{k:'Pitești',l:'Pitești — 1949–51',hi:true,a:'e'},{k:'Poarta Albă',l:'the Canal',hi:true},
+        {k:'Sighet',l:'Sighet prison',hi:true,a:'e'},{k:'București',l:'Casa Poporului',hi:true},
+        {k:'Timișoara',l:'Timișoara — 16 Dec 1989',hi:true,a:'e'},{k:'Târgoviște',l:'Târgoviște — 25 Dec 1989',hi:true}],
+ areas:[{k:'CENTRU',l:'R.S. România'}],
+ ev:[
+ {d:'1949–51',h:'Pitești: making victims into perpetrators',odd:true,
+  b:'In one prison the Securitate ran a "re-education" scheme through a prisoner, Eugen Țurcanu, in which inmates were forced to <b>torture each other</b> — and then to denounce, and then to become torturers themselves, which was the actual objective. Mock baptisms in sewage, forced blasphemy, beatings by yesterday\'s victims. Around 600 people went through it. It is widely regarded as the most extreme programme of its kind anywhere in the Eastern Bloc.'},
+ {d:'1949–53',h:'Canalul Morții',
+  b:'The Danube–Black Sea Canal was dug by political prisoners with hand tools. Detainee numbers rose from ~5,000 to ~20,000; the death toll is unknown and commonly given as tens of thousands. Historians generally read the project as <b>less an engineering scheme than a method of consuming the interwar elite</b>. It was abandoned when Stalin died, restarted in 1976, and finished in 1984.'},
+ {d:'18 June 1951',h:'The Bărăgan deportations',
+  b:'In a single night, around <b>44,000 people</b> were removed from a 25 km strip along the Yugoslav border and dumped on the empty Bărăgan plain with stakes marking their plots. They built their own villages out of mud and reeds. Several of those villages still exist.'},
+ {d:'1968',h:'The speech that bought fifteen years',odd:true,
+  b:'Ceaușescu publicly condemned the Warsaw Pact invasion of Czechoslovakia from a balcony in Bucharest. The West was delighted; <b>Nixon visited in 1969</b>, the first US president ever to visit a communist country, and Romania got most-favoured-nation status and loans. That credit is what he later spent, and then repaid.'},
+ {d:'1982–89',h:'Repaying $10.5bn by exporting the food',
+  b:'Having borrowed heavily in the 1970s, Ceaușescu decided to repay every dollar ahead of schedule. Meat, grain and fuel were exported; at home there was rationing, unheated flats, two hours of television a day. <b>The debt was declared cleared in April 1989.</b> He was dead by Christmas.'},
+ {d:'1974–89',h:'Systematization',
+  b:'Roughly <b>half of Romania\'s 13,000 villages</b> were slated for demolition and replacement with agro-industrial blocks. In Bucharest about a fifth of the historic centre — churches included, some of them physically moved on rails to hide them behind blocks — came down for the <b>House of the People</b>, still among the largest and heaviest administrative buildings on earth.'},
+ {d:'16–25 Dec 1989',h:'The only violent one',odd:true,
+  b:'It began in Timișoara over the eviction of a Hungarian pastor and ended with the Ceaușescus shot on Christmas Day after a <b>55-minute trial</b>. Around 1,104 people died — and <b>the great majority died after the regime had already fallen</b>, shot in confused firefights attributed to "terrorists" who were never identified, tried, or convincingly explained. It was the only revolution of 1989 that was violent, and the only one that executed its leader.'}]},
+
+{n:'XIV', y:'1989 – today', t:'The longest stable border',
+ lead:'Thirty-six years without a territorial change — which, on the evidence of the previous thirteen plates, is the genuinely unusual condition.',
+ fills:fillAll(ALL_RO,'f-core'),
+ border:['romania_mod'],
+ marks:[{k:'București',l:'București',hi:true},{k:'Cluj',l:'Cluj-Napoca',a:'e'},{k:'Timișoara',l:'Timișoara',a:'e'},
+        {k:'Iași',l:'Iași'},{k:'Constanța',l:'Constanța'},{k:'Roșia Montană',l:'Roșia Montană — UNESCO 2021',hi:true,a:'e'}],
+ areas:[{k:'CENTRU',l:'România'}],
+ foreign:[{k:'IMP_RUS',l:'Ukraine'},{k:'UNGARIA',l:'Hungary'}],
+ ev:[
+ {d:'2004 · 2007 · 2025',h:'NATO, the EU, Schengen',
+  b:'NATO in March 2004, the European Union in January 2007, and full Schengen membership completed on <b>1 January 2025</b> — air and sea borders had opened in March 2024, land borders followed.'},
+ {d:'1995–2024',h:'The mountain that was not mined',odd:true,
+  b:'A plan to reopen Roșia Montană as Europe\'s largest open-cast cyanide gold mine would have removed four peaks and relocated a village on top of the Roman galleries. It produced the <b>largest sustained street protests since 1989</b>, was rejected by parliament in 2013, and triggered a $4.4bn arbitration claim that Romania won in 2024. UNESCO listed the site in 2021.'},
+ {d:'1947–2026',h:'Seventy-nine years',
+  b:'Read the fourteen plates in sequence and the pattern is not decline or rise but <b>oscillation</b> — assembled in 1859–1918, cut apart in 1940, half-restored in 1947. The current frontier has now held longer than any other arrangement on this map. That is the anomaly worth noticing.'}]}
+];
+</script>
