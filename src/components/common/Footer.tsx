@@ -1,4 +1,5 @@
 import { Zap } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export function Footer() {
   return (
@@ -12,6 +13,26 @@ export function Footer() {
             Bitlads Software
           </span>
         </div>
+        <nav className="flex items-center justify-center gap-6 mb-6 flex-wrap">
+          <a
+            href="/filosofie"
+            className="text-timberwolf hover:text-aureolin font-mono text-sm"
+          >
+            Filosofie
+          </a>
+          <Link
+            to="/blog"
+            className="text-timberwolf hover:text-aureolin font-mono text-sm"
+          >
+            Blog
+          </Link>
+          <Link
+            to="/contact"
+            className="text-timberwolf hover:text-aureolin font-mono text-sm"
+          >
+            Contact
+          </Link>
+        </nav>
         <p className="text-timberwolf font-mono text-sm">
           © 2025 Bagawhey Solutions S.R.L.
         </p>

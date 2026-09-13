@@ -2,14 +2,48 @@
 <html lang="ro">
 <head>
 <meta charset="utf-8">
-<meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1B2233">
 <meta name="color-scheme" content="dark">
 <title>Firul gândirii — 25 de filosofi, 7 întrebări și un pod cu eretici</title>
+<meta name="description" content="Istoria filosofiei ca o singură conversație de 2500 de ani: 25 de filosofi așezați pe cele șapte întrebări la care răspundeau, plus un pod cu 19 eretici ale căror sisteme se prăbușesc spectaculos. Cu axă a timpului, metodă de memorare și test.">
+<meta name="author" content="Bitlads Software">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://www.bitladssoftware.com/filosofie">
+<link rel="alternate" hreflang="ro" href="https://www.bitladssoftware.com/filosofie">
+<link rel="alternate" hreflang="x-default" href="https://www.bitladssoftware.com/filosofie">
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ro_RO">
+<meta property="og:site_name" content="Bitlads Software">
+<meta property="og:url" content="https://www.bitladssoftware.com/filosofie">
+<meta property="og:title" content="Firul gândirii — 25 de filosofi, 7 întrebări și un pod cu eretici">
+<meta property="og:description" content="Filosofia nu se reține ca o listă de nume, ci ca o conversație de 2500 de ani. 25 de filosofi pe șapte întrebări, plus 19 eretici ale căror idei se prăbușesc spectaculos.">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:title" content="Firul gândirii — 25 de filosofi, 7 întrebări și un pod cu eretici">
+<meta property="twitter:description" content="Filosofia ca o conversație de 2500 de ani: 25 de filosofi pe șapte întrebări, plus un pod cu 19 eretici.">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Firul gândirii — 25 de filosofi, 7 întrebări și un pod cu eretici",
+  "description": "Istoria filosofiei ca o singură conversație de 2500 de ani: 25 de filosofi așezați pe cele șapte întrebări la care răspundeau, plus un pod cu 19 eretici ale căror sisteme se prăbușesc spectaculos.",
+  "inLanguage": "ro",
+  "url": "https://www.bitladssoftware.com/filosofie",
+  "publisher": { "@type": "Organization", "name": "Bitlads Software", "url": "https://www.bitladssoftware.com" },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.bitladssoftware.com/filosofie" }
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&display=swap"></noscript>
 <style>
   :root{
     --bg:#1B2233; --surface:#232C40; --surface2:#2B3650; --line:#3A4661;
@@ -72,7 +106,7 @@
   @media (min-width:720px){.tabs{flex-wrap:wrap;overflow:visible}}
 
   /* ---------- Main ---------- */
-  main{padding:28px 0 96px;min-height:60vh}
+  main{padding:28px 0 48px;min-height:60vh}
   h2{font-size:clamp(28px,7vw,34px);font-weight:400;margin:0 0 6px;line-height:1.15}
   h3{font-size:22px;font-weight:500;margin:0 0 6px}
   .q{font-size:20px;font-style:italic;color:var(--ochre);margin:0 0 16px}
@@ -170,12 +204,35 @@
   .weak span{color:var(--rose)}
   .hidden{display:none}
 
+  /* ---------- Site chrome ---------- */
+  .sitebar{border-bottom:1px solid var(--line);background:var(--surface)}
+  .sitebar-in{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:58px;padding-top:8px;padding-bottom:8px}
+  .brand{display:flex;align-items:center;gap:9px;color:var(--ink);text-decoration:none;font-size:16px;font-weight:500;white-space:nowrap}
+  .brand .mark{width:26px;height:26px;border-radius:7px;background:var(--ochre);color:var(--bg);display:grid;place-items:center;font-size:14px;flex:0 0 auto}
+  .sitenav{display:flex;gap:2px}
+  .sitenav a{color:var(--muted);text-decoration:none;font-size:15px;padding:8px 10px;border-radius:8px;min-height:40px;display:flex;align-items:center}
+  .sitenav a:hover,.sitenav a:focus-visible{color:var(--ochre)}
+  @media (max-width:460px){.sitenav a[href="/"]{display:none}}
+  .sitefoot{border-top:1px solid var(--line);background:var(--surface);padding:30px 0 calc(30px + env(safe-area-inset-bottom,0px))}
+  .sitefoot .wrap{text-align:center}
+  .sitefoot p{margin:0 0 12px;color:var(--muted);font-size:15px}
+  .sitefoot .links{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+  .sitefoot .links a{color:var(--teal);text-decoration:none;font-size:15px;padding:8px 12px;min-height:40px;display:flex;align-items:center}
+  .sitefoot .copy{margin:0;font-size:14px;color:var(--muted)}
+
   /* ---------- Back to top ---------- */
   .top{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));width:46px;height:46px;border-radius:50%;background:var(--surface2);border:1px solid var(--line);color:var(--ink);font-size:20px;line-height:1;opacity:0;pointer-events:none;transition:opacity .2s;z-index:6;box-shadow:0 4px 18px rgba(0,0,0,.35)}
   .top.on{opacity:1;pointer-events:auto}
 </style>
 </head>
 <body>
+
+<div class="sitebar">
+  <div class="wrap sitebar-in">
+    <a class="brand" href="/"><span class="mark">⚡</span> Bitlads Software</a>
+    <nav class="sitenav" aria-label="Navigare site"><a href="/">Acasă</a><a href="/blog">Blog</a><a href="/contact">Contact</a></nav>
+  </div>
+</div>
 
 <header class="wrap">
   <h1>Firul gândirii<em>25 de filosofi, 7 întrebări, un pod cu eretici</em></h1>
@@ -194,6 +251,16 @@
 <main class="wrap" id="main"></main>
 
 <button class="top" id="top" aria-label="Înapoi sus">↑</button>
+
+<footer class="sitefoot">
+  <div class="wrap">
+    <p>O pagină de pe <a href="/">bitladssoftware.com</a>, scrisă ca exercițiu de structurat informație.</p>
+    <div class="links"><a href="/">Acasă</a><a href="/blog">Blog</a><a href="/contact">Contact</a></div>
+    <p class="copy">© 2025 Bagawhey Solutions S.R.L.</p>
+  </div>
+</footer>
+
+<script defer src="https://cloud.umami.is/script.js" data-website-id="71b3a51a-2265-4ed0-8fbb-b62714d2d88e"></script>
 
 <script>
 const CATS = {

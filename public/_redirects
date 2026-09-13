@@ -3,5 +3,9 @@
 /robots.txt /robots.txt 200
 /sitemap.xml /sitemap.xml 200
 
+# Standalone static pages (must win over the SPA fallback below)
+/filosofie   /filosofie/index.html   200
+/filosofie/  /filosofie/index.html   200
+
 # SPA fallback for all other routes
 /*    /index.html   200
