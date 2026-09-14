@@ -12,7 +12,7 @@ User-agent: Slurp
 Allow: /
 
 # Sitemap location
-Sitemap: https://n8nauto.com/sitemap.xml
+Sitemap: https://www.bitladssoftware.com/sitemap.xml
 
 # Crawl-delay for respectful crawling
 Crawl-delay: 1
