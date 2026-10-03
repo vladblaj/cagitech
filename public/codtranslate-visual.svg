@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">CodTranslate document workflow illustration</title>
+  <desc id="desc">German and Austrian vehicle documents flow into structured Romanian registration paperwork and contracts.</desc>
+  <defs>
+    <linearGradient id="base" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#151b1f"/><stop offset="1" stop-color="#253238"/></linearGradient>
+    <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#081013" flood-opacity=".35"/></filter>
+    <pattern id="grid" width="52" height="52" patternUnits="userSpaceOnUse"><path d="M 52 0 L 0 0 0 52" fill="none" stroke="#9dafb2" stroke-opacity=".08" stroke-width="1"/></pattern>
+  </defs>
+  <rect width="1200" height="800" fill="url(#base)"/>
+  <rect width="1200" height="800" fill="url(#grid)"/>
+  <text x="82" y="86" fill="#acb9b6" font-family="Arial,sans-serif" font-size="16" letter-spacing="4">DOCUMENT WORKFLOW</text>
+  <path d="M425 398 C510 398 506 398 590 398" fill="none" stroke="#f2a66e" stroke-width="2" stroke-dasharray="5 9"/>
+  <path d="M656 398 C750 398 756 398 808 398" fill="none" stroke="#f2a66e" stroke-width="2" stroke-dasharray="5 9"/>
+  <circle cx="594" cy="398" r="48" fill="#f5b17a"/>
+  <path d="m580 397 10 10 20-22" fill="none" stroke="#172024" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <g filter="url(#shadow)">
+    <rect x="82" y="219" width="348" height="399" rx="8" fill="#e7ece8"/>
+    <rect x="82" y="219" width="348" height="48" rx="8" fill="#c5d2d0"/>
+    <rect x="82" y="256" width="348" height="11" fill="#c5d2d0"/>
+    <circle cx="112" cy="243" r="5" fill="#5f7478"/>
+    <text x="112" y="318" fill="#26353a" font-family="Arial,sans-serif" font-size="20" font-weight="bold">Registration document</text>
+    <text x="112" y="347" fill="#708287" font-family="Arial,sans-serif" font-size="13" letter-spacing="2">GERMANY / AUSTRIA</text>
+    <path d="M112 393h135M112 415h266M112 437h210M112 489h266M112 511h235M112 563h156" stroke="#9caeaf" stroke-width="8" stroke-linecap="round"/>
+    <path d="M286 559h92" stroke="#ed9d6b" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="805" y="179" width="312" height="451" rx="8" fill="#fcf9f2"/>
+    <rect x="805" y="179" width="312" height="48" rx="8" fill="#f2ddcd"/>
+    <rect x="805" y="216" width="312" height="11" fill="#f2ddcd"/>
+    <circle cx="834" cy="202" r="5" fill="#c5794c"/>
+    <text x="834" y="278" fill="#26353a" font-family="Arial,sans-serif" font-size="20" font-weight="bold">Romanian paperwork</text>
+    <text x="834" y="309" fill="#a47458" font-family="Arial,sans-serif" font-size="13" letter-spacing="2">REGISTRATION + CONTRACT</text>
+    <path d="M834 362h157M834 384h255M834 406h201M834 458h255M834 480h225M834 532h255M834 554h157" stroke="#d4cbc2" stroke-width="8" stroke-linecap="round"/>
+    <path d="M1013 561h74" stroke="#e59a65" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <text x="83" y="702" fill="#d5ddd9" font-family="Arial,sans-serif" font-size="25" font-weight="bold">CodTranslate</text>
+  <text x="83" y="733" fill="#91a29f" font-family="Arial,sans-serif" font-size="15">Structured vehicle paperwork, from source to output.</text>
+  <path d="M1048 709h70m-17-16 17 16-17 16" fill="none" stroke="#f5b17a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

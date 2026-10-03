@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Zap, BookOpen, Mail, Library } from 'lucide-react';
+import { Zap, BookOpen, Mail } from 'lucide-react';
 import { Button } from '../ui/button';
 import { LanguageToggle } from './LanguageToggle';
 
@@ -25,12 +25,6 @@ export function Header({ title, subtitle }: HeaderProps) {
           
           <div className="flex items-center gap-4">
             <nav className="hidden md:flex items-center gap-4">
-              <a href="/filosofie">
-                <Button variant="ghost" className="text-timberwolf hover:text-aureolin font-mono">
-                  <Library className="w-4 h-4 mr-2" />
-                  Filosofie
-                </Button>
-              </a>
               <Link to="/blog">
                 <Button variant="ghost" className="text-timberwolf hover:text-aureolin font-mono">
                   <BookOpen className="w-4 h-4 mr-2" />

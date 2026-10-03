@@ -14,12 +14,6 @@ export function Footer() {
           </span>
         </div>
         <nav className="flex items-center justify-center gap-6 mb-6 flex-wrap">
-          <a
-            href="/filosofie"
-            className="text-timberwolf hover:text-aureolin font-mono text-sm"
-          >
-            Filosofie
-          </a>
           <Link
             to="/blog"
             className="text-timberwolf hover:text-aureolin font-mono text-sm"

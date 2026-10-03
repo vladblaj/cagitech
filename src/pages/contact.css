@@ -1,0 +1,42 @@
+.contact-page {
+  min-height: 100vh;
+  background: #f5f3ed;
+  color: #1b211f;
+  font-family: 'DM Sans', Inter, system-ui, sans-serif;
+}
+.contact-page * { box-sizing: border-box; }
+.contact-page a { color: inherit; }
+.contact-header, .contact-footer {
+  max-width: 1440px;
+  margin: auto;
+  padding: 24px clamp(24px, 5vw, 80px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.contact-header { border-bottom: 1px solid #d7d9d2; }
+.contact-brand { display: inline-flex; align-items: center; gap: 11px; font-size: 27px; font-weight: 650; letter-spacing: -.04em; line-height: .95; text-decoration: none; }
+.contact-brand-mark { width: 26px; height: 32px; color: #232c27; flex: none; }
+.contact-brand-muted { display: block; font-size: 11px; font-weight: 450; letter-spacing: 2.7px; margin-top: 7px; }
+.contact-back { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; text-decoration: none; }
+.contact-back:hover, .contact-details a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.contact-main { max-width: 1440px; margin: auto; padding: clamp(64px, 8vw, 120px) clamp(24px, 5vw, 80px) 112px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(420px, .86fr); gap: clamp(50px, 8vw, 140px); }
+.contact-kicker { color: #626b62; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+.contact-intro h1 { max-width: 650px; margin: 24px 0; font-family: Newsreader, Georgia, serif; font-size: clamp(56px, 6.3vw, 98px); line-height: .98; font-weight: 400; letter-spacing: -.055em; }
+.contact-intro h1 em { font-style: normal; color: #869084; }
+.contact-lede { max-width: 520px; color: #515c53; font-size: clamp(17px, 1.5vw, 20px); line-height: 1.65; }
+.contact-details { margin-top: 64px; padding-top: 20px; border-top: 1px solid #c9cec5; display: flex; flex-direction: column; gap: 9px; font-size: 13px; }
+.contact-details span { color: #6a756a; }
+.contact-details a { display: inline-flex; gap: 6px; align-items: center; width: max-content; font-weight: 650; text-decoration: none; }
+.contact-form-shell { padding: clamp(24px, 3.8vw, 52px); background: #fff; border: 1px solid #d9dcd4; box-shadow: 0 20px 60px #19221b0a; }
+.contact-form-heading { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 28px; margin-bottom: 30px; border-bottom: 1px solid #e2e5df; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5b655b; text-transform: uppercase; letter-spacing: .06em; }
+.contact-form-shell label { color: #1b211f !important; font-family: 'DM Sans', system-ui, sans-serif !important; font-weight: 650 !important; }
+.contact-form-shell input, .contact-form-shell textarea { color: #1b211f !important; background: #f7f8f4 !important; border: 1px solid #cbd1c8 !important; border-radius: 0 !important; font-family: 'DM Sans', system-ui, sans-serif !important; }
+.contact-form-shell input:focus, .contact-form-shell textarea:focus { outline: 2px solid #1b211f !important; outline-offset: 1px; box-shadow: none !important; }
+.contact-form-shell button[type="submit"] { width: 100%; min-height: 52px; border-radius: 0 !important; background: #1b211f !important; color: #fff !important; font-family: 'DM Sans', system-ui, sans-serif !important; font-weight: 650 !important; }
+.contact-form-shell button[type="submit"]:hover { background: #38433a !important; }
+.contact-footer { border-top: 1px solid #d7d9d2; color: #687268; font-size: 12px; }
+@media (max-width: 900px) { .contact-main { grid-template-columns: 1fr; gap: 52px; } .contact-intro h1 { max-width: none; } .contact-details { margin-top: 36px; } }
+@media (max-width: 560px) { .contact-header { padding-top: 18px; padding-bottom: 18px; } .contact-brand { font-size: 17px; } .contact-back { font-size: 0; gap: 0; } .contact-back svg { width: 19px; height: 19px; } .contact-main { padding-top: 62px; padding-bottom: 72px; } .contact-intro h1 { font-size: clamp(48px, 13vw, 70px); } .contact-form-heading { font-size: 10px; } .contact-footer { align-items: flex-start; flex-direction: column; gap: 8px; } }
+@media (prefers-reduced-motion: reduce) { .contact-page *, .contact-page *::before, .contact-page *::after { scroll-behavior: auto !important; transition-duration: 0ms !important; } }

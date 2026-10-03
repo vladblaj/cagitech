@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Button } from './ui/button';
 import { Send, Loader2 } from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext';
 import { useToast } from '../hooks/use-toast';
 
 interface ContactFormProps {
@@ -19,7 +18,6 @@ interface FormData {
 }
 
 export function ContactForm({ className }: ContactFormProps) {
-  const { t } = useLanguage();
   const { toast } = useToast();
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -59,8 +57,8 @@ export function ContactForm({ className }: ContactFormProps) {
         // Success toast
         toast({
           variant: "success",
-          title: "Message Sent Successfully! 🎉",
-          description: "Thank you for reaching out! We'll get back to you within 24 hours.",
+          title: "Message sent",
+          description: "Thank you for reaching out. We’ll review your note and reply by email.",
         });
         
         // Reset form
@@ -101,7 +99,7 @@ export function ContactForm({ className }: ContactFormProps) {
       {/* Name Field */}
       <div>
         <label htmlFor="name" className="block text-sm font-mono font-medium text-timberwolf mb-2">
-          {t('contactName')} *
+          Full name *
         </label>
         <input
           type="text"
@@ -118,7 +116,7 @@ export function ContactForm({ className }: ContactFormProps) {
       {/* Email Field */}
       <div>
         <label htmlFor="email" className="block text-sm font-mono font-medium text-timberwolf mb-2">
-          {t('contactEmail')} *
+          Email address *
         </label>
         <input
           type="email"
@@ -135,7 +133,7 @@ export function ContactForm({ className }: ContactFormProps) {
       {/* Phone Field */}
       <div>
         <label htmlFor="phone" className="block text-sm font-mono font-medium text-timberwolf mb-2">
-          {t('contactPhone')}
+          Phone number
         </label>
         <input
           type="tel"
@@ -151,7 +149,7 @@ export function ContactForm({ className }: ContactFormProps) {
       {/* Company Field */}
       <div>
         <label htmlFor="company" className="block text-sm font-mono font-medium text-timberwolf mb-2">
-          {t('contactCompany')}
+          Company name
         </label>
         <input
           type="text"
@@ -177,7 +175,7 @@ export function ContactForm({ className }: ContactFormProps) {
           onChange={handleChange}
           required
           disabled={isSubmitting}
-          placeholder="e.g., Automation consultation request"
+          placeholder="e.g., A booking platform, an automation, or an IoT pilot"
           className="w-full px-4 py-3 border border-jet rounded-lg bg-eerie-black text-timberwolf font-mono focus:ring-2 focus:ring-jonquil focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
         />
       </div>
@@ -185,7 +183,7 @@ export function ContactForm({ className }: ContactFormProps) {
       {/* Message Field */}
       <div>
         <label htmlFor="message" className="block text-sm font-mono font-medium text-timberwolf mb-2">
-          {t('contactMessage')} *
+          Tell us about your project *
         </label>
         <textarea
           id="message"
@@ -195,7 +193,7 @@ export function ContactForm({ className }: ContactFormProps) {
           rows={5}
           required
           disabled={isSubmitting}
-          placeholder="Tell us about your automation goals, current challenges, or specific workflows you'd like to optimize..."
+          placeholder="What are you building or trying to improve?"
           className="w-full px-4 py-3 border border-jet rounded-lg bg-eerie-black text-timberwolf font-mono focus:ring-2 focus:ring-jonquil focus:border-transparent resize-vertical disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
         />
       </div>
@@ -214,7 +212,7 @@ export function ContactForm({ className }: ContactFormProps) {
         ) : (
           <>
             <Send className="w-5 h-5" />
-            {t('contactSubmit')}
+            Send message
           </>
         )}
       </Button>
