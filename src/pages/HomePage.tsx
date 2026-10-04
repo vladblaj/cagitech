@@ -45,6 +45,19 @@ const projects = [
     className: 'fluxa',
   },
   {
+    name: 'Edge Track',
+    category: 'Computer vision · Warehousing',
+    status: 'Working prototype',
+    description: 'From camera frames to dock decisions.',
+    detail: 'A local-first warehouse concept that turns tracked truck visits and dock activity into timelines, occupancy estimates and exportable events.',
+    note: 'The interactive site uses a simulated scenario. The laptop prototype has also been tested on public recorded video; live edge deployment needs a site pilot.',
+    image: '/edge-track-preview.svg',
+    alt: 'Edge Track illustrated dock board showing trucks, monitored zones and a visit timeline',
+    url: 'https://edgetrack.bitladssoftware.com/',
+    action: 'Explore Edge Track',
+    className: 'edgetrack',
+  },
+  {
     name: 'CodTranslate',
     category: 'Documents · Operations',
     status: 'Live · sign-in required',
@@ -64,7 +77,7 @@ export default function HomePage() {
   useEffect(() => {
     document.title = 'Bitlads Software — Digital Products, Automation & IoT';
     document.documentElement.lang = 'en';
-    const description = 'Thoughtful software with real-world purpose. Explore Book a Rifugio, STARE, Fluxa and CodTranslate, plus digital products, workflow automation and IoT integrations.';
+    const description = 'Thoughtful software with real-world purpose. Explore Book a Rifugio, STARE, Fluxa, Edge Track and CodTranslate, plus digital products, workflow automation and IoT integrations.';
     document.querySelector('meta[name="description"]')?.setAttribute('content', description);
     document.querySelector('link[rel="canonical"]')?.setAttribute('href', 'https://www.bitladssoftware.com/');
     for (const property of ['og:title', 'twitter:title']) document.querySelector(`meta[property="${property}"]`)?.setAttribute('content', document.title);

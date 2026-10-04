@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://edgetrack.bitladssoftware.com/sitemap.xml
