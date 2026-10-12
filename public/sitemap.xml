@@ -23,7 +23,7 @@
   <!-- Blog Page -->
   <url>
     <loc>https://www.bitladssoftware.com/blog</loc>
-    <lastmod>2025-01-27</lastmod>
+    <lastmod>2026-10-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.bitladssoftware.com/blog" />
@@ -31,6 +31,10 @@
   </url>
   
   <!-- Blog Posts -->
+  <url>
+    <loc>https://www.bitladssoftware.com/blog/2026-10-12-how-to-stop-checking-your-phone</loc>
+    <lastmod>2026-10-12</lastmod>
+  </url>
   <url>
     <loc>https://www.bitladssoftware.com/blog/2025-01-27-welcome-to-our-blog</loc>
     <lastmod>2025-01-27</lastmod>
