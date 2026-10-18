@@ -7,5 +7,14 @@
 /filosofie   /   301
 /filosofie/  /   301
 
+# Retired philosopher cards now open the illustrated storybook
+/vault-fcc6197d2484a7a0dae35a63/arcana/cards /vault-fcc6197d2484a7a0dae35a63/arcana/ 301
+/vault-fcc6197d2484a7a0dae35a63/arcana/cards.html /vault-fcc6197d2484a7a0dae35a63/arcana/ 301
+/vault-fcc6197d2484a7a0dae35a63/arcana/cards-ro /vault-fcc6197d2484a7a0dae35a63/arcana/ro.html 301
+/vault-fcc6197d2484a7a0dae35a63/arcana/cards-ro.html /vault-fcc6197d2484a7a0dae35a63/arcana/ro.html 301
+/vault-fcc6197d2484a7a0dae35a63/arcana/arcana-cards.pdf /vault-fcc6197d2484a7a0dae35a63/arcana/ 301
+/vault-fcc6197d2484a7a0dae35a63/arcana/arcana-cards-ro.pdf /vault-fcc6197d2484a7a0dae35a63/arcana/ro.html 301
+/vault-fcc6197d2484a7a0dae35a63/arcana/GAME-DESIGN.md /vault-fcc6197d2484a7a0dae35a63/arcana/ 301
+
 # SPA fallback for all other routes
 /*    /index.html   200

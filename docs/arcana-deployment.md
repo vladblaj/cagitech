@@ -1,19 +1,16 @@
-# ARCANA hidden collection
+# Hidden illustrated philosophy storybook
 
-Published under the existing unlisted Vault at `/vault-fcc6197d2484a7a0dae35a63/arcana/cards.html`.
+English: https://www.bitladssoftware.com/vault-fcc6197d2484a7a0dae35a63/arcana/
+Romanian: https://www.bitladssoftware.com/vault-fcc6197d2484a7a0dae35a63/arcana/ro
 
-- English cards: `cards.html`; Romanian cards: `cards-ro.html`.
-- English storybook and atlas: `index.html`; Romanian: `ro.html`.
-- Printable collections: `arcana-cards.pdf` and `arcana-cards-ro.pdf`.
-- Proposed game rules: `GAME-DESIGN.md`. The turn-based game is a design, not an implemented game.
+Only the Vault index links to the storybook. Public navigation and the sitemap exclude it.
+Both HTML pages have a `noindex, nofollow, noarchive` meta tag and inherit the existing Vault
+X-Robots-Tag header. The pages are unlisted and accessible to anyone with the link.
 
-Only the Vault index links to this collection. Public navigation and the sitemap do not link to it.
-All four HTML pages have a `noindex, nofollow, noarchive` robots meta tag. Existing Netlify Vault headers
-also send `X-Robots-Tag: noindex, nofollow, noarchive` for HTML, portraits and PDFs.
-This is an unlisted collection available to anyone with its URL, without a login gate.
+The illustrated chapters, experiments, debates, atlas and timeline are included in both languages.
+The card collection, portrait sheet, card PDFs and proposed game rules are no longer published.
+Old card and PDF URLs redirect to the storybook in the corresponding language.
 
-The published files are self-contained HTML plus one local portrait sheet and two PDFs.
-The authoring source remains in the street-view workspace under `outputs/philosophy-storybook/`.
-To refresh: build both storybook languages and run `cards-build.mjs` there; copy only the published
-HTML, assets, PDFs and rulebook here; preserve the robots meta tag; build and deploy this site normally.
-Do not copy authoring scripts, local configuration or credentials into the public directory.
+Authoring sources live in the street-view workspace under `outputs/philosophy-storybook/`.
+Run `node outputs/philosophy-storybook/build.mjs` and the same command with `ro` to rebuild.
+Copy only `index.html` and `ro.html` to this public folder, preserving the robots meta tag.
