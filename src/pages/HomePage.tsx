@@ -70,6 +70,25 @@ const projects = [
     action: 'Visit CodTranslate',
     className: 'codtranslate',
   },
+  {
+    name: 'Dosar',
+    category: 'Accounting · Desktop',
+    status: 'Available for Windows',
+    description: 'From a pile of paperwork to a clearer set of accounts.',
+    detail: 'A Romanian desktop app that brings invoices, receipts and bank statements into one workspace. Review extracted details beside the originals, match payments and prepare documents for SAGA, with a separate folder for every company.',
+    note: 'Windows installer · v0.1.1 · Romanian interface. Originals and review history stay on your computer; AI document recognition uses your connected ChatGPT account.',
+    image: '/dosar-visual.svg',
+    alt: 'Illustration of invoices, receipts and bank statements organised in Dosar for review and SAGA export',
+    url: 'https://github.com/vladblaj/dosar-releases/releases/download/v0.1.1/Dosar-Setup-0.1.1.exe',
+    action: 'Download for Windows',
+    className: 'dosar',
+    releaseUrl: 'https://github.com/vladblaj/dosar-releases/releases/latest',
+    guide: [
+      'Install and open Dosar. Choose “Încearcă un dosar demonstrativ” to explore sample documents without connecting any accounts.',
+      'For your own documents, open Setări, connect ChatGPT and SAGA Web, then select your company. AI recognition sends documents to OpenAI after you connect ChatGPT.',
+      'Drop in your files or connect a company folder. Review the extracted fields, check payment matches, then choose “Exportă pentru SAGA”.',
+    ],
+  },
 ];
 
 export default function HomePage() {
@@ -77,7 +96,7 @@ export default function HomePage() {
   useEffect(() => {
     document.title = 'Bitlads Software — Digital Products, Automation & IoT';
     document.documentElement.lang = 'en';
-    const description = 'Thoughtful software with real-world purpose. Explore Book a Rifugio, STARE, Fluxa, Edge Track and CodTranslate, plus digital products, workflow automation and IoT integrations.';
+    const description = 'Thoughtful software with real-world purpose. Explore Book a Rifugio, STARE, Fluxa, Edge Track, CodTranslate and Dosar, plus digital products, workflow automation and IoT integrations.';
     document.querySelector('meta[name="description"]')?.setAttribute('content', description);
     document.querySelector('link[rel="canonical"]')?.setAttribute('href', 'https://www.bitladssoftware.com/');
     for (const property of ['og:title', 'twitter:title']) document.querySelector(`meta[property="${property}"]`)?.setAttribute('content', document.title);
@@ -113,7 +132,7 @@ export default function HomePage() {
           <div className="home-section-heading"><h2 id="work-title">Work with a purpose.</h2><p>Products, practices and possibilities.</p></div>
           <div className="home-projects">
             {projects.map((project) => (
-              <article className={`home-project home-project-${project.className}`} key={project.name}>
+              <article id={project.className} className={`home-project home-project-${project.className}`} key={project.name}>
                 <a href={project.url} className="home-project-image" target="_blank" rel="noopener noreferrer" aria-label={`${project.action} (opens in a new tab)`}>
                   <img src={project.image} alt={project.alt} loading="lazy" width="1280" height="720" />
                   <span className="home-image-arrow" aria-hidden="true"><ArrowUpRight size={24} /></span>
@@ -123,8 +142,9 @@ export default function HomePage() {
                   <h3>{project.name}</h3>
                   <p className="home-project-line">{project.description}</p>
                   <p className="home-project-detail">{project.detail}</p>
-                  <div className="home-project-actions"><a className="home-text-link" href={project.url} target="_blank" rel="noopener noreferrer">{project.action}<ArrowUpRight size={18} /></a>{project.appStore && <a className="home-store-link" href={project.appStore} target="_blank" rel="noopener noreferrer">App Store <ArrowUpRight size={15} /></a>}</div>
+                  <div className="home-project-actions"><a className="home-text-link" href={project.url} target="_blank" rel="noopener noreferrer">{project.action}<ArrowUpRight size={18} /></a>{project.appStore && <a className="home-store-link" href={project.appStore} target="_blank" rel="noopener noreferrer">App Store <ArrowUpRight size={15} /></a>}{project.releaseUrl && <a className="home-store-link" href={project.releaseUrl} target="_blank" rel="noopener noreferrer">Latest release <ArrowUpRight size={15} /></a>}</div>
                   {project.note && <p className="home-project-note">{project.note}</p>}
+                  {project.guide && <details className="home-project-guide"><summary>How to get started</summary><ol>{project.guide.map((step) => <li key={step}>{step}</li>)}</ol></details>}
                 </div>
               </article>
             ))}

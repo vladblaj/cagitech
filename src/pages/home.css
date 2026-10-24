@@ -22,3 +22,12 @@
 
 .home-project-codtranslate .home-project-image{background:#e4dccb}
 .home-project-edgetrack .home-project-image{background:#cad8d2}
+.home-project-dosar{grid-template-columns:1fr 1.32fr;scroll-margin-top:30px}
+.home-project-dosar .home-project-image{order:2;background:#d9e0cf}
+.home-project-guide{margin-top:22px;max-width:400px;color:var(--home-muted);font-size:13px;line-height:1.65}
+.home-project-guide summary{width:fit-content;cursor:pointer;color:var(--home-ink);font-weight:550;padding-block:5px}
+.home-project-guide summary:focus-visible{outline:2px solid currentColor;outline-offset:5px}
+.home-project-guide ol{list-style:decimal;padding-left:20px;margin:12px 0 0}
+.home-project-guide li+li{margin-top:12px}
+@media(max-width:1000px){.home-project-dosar{grid-template-columns:1.15fr 1fr}}
+@media(max-width:700px){.home-project-dosar{grid-template-columns:1fr}.home-project-dosar .home-project-image{order:0}.home-project-guide{max-width:100%}}

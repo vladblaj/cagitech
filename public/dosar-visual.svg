@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Dosar document workflow illustration</title>
+  <desc id="desc">Invoices, receipts and bank statements come together in a company folder, ready for review and export to SAGA.</desc>
+  <defs>
+    <linearGradient id="paper" x2="1" y2="1"><stop stop-color="#f5f0e6"/><stop offset="1" stop-color="#e7e0d2"/></linearGradient>
+    <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#233b34" flood-opacity=".14"/></filter>
+  </defs>
+  <rect width="1280" height="720" fill="url(#paper)"/>
+  <text x="76" y="83" fill="#617267" font-family="Arial,sans-serif" font-size="15" letter-spacing="4">A LITTLE ORDER IN THE PAPERWORK</text>
+  <g filter="url(#shadow)">
+    <g transform="rotate(-9 281 312)">
+      <rect x="113" y="170" width="258" height="330" rx="7" fill="#fffdf7"/>
+      <text x="145" y="221" fill="#29473d" font-family="Arial,sans-serif" font-size="18" font-weight="bold">FACTURĂ</text>
+      <path d="M145 251h122M145 281h190M145 307h160M145 375h190M145 402h190M145 445h95" stroke="#d4d9cc" stroke-width="7" stroke-linecap="round"/>
+    </g>
+    <g transform="rotate(6 350 390)">
+      <path d="M267 291h197v253l-12-7-12 7-12-7-12 7-12-7-12 7-12-7-12 7-12-7-12 7-12-7-12 7-12-7-12 7-17-7z" fill="#fcf8ec"/>
+      <text x="293" y="332" fill="#29473d" font-family="Arial,sans-serif" font-size="16" font-weight="bold">BON FISCAL</text>
+      <path d="M293 361h144M293 385h120M293 409h144M293 453h144M349 480h88" stroke="#d7d5c9" stroke-width="6" stroke-linecap="round"/>
+    </g>
+  </g>
+  <path d="M480 367h99m-14-14 14 14-14 14" fill="none" stroke="#70867a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <g filter="url(#shadow)">
+    <path d="M631 208v-35a12 12 0 0 1 12-12h144l33 38h316a12 12 0 0 1 12 12v310a17 17 0 0 1-17 17H648a17 17 0 0 1-17-17z" fill="#315849"/>
+    <rect x="657" y="222" width="466" height="253" rx="8" fill="#f9f9ef"/>
+    <text x="684" y="263" fill="#315849" font-family="Arial,sans-serif" font-size="19" font-weight="bold">Documente, în ordine.</text>
+    <path d="M684 285h409" stroke="#dce1d5"/>
+    <g fill="#52665a" font-family="Arial,sans-serif" font-size="15">
+      <text x="685" y="321">Facturi</text><text x="685" y="369">Bonuri și chitanțe</text><text x="685" y="417">Extrase bancare</text>
+    </g>
+    <g fill="none" stroke="#557a60" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m1066 312 7 7 13-15M1066 360l7 7 13-15M1066 408l7 7 13-15"/></g>
+    <path d="M684 337h409M684 385h409M684 433h409" stroke="#e3e5db"/>
+    <text x="659" y="513" fill="#e6ecdc" font-family="Arial,sans-serif" font-size="14" letter-spacing="2">REVIEW → MATCH → EXPORT FOR SAGA</text>
+  </g>
+  <text x="76" y="628" fill="#29473d" font-family="Arial,sans-serif" font-size="40" font-weight="bold" letter-spacing="-1">Dosar</text>
+  <text x="78" y="662" fill="#617267" font-family="Arial,sans-serif" font-size="17">Every document. In its place.</text>
+  <text x="1150" y="655" text-anchor="end" fill="#617267" font-family="Arial,sans-serif" font-size="12" letter-spacing="2">WORKFLOW ILLUSTRATION</text>
+</svg>
